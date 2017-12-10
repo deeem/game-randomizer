@@ -65,7 +65,7 @@ class PlatformController extends Controller
      */
     public function edit(Platform $platform)
     {
-        //
+        return view('platform.edit', compact('platform'));
     }
 
     /**
@@ -77,7 +77,14 @@ class PlatformController extends Controller
      */
     public function update(Request $request, Platform $platform)
     {
-        //
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        $platform->name = request('name');
+        $platform->save();
+
+        return redirect('platforms');
     }
 
     /**

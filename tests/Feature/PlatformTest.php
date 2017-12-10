@@ -25,8 +25,8 @@ class PlatformTest extends TestCase
     public function canBrowse()
     {
         $this->get('/platforms')->assertStatus(200);
-        // edit
         $this->get('/platform/create')->assertStatus(200);
+        $this->get("/platform/{$this->platform->id}/edit")->assertStatus(200);
     }
 
     /**
@@ -53,5 +53,21 @@ class PlatformTest extends TestCase
         $this->post('/platform/store', $newPlatform);
 
         $this->assertDatabaseHas('platforms', $newPlatform);
+    }
+
+    /**
+     * @test
+     */
+    public function canUpdate()
+    {
+        $this->post(
+            "/platform/{$this->platform->id}/update",
+            ['name' => 'foo']
+        );
+
+        $this->assertDatabaseHas(
+            'platforms',
+            ['id' => $this->platform->id, 'name' => 'foo']
+        );
     }
 }
