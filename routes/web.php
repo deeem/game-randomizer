@@ -27,3 +27,4 @@ Route::post('/user/{user}/update', 'UserController@update');
 Route::get('/user/{user}/destroy', 'UserController@destroy');
 
 Route::get('/platforms', 'PlatformController@index');
+Route::get('/platform/{platform}/destroy', 'PlatformController@destroy');

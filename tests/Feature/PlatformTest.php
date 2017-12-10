@@ -28,4 +28,17 @@ class PlatformTest extends TestCase
         // edit
         // create
     }
+
+    /**
+     * @test
+     */
+    public function canDestroy()
+    {
+        $this->get("/platform/{$this->platform->id}/destroy");
+
+        $this->assertDatabaseMissing(
+            'platforms',
+            ['id' => $this->platform->id, 'name' => $this->platform->name]
+        );
+    }
 }

@@ -82,6 +82,8 @@ class PlatformController extends Controller
      */
     public function destroy(Platform $platform)
     {
-        //
+        Platform::destroy($platform->id);
+
+        return redirect('platforms');
     }
 }
