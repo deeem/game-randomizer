@@ -88,4 +88,16 @@ class PlatformTest extends TestCase
             ['id' => $this->platform->id, 'name' => 'foo']
         );
     }
+
+    /**
+     * @test
+     */
+    public function canValidate()
+    {
+        $this->post('/platform/store', ['name' => null])
+            ->assertSessionHasErrors('name');
+
+        $this->post("/platform/{$this->platform->id}/update", ['name' => null])
+            ->assertSessionHasErrors('name');
+    }
 }
