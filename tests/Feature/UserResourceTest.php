@@ -28,4 +28,18 @@ class UserResourceTest extends TestCase
         $this->get('/users')->assertStatus(200);
         // create page
     }
+
+
+    /**
+     * @test
+     */
+    public function canDestroy()
+    {
+        $this->get("/user/{$this->user->id}/destroy");
+
+        $this->assertDatabaseMissing(
+            'users',
+            ['id' => $this->user->id, 'name' => $this->user->name]
+        );
+    }
 }
