@@ -26,7 +26,7 @@ class PlatformTest extends TestCase
     {
         $this->get('/platforms')->assertStatus(200);
         // edit
-        // create
+        $this->get('/platform/create')->assertStatus(200);
     }
 
     /**
@@ -40,5 +40,18 @@ class PlatformTest extends TestCase
             'platforms',
             ['id' => $this->platform->id, 'name' => $this->platform->name]
         );
+    }
+
+    /**
+     * @test
+     */
+    public function canStore()
+    {
+        $this->withoutExceptionHandling();
+        $newPlatform = ['name' => 'newplatform'];
+
+        $this->post('/platform/store', $newPlatform);
+
+        $this->assertDatabaseHas('platforms', $newPlatform);
     }
 }

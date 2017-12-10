@@ -26,7 +26,7 @@ class PlatformController extends Controller
      */
     public function create()
     {
-        //
+        return view('platform.create');
     }
 
     /**
@@ -37,7 +37,13 @@ class PlatformController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        Platform::create(['name' => request('name')]);
+
+        return redirect('platforms');
     }
 
     /**
