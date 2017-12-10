@@ -4,8 +4,28 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class UserResourceTest extends TestCase
 {
+    use DatabaseMigrations;
+
+    protected $user;
+
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->user = factory('App\User')->create();
+        $this->actingAs($this->user);
+    }
+
+    /**
+     * @test
+     */
+    public function canBrowse()
+    {
+        $this->get('/users')->assertStatus(200);
+        // create page
+    }
 }
