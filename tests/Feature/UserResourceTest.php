@@ -26,7 +26,8 @@ class UserResourceTest extends TestCase
     public function canBrowse()
     {
         $this->get('/users')->assertStatus(200);
-        // create page
+        $this->get('/user/create')->assertStatus(200);
+        $this->get("/user/{$this->user->id}/edit")->assertSee($this->user->email);
     }
 
 
@@ -40,6 +41,44 @@ class UserResourceTest extends TestCase
         $this->assertDatabaseMissing(
             'users',
             ['id' => $this->user->id, 'name' => $this->user->name]
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function canStore()
+    {
+        $newUser = [
+            'name' => 'John Doe',
+            'email' => 'john@example.com',
+            'password' => 'secret'
+        ];
+
+        $this->post('/user/store', $newUser);
+
+        unset($newUser['password']);
+
+        $this->assertDatabaseHas('users', $newUser);
+    }
+
+    /**
+     * @test
+     */
+    public function canUpdate()
+    {
+        $this->post(
+            "/user/{$this->user->id}/update",
+            [
+                'name' => 'newname',
+                'email' => $this->user->email,
+                'password' => 'secret'
+            ]
+        );
+
+        $this->assertDatabaseHas(
+            'users',
+            ['id' => $this->user->id, 'name' => 'newname']
         );
     }
 }
