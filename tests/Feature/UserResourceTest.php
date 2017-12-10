@@ -23,13 +23,26 @@ class UserResourceTest extends TestCase
     /**
      * @test
      */
+    public function unauthMayNotParticipate()
+    {
+        auth()->logout();
+        $this->get('/users')->assertRedirect('/login');
+        $this->get('/user/create')->assertRedirect('/login');
+        $this->post('/user/store')->assertRedirect('/login');
+        $this->get('/user/1/edit')->assertRedirect('/login');
+        $this->post('/user/1/update')->assertRedirect('/login');
+        $this->get('/user/1/destroy')->assertRedirect('/login');
+    }
+
+    /**
+     * @test
+     */
     public function canBrowse()
     {
         $this->get('/users')->assertStatus(200);
         $this->get('/user/create')->assertStatus(200);
         $this->get("/user/{$this->user->id}/edit")->assertSee($this->user->email);
     }
-
 
     /**
      * @test
