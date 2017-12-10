@@ -16,7 +16,25 @@ class PlatformTest extends TestCase
     public function setUp()
     {
         parent::setUp();
+
         $this->platform = factory(Platform::class)->create();
+
+        $user = factory('App\User')->create();
+        $this->actingAs($user);
+    }
+
+    /**
+     * @test
+     */
+    public function unauthMayNotParticipate()
+    {
+        auth()->logout();
+        $this->get('/users')->assertRedirect('/login');
+        $this->get('/user/create')->assertRedirect('/login');
+        $this->post('/user/store')->assertRedirect('/login');
+        $this->get('/user/1/edit')->assertRedirect('/login');
+        $this->post('/user/1/update')->assertRedirect('/login');
+        $this->get('/user/1/destroy')->assertRedirect('/login');
     }
 
     /**
