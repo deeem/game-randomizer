@@ -23,7 +23,7 @@ class UserResourceTest extends TestCase
     /**
      * @test
      */
-    public function unauthMayNotParticipate()
+    public function unauthMayNotParticipateWithUsers()
     {
         auth()->logout();
         $this->get('/users')->assertRedirect('/login');
@@ -37,7 +37,7 @@ class UserResourceTest extends TestCase
     /**
      * @test
      */
-    public function canBrowse()
+    public function canBrowseUsersResources()
     {
         $this->get('/users')->assertStatus(200);
         $this->get('/user/create')->assertStatus(200);
@@ -47,7 +47,7 @@ class UserResourceTest extends TestCase
     /**
      * @test
      */
-    public function canDestroy()
+    public function canDestroyUser()
     {
         $this->get("/user/{$this->user->id}/destroy");
 
@@ -60,7 +60,7 @@ class UserResourceTest extends TestCase
     /**
      * @test
      */
-    public function canStore()
+    public function canStoreUser()
     {
         $newUser = [
             'name' => 'John Doe',
@@ -78,7 +78,7 @@ class UserResourceTest extends TestCase
     /**
      * @test
      */
-    public function canUpdate()
+    public function canUpdateUser()
     {
         $this->post(
             "/user/{$this->user->id}/update",

@@ -20,7 +20,7 @@ class UserFormValidationTest extends TestCase
     /**
      * @test
      */
-    public function storeValidation()
+    public function storeValidationUserForm()
     {
         $this->store(['name' => null])->assertSessionHasErrors('name');
         $this->store(['email' => null])->assertSessionHasErrors('email');
@@ -30,7 +30,7 @@ class UserFormValidationTest extends TestCase
     /**
      * @test
      */
-    public function updateValidation()
+    public function updateValidationUserForm()
     {
         $this->update(['name' => null])->assertSessionHasErrors('name');
         $this->update(['email' => null])->assertSessionHasErrors('email');
