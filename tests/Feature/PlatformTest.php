@@ -26,7 +26,7 @@ class PlatformTest extends TestCase
     /**
      * @test
      */
-    public function unauthMayNotParticipate()
+    public function unauthMayNotParticipateWithPlatforms()
     {
         auth()->logout();
         $this->get('/users')->assertRedirect('/login');
@@ -40,7 +40,7 @@ class PlatformTest extends TestCase
     /**
      * @test
      */
-    public function canBrowse()
+    public function canBrowsePlatformResources()
     {
         $this->get('/platforms')->assertStatus(200);
         $this->get('/platform/create')->assertStatus(200);
@@ -50,7 +50,7 @@ class PlatformTest extends TestCase
     /**
      * @test
      */
-    public function canDestroy()
+    public function canDestroyPlatform()
     {
         $this->get("/platform/{$this->platform->id}/destroy");
 
@@ -63,7 +63,7 @@ class PlatformTest extends TestCase
     /**
      * @test
      */
-    public function canStore()
+    public function canStorePlatform()
     {
         $this->withoutExceptionHandling();
         $newPlatform = ['name' => 'newplatform'];
@@ -76,7 +76,7 @@ class PlatformTest extends TestCase
     /**
      * @test
      */
-    public function canUpdate()
+    public function canUpdatePlatform()
     {
         $this->post(
             "/platform/{$this->platform->id}/update",
@@ -92,7 +92,7 @@ class PlatformTest extends TestCase
     /**
      * @test
      */
-    public function canValidate()
+    public function canValidatePlatform()
     {
         $this->post('/platform/store', ['name' => null])
             ->assertSessionHasErrors('name');
