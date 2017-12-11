@@ -14,4 +14,13 @@ class Platform extends Model
     protected $fillable = [
         'name'
     ];
+
+    /**
+     * Get games for this platform
+     */
+    public function games()
+    {
+        return $this->hasMany('App\Game');
+    }
+
 }

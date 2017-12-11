@@ -29,12 +29,12 @@ class PlatformTest extends TestCase
     public function unauthMayNotParticipateWithPlatforms()
     {
         auth()->logout();
-        $this->get('/users')->assertRedirect('/login');
-        $this->get('/user/create')->assertRedirect('/login');
-        $this->post('/user/store')->assertRedirect('/login');
-        $this->get('/user/1/edit')->assertRedirect('/login');
-        $this->post('/user/1/update')->assertRedirect('/login');
-        $this->get('/user/1/destroy')->assertRedirect('/login');
+        $this->get('/platforms')->assertRedirect('/login');
+        $this->get('/platform/create')->assertRedirect('/login');
+        $this->post('/platform/store')->assertRedirect('/login');
+        $this->get('/platform/1/edit')->assertRedirect('/login');
+        $this->post('/platform/1/update')->assertRedirect('/login');
+        $this->get('/platform/1/destroy')->assertRedirect('/login');
     }
 
     /**
