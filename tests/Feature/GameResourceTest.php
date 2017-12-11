@@ -21,6 +21,8 @@ class GameResourceTest extends TestCase
         $this->platform = factory('App\Platform')->create();
         $this->user = factory('App\User')->create();
         $this->game = factory('App\Game')->create();
+
+        $this->actingAs($this->user);
     }
     /**
      * @test

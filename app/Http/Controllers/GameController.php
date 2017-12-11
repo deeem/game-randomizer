@@ -63,17 +63,6 @@ class GameController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Game  $game
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Game $game)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Game  $game
