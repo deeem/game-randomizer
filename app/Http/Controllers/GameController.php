@@ -76,7 +76,9 @@ class GameController extends Controller
      */
     public function edit(Game $game)
     {
-        //
+        $platforms = Platform::all();
+
+        return view('game.edit', compact('game', 'platforms'));
     }
 
     /**
@@ -88,7 +90,17 @@ class GameController extends Controller
      */
     public function update(Request $request, Game $game)
     {
-        //
+        $platformsIds = Platform::all()->pluck('id')->toArray();
+
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'platform_id' => ['required', Rule::in($platformsIds)]
+        ]);
+
+        $game->fill($validatedData);
+        $game->save();
+
+        return redirect('games');
     }
 
     /**

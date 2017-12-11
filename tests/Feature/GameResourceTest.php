@@ -12,6 +12,7 @@ class GameResourceTest extends TestCase
 
     protected $platform;
     protected $user;
+    protected $game;
 
     public function setUp()
     {
@@ -19,6 +20,7 @@ class GameResourceTest extends TestCase
 
         $this->platform = factory('App\Platform')->create();
         $this->user = factory('App\User')->create();
+        $this->game = factory('App\Game')->create();
     }
     /**
      * @test
@@ -27,7 +29,7 @@ class GameResourceTest extends TestCase
     {
         $this->get('/games')->assertStatus(200);
         $this->get('/game/create')->assertStatus(200);
-        // edit
+        $this->get("/game/{$this->game->id}/edit")->assertSee($this->game->name);
     }
 
     /**
@@ -44,5 +46,27 @@ class GameResourceTest extends TestCase
         $this->post('/game/store', $newGame);
 
         $this->assertDatabaseHas('games', $newGame);
+    }
+
+    /**
+     * @test
+     */
+    public function canUpdateGame()
+    {
+        $this->post(
+            "/game/{$this->game->id}/update",
+            [
+                'name' => 'foo',
+                'platform_id' => $this->platform->id
+            ]
+        );
+
+        $this->assertDatabaseHas(
+            'games',
+            [
+                'id' => $this->game->id,
+                'name' => 'foo'
+            ]
+        );
     }
 }
