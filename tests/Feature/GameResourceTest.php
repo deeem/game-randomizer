@@ -35,6 +35,20 @@ class GameResourceTest extends TestCase
     /**
      * @test
      */
+    public function unauthMayNotParticipateWithGames()
+    {
+        auth()->logout();
+        $this->get('/games')->assertRedirect('/login');
+        $this->get('/game/create')->assertRedirect('/login');
+        $this->post('/game/store')->assertRedirect('/login');
+        $this->get('/game/1/edit')->assertRedirect('/login');
+        $this->post('/game/1/update')->assertRedirect('/login');
+        $this->get('/game/1/destroy')->assertRedirect('/login');
+    }
+
+    /**
+     * @test
+     */
     public function canDestroyGame()
     {
         $this->get("/game/{$this->game->id}/destroy");
