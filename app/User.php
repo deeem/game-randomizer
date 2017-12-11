@@ -32,6 +32,6 @@ class User extends Authenticatable
      */
     public function games()
     {
-        return $this->belonsTo('App\Game');
+        return $this->hasMany('App\Game');
     }
 }
