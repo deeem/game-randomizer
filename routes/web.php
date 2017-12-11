@@ -32,3 +32,5 @@ Route::post('/platform/store', 'PlatformController@store');
 Route::get('/platform/{platform}/edit', 'PlatformController@edit');
 Route::post('/platform/{platform}/update', 'PlatformController@update');
 Route::get('/platform/{platform}/destroy', 'PlatformController@destroy');
+
+Route::get('/games', 'GameController@index');

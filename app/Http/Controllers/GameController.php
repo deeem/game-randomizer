@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Game;
+use App\Platform;
 use Illuminate\Http\Request;
 
 class GameController extends Controller
@@ -14,7 +15,10 @@ class GameController extends Controller
      */
     public function index()
     {
-        //
+        $games = Game::all();
+        $platforms = Platform::all();
+
+        return view('game.index', compact('games', 'platforms'));
     }
 
     /**
