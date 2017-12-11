@@ -69,4 +69,28 @@ class GameResourceTest extends TestCase
             ]
         );
     }
+
+    /**
+     * @test
+     */
+    public function canValidateGame()
+    {
+        $this->post('/game/store', ['name' => null])
+            ->assertSessionHasErrors('name');
+
+        $this->post("/game/{$this->game->id}/update", ['name' => null])
+            ->assertSessionHasErrors('name');
+
+        $this->post('/game/store', ['platform_id' => null])
+            ->assertSessionHasErrors('platform_id');
+
+        $this->post("/game/{$this->game->id}/update", ['platform_id' => null])
+            ->assertSessionHasErrors('platform_id');
+
+        $this->post('/game/store', ['platform_id' => 999])
+            ->assertSessionHasErrors('platform_id');
+
+        $this->post("/game/{$this->game->id}/update", ['platform_id' => 999])
+            ->assertSessionHasErrors('platform_id');
+    }
 }
