@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Game;
 use App\Platform;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class GameController extends Controller
 {
@@ -28,7 +29,9 @@ class GameController extends Controller
      */
     public function create()
     {
-        //
+        $platforms = Platform::all();
+
+        return view('game.create', compact('platforms'));
     }
 
     /**
@@ -39,7 +42,19 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $platformsIds = Platform::all()->pluck('id')->toArray();
+
+        $request->validate([
+            'name' => 'required',
+            'platform_id' => ['required', Rule::in($platformsIds)]
+        ]);
+
+        Game::create([
+            'name' => request('name'),
+            'platform_id' => request('platform_id')
+        ]);
+
+        return redirect('games');
     }
 
     /**
