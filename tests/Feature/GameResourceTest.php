@@ -35,6 +35,18 @@ class GameResourceTest extends TestCase
     /**
      * @test
      */
+    public function canDestroyGame()
+    {
+        $this->get("/game/{$this->game->id}/destroy");
+
+        $this->assertDatabaseMissing(
+            'games',
+            ['id' => $this->game->id, 'name' => $this->game->name]
+        );
+    }
+    /**
+     * @test
+     */
     public function canStoreGame()
     {
         $newGame = [

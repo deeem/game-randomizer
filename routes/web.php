@@ -38,3 +38,4 @@ Route::get('/game/create', 'GameController@create');
 Route::post('/game/store', 'GameController@store');
 Route::get('/game/{game}/edit', 'GameController@edit');
 Route::post('/game/{game}/update', 'GameController@update');
+Route::get('/game/{game}/destroy', 'GameController@destroy');
