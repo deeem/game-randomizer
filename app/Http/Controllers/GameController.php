@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Game;
 use App\Platform;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+use App\Http\Requests\GameRequest;
 
 class GameController extends Controller
 {
@@ -42,22 +41,17 @@ class GameController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\GameRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GameRequest $request)
     {
-        $platformsIds = Platform::all()->pluck('id')->toArray();
-
-        $request->validate([
-            'name' => 'required',
-            'platform_id' => ['required', Rule::in($platformsIds)]
-        ]);
-
-        Game::create([
+        $game = Game::create([
             'name' => request('name'),
             'platform_id' => request('platform_id')
         ]);
+        $game->user_id = auth()->id();
+        $game->save();
 
         return redirect('games');
     }
@@ -78,20 +72,14 @@ class GameController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\GameRequest $request
      * @param  \App\Game  $game
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Game $game)
+    public function update(GameRequest $request, Game $game)
     {
-        $platformsIds = Platform::all()->pluck('id')->toArray();
-
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'platform_id' => ['required', Rule::in($platformsIds)]
-        ]);
-
-        $game->fill($validatedData);
+        $game->fill($request->all());
+        $game->user_id = request('user_id');
         $game->save();
 
         return redirect('games');
@@ -106,6 +94,35 @@ class GameController extends Controller
     public function destroy(Game $game)
     {
         Game::destroy($game->id);
+
+        return redirect('games');
+    }
+
+    /**
+     * Show the form for moderate added game.
+     *
+     * @param  \App\Game  $game
+     * @return \Illuminate\Http\Response
+     */
+    public function moderate(Game $game)
+    {
+        $platforms = Platform::all();
+
+        return view('game.moderate', compact('game', 'platforms'));
+    }
+
+    /**
+     * Update and aprove game after moderator review
+     *
+     * @param  \App\Http\Requests\GameRequest $request
+     * @param  \App\Game  $game
+     * @return \Illuminate\Http\Response
+     */
+    public function approve(GameRequest $request, Game $game)
+    {
+        $game->fill($request->all());
+        $game->user_id = auth()->id();
+        $game->save();
 
         return redirect('games');
     }

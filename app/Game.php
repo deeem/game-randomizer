@@ -11,7 +11,7 @@ class Game extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'platform_id', 'user_id'];
+    protected $fillable = ['name', 'platform_id'];
 
     /**
      * Get the user that approved game
