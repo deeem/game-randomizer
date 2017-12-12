@@ -27,7 +27,7 @@ class GuestMayAddGameTest extends TestCase
 
         $game = [
             'name' => 'foo',
-            'platform_id' => $platform->id;
+            'platform_id' => $platform->id
         ];
 
         $this->post('/store', $game);
