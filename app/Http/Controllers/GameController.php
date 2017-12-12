@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Game;
 use App\Platform;
-use App\User;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+use App\Http\Requests\GameRequest;
 
 class GameController extends Controller
 {
@@ -43,19 +41,15 @@ class GameController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\GameRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GameRequest $request)
     {
-        $platformsIds = Platform::all()->pluck('id')->toArray();
-
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'platform_id' => ['required', Rule::in($platformsIds)]
+        $game = Game::create([
+            'name' => request('name'),
+            'platform_id' => request('platform_id')
         ]);
-
-        $game = Game::create($validatedData);
         $game->user_id = auth()->id();
         $game->save();
 
@@ -78,27 +72,14 @@ class GameController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\GameRequest $request
      * @param  \App\Game  $game
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Game $game)
+    public function update(GameRequest $request, Game $game)
     {
-        $platformsIds = Platform::all()->pluck('id')->toArray();
-        $usersIds = User::all()->pluck('id')->toArray();
-
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'platform_id' => ['required', Rule::in($platformsIds)],
-            'user_id' => ['nullable', Rule::in($usersIds)]
-        ]);
-
-        $game->fill($validatedData);
-
-        if (! $game->user_id) {
-            $game->user_id = request('user_id');
-        }
-
+        $game->fill($request->all());
+        $game->user_id = request('user_id');
         $game->save();
 
         return redirect('games');
@@ -133,20 +114,13 @@ class GameController extends Controller
     /**
      * Update and aprove game after moderator review
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\GameRequest $request
      * @param  \App\Game  $game
      * @return \Illuminate\Http\Response
      */
-    public function approve(Request $request, Game $game)
+    public function approve(GameRequest $request, Game $game)
     {
-        $platformsIds = Platform::all()->pluck('id')->toArray();
-
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'platform_id' => ['required', Rule::in($platformsIds)],
-        ]);
-
-        $game->fill($validatedData);
+        $game->fill($request->all());
         $game->user_id = auth()->id();
         $game->save();
 
