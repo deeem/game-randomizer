@@ -39,8 +39,6 @@ class GameApprovingTest extends TestCase
      */
     public function whenUserCreateGameItHasIdOfCreatedUser()
     {
-        $this->withoutExceptionHandling();
-
         $user = factory('App\User')->create();
         $this->actingAs($user);
         $platform = factory('App\Platform')->create();
@@ -62,5 +60,30 @@ class GameApprovingTest extends TestCase
         );
     }
 
-    // when user approve game it has user id
+    /**
+     * @test
+     */
+    public function whenUserApproveGameItHasUserId()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = factory('App\User')->create();
+        $this->actingAs($user);
+        $platform = factory('App\Platform')->create();
+        $guestAddedGame = factory('App\Game')->states('unapproved')->create();
+
+        $this->post(
+            "/game/{$guestAddedGame->id}/approve",
+            ['name' => 'foo', 'platform_id' => $platform->id]
+        );
+
+        $this->assertDatabaseHas(
+            'games',
+            [
+                'name' => 'foo',
+                'platform_id' => $platform->id,
+                'user_id' => $user->id
+            ]
+        );
+    }
 }

@@ -14,7 +14,7 @@ $factory->define(App\Game::class, function (Faker $faker) {
     ];
 });
 
-$factory->state(App\Game::class, 'unaproved', function (Faker $faker) {
+$factory->state(App\Game::class, 'unapproved', function (Faker $faker) {
     return [
         'user_id' => null
     ];

@@ -32,6 +32,7 @@ class GameResourceTest extends TestCase
         $this->get('/games')->assertStatus(200);
         $this->get('/game/create')->assertStatus(200);
         $this->get("/game/{$this->game->id}/edit")->assertSee($this->game->name);
+        $this->get("/game/{$this->game->id}/moderate")->assertSee($this->game->name);
     }
 
     /**
@@ -46,6 +47,7 @@ class GameResourceTest extends TestCase
         $this->get('/game/1/edit')->assertRedirect('/login');
         $this->post('/game/1/update')->assertRedirect('/login');
         $this->get('/game/1/destroy')->assertRedirect('/login');
+        $this->get('/game/1/moderate')->assertRedirect('/login');
     }
 
     /**
@@ -60,6 +62,7 @@ class GameResourceTest extends TestCase
             ['id' => $this->game->id, 'name' => $this->game->name]
         );
     }
+
     /**
      * @test
      */
@@ -91,6 +94,28 @@ class GameResourceTest extends TestCase
     {
         $this->post(
             "/game/{$this->game->id}/update",
+            [
+                'name' => 'foo',
+                'platform_id' => $this->platform->id
+            ]
+        );
+
+        $this->assertDatabaseHas(
+            'games',
+            [
+                'id' => $this->game->id,
+                'name' => 'foo'
+            ]
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function canApproveGame()
+    {
+        $this->post(
+            "/game/{$this->game->id}/approve",
             [
                 'name' => 'foo',
                 'platform_id' => $this->platform->id

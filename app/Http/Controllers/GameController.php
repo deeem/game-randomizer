@@ -127,6 +127,29 @@ class GameController extends Controller
     {
         $platforms = Platform::all();
 
-        return view('game.review', compact('game', 'platforms'));
+        return view('game.moderate', compact('game', 'platforms'));
+    }
+
+    /**
+     * Update and aprove game after moderator review
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Game  $game
+     * @return \Illuminate\Http\Response
+     */
+    public function approve(Request $request, Game $game)
+    {
+        $platformsIds = Platform::all()->pluck('id')->toArray();
+
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'platform_id' => ['required', Rule::in($platformsIds)],
+        ]);
+
+        $game->fill($validatedData);
+        $game->user_id = auth()->id();
+        $game->save();
+
+        return redirect('games');
     }
 }

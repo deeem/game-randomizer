@@ -43,3 +43,5 @@ Route::post('/game/store', 'GameController@store');
 Route::get('/game/{game}/edit', 'GameController@edit');
 Route::post('/game/{game}/update', 'GameController@update');
 Route::get('/game/{game}/destroy', 'GameController@destroy');
+Route::get('/game/{game}/moderate', 'GameController@moderate');
+Route::post('/game/{game}/approve', 'GameController@approve');
