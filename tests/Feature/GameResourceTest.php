@@ -65,15 +65,23 @@ class GameResourceTest extends TestCase
      */
     public function canStoreGame()
     {
-        $newGame = [
-            'name' => 'foo',
-            'platform_id' => $this->platform->id,
-            'user_id' => null
-        ];
+        $this->post(
+            '/game/store',
+            [
+                'name' => 'foo',
+                'platform_id' => $this->platform->id,
+                'user_id' => null
+            ]
+        );
 
-        $this->post('/game/store', $newGame);
-
-        $this->assertDatabaseHas('games', $newGame);
+        $this->assertDatabaseHas(
+            'games',
+            [
+                'name' => 'foo',
+                'platform_id' => $this->platform->id,
+                'user_id' => $this->user->id
+            ]
+        );
     }
 
     /**

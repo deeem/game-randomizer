@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Game;
 use App\Platform;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -49,15 +50,14 @@ class GameController extends Controller
     {
         $platformsIds = Platform::all()->pluck('id')->toArray();
 
-        $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required',
             'platform_id' => ['required', Rule::in($platformsIds)]
         ]);
 
-        Game::create([
-            'name' => request('name'),
-            'platform_id' => request('platform_id')
-        ]);
+        $game = Game::create($validatedData);
+        $game->user_id = auth()->id();
+        $game->save();
 
         return redirect('games');
     }
@@ -85,13 +85,20 @@ class GameController extends Controller
     public function update(Request $request, Game $game)
     {
         $platformsIds = Platform::all()->pluck('id')->toArray();
+        $usersIds = User::all()->pluck('id')->toArray();
 
         $validatedData = $request->validate([
             'name' => 'required',
-            'platform_id' => ['required', Rule::in($platformsIds)]
+            'platform_id' => ['required', Rule::in($platformsIds)],
+            'user_id' => ['nullable', Rule::in($usersIds)]
         ]);
 
         $game->fill($validatedData);
+
+        if (! $game->user_id) {
+            $game->user_id = request('user_id');
+        }
+
         $game->save();
 
         return redirect('games');
@@ -108,5 +115,18 @@ class GameController extends Controller
         Game::destroy($game->id);
 
         return redirect('games');
+    }
+
+    /**
+     * Show the form for moderate added game.
+     *
+     * @param  \App\Game  $game
+     * @return \Illuminate\Http\Response
+     */
+    public function moderate(Game $game)
+    {
+        $platforms = Platform::all();
+
+        return view('game.review', compact('game', 'platforms'));
     }
 }
