@@ -30,8 +30,8 @@ class GameResourceTest extends TestCase
     public function canBrowseGameResources()
     {
         $this->get('/games')->assertStatus(200);
-        $this->get('/game/create')->assertStatus(200);
-        $this->get("/game/{$this->game->id}/edit")->assertSee($this->game->name);
+        $this->get('/games/create')->assertStatus(200);
+        $this->get("/games/{$this->game->id}/edit")->assertSee($this->game->name);
         $this->get("/game/{$this->game->id}/moderate")->assertSee($this->game->name);
     }
 
@@ -42,11 +42,11 @@ class GameResourceTest extends TestCase
     {
         auth()->logout();
         $this->get('/games')->assertRedirect('/login');
-        $this->get('/game/create')->assertRedirect('/login');
-        $this->post('/game/store')->assertRedirect('/login');
-        $this->get('/game/1/edit')->assertRedirect('/login');
-        $this->post('/game/1/update')->assertRedirect('/login');
-        $this->get('/game/1/destroy')->assertRedirect('/login');
+        $this->get('/games/create')->assertRedirect('/login');
+        $this->post('/games')->assertRedirect('/login');
+        $this->get('/games/1/edit')->assertRedirect('/login');
+        $this->put('/games/1')->assertRedirect('/login');
+        $this->delete('/games/1')->assertRedirect('/login');
         $this->get('/game/1/moderate')->assertRedirect('/login');
     }
 
@@ -55,7 +55,7 @@ class GameResourceTest extends TestCase
      */
     public function canDestroyGame()
     {
-        $this->get("/game/{$this->game->id}/destroy");
+        $this->delete("/games/{$this->game->id}");
 
         $this->assertDatabaseMissing(
             'games',
@@ -69,7 +69,7 @@ class GameResourceTest extends TestCase
     public function canStoreGame()
     {
         $this->post(
-            '/game/store',
+            '/games',
             [
                 'name' => 'foo',
                 'platform_id' => $this->platform->id,
@@ -92,8 +92,8 @@ class GameResourceTest extends TestCase
      */
     public function canUpdateGame()
     {
-        $this->post(
-            "/game/{$this->game->id}/update",
+        $this->put(
+            "/games/{$this->game->id}",
             [
                 'name' => 'foo',
                 'platform_id' => $this->platform->id
@@ -136,22 +136,22 @@ class GameResourceTest extends TestCase
      */
     public function canValidateGame()
     {
-        $this->post('/game/store', ['name' => null])
+        $this->post('/games', ['name' => null])
             ->assertSessionHasErrors('name');
 
-        $this->post("/game/{$this->game->id}/update", ['name' => null])
+        $this->put("/games/{$this->game->id}", ['name' => null])
             ->assertSessionHasErrors('name');
 
-        $this->post('/game/store', ['platform_id' => null])
+        $this->post('/games', ['platform_id' => null])
             ->assertSessionHasErrors('platform_id');
 
-        $this->post("/game/{$this->game->id}/update", ['platform_id' => null])
+        $this->put("/games/{$this->game->id}", ['platform_id' => null])
             ->assertSessionHasErrors('platform_id');
 
-        $this->post('/game/store', ['platform_id' => 999])
+        $this->post('/games', ['platform_id' => 999])
             ->assertSessionHasErrors('platform_id');
 
-        $this->post("/game/{$this->game->id}/update", ['platform_id' => 999])
+        $this->put("/games/{$this->game->id}", ['platform_id' => 999])
             ->assertSessionHasErrors('platform_id');
     }
 }

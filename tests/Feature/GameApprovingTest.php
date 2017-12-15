@@ -48,7 +48,7 @@ class GameApprovingTest extends TestCase
             'platform_id' => $platform->id
         ];
 
-        $this->post('/game/store', $game);
+        $this->post('/games', $game);
 
         $this->assertDatabaseHas(
             'games',

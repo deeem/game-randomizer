@@ -38,10 +38,11 @@ Route::put('/platforms/{platform}', 'PlatformController@update');
 Route::delete('/platforms/{platform}', 'PlatformController@destroy');
 
 Route::get('/games', 'GameController@index');
-Route::get('/game/create', 'GameController@create');
-Route::post('/game/store', 'GameController@store');
-Route::get('/game/{game}/edit', 'GameController@edit');
-Route::post('/game/{game}/update', 'GameController@update');
-Route::get('/game/{game}/destroy', 'GameController@destroy');
+Route::get('/games/create', 'GameController@create');
+Route::post('/games', 'GameController@store');
+Route::get('/games/{game}/edit', 'GameController@edit');
+Route::put('/games/{game}', 'GameController@update');
+Route::delete('/games/{game}', 'GameController@destroy');
+
 Route::get('/game/{game}/moderate', 'GameController@moderate');
 Route::post('/game/{game}/approve', 'GameController@approve');

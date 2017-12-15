@@ -11,7 +11,7 @@
                     <th>Название</th>
                     <th>Платформа</th>
                     <th>
-                        <a href="/game/create" class="btn btn-primary btn-sm">
+                        <a href="/games/create" class="btn btn-primary btn-sm">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </a>
                     </th>
@@ -21,13 +21,17 @@
                     <td>{{ $game->name }}</td>
                     <td>{{ $game->platform->name }}</td>
                     <td>
-                        <a href="/game/{{ $game->id }}/edit" class="btn btn-default btn-xs">
+                        <a href="/games/{{ $game->id }}/edit" class="btn btn-default btn-xs">
                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                         </a>
                         &nbsp;&nbsp;
-                        <a href="/game/{{ $game->id }}/destroy" class="btn btn-danger btn-xs" onclick="return confirm('are you sure?');">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        </a>
+                        <form action="/games/{{ $game->id }}" method="POST" style="display:inline;">
+                             {{ method_field('DELETE') }}
+                             {{ csrf_field() }}
+                             <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('are you shure?');">
+                                <span class="glyphicon glyphicon-trash " aria-hidden="true"></span>
+                              </button>
+                        </form>
                     </td>
                 </tr>
                 @endforeach
