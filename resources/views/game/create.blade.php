@@ -7,7 +7,7 @@
       <div class="panel-heading"><h3 class="panel-title">Добавить игру</h3></div>
 
       <div class="panel-body">
-        <form class="form-horizontal" method="POST" action="/game/store">
+        <form class="form-horizontal" method="POST" action="/games">
 
           {{ csrf_field() }}
           @if ($errors->any())

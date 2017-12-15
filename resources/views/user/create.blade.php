@@ -7,7 +7,7 @@
             <div class="panel-heading"><h3 class="panel-title">Новый пользователь</h3></div>
 
             <div class="panel-body">
-                <form class="form-horizontal" method="POST" action="/user/store">
+                <form class="form-horizontal" method="POST" action="/users">
                     {{ csrf_field() }}
                     @if ($errors->any())
                         <div class="alert alert-danger">

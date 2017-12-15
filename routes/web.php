@@ -23,25 +23,15 @@ Route::get('/posted', 'GuestController@displayPostAdded');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/users', 'UserController@index');
-Route::get('/user/create', 'UserController@create');
-Route::post('/user/store', 'UserController@store');
-Route::get('/user/{user}/edit', 'UserController@edit');
-Route::post('/user/{user}/update', 'UserController@update');
-Route::get('/user/{user}/destroy', 'UserController@destroy');
-
-Route::get('/platforms', 'PlatformController@index');
-Route::get('/platform/create', 'PlatformController@create');
-Route::post('/platform/store', 'PlatformController@store');
-Route::get('/platform/{platform}/edit', 'PlatformController@edit');
-Route::post('/platform/{platform}/update', 'PlatformController@update');
-Route::get('/platform/{platform}/destroy', 'PlatformController@destroy');
+Route::resource('users', 'UserController');
+Route::resource('platforms', 'PlatformController');
 
 Route::get('/games', 'GameController@index');
-Route::get('/game/create', 'GameController@create');
-Route::post('/game/store', 'GameController@store');
-Route::get('/game/{game}/edit', 'GameController@edit');
-Route::post('/game/{game}/update', 'GameController@update');
-Route::get('/game/{game}/destroy', 'GameController@destroy');
+Route::get('/games/create', 'GameController@create');
+Route::post('/games', 'GameController@store');
+Route::get('/games/{game}/edit', 'GameController@edit');
+Route::put('/games/{game}', 'GameController@update');
+Route::delete('/games/{game}', 'GameController@destroy');
+
 Route::get('/game/{game}/moderate', 'GameController@moderate');
 Route::post('/game/{game}/approve', 'GameController@approve');

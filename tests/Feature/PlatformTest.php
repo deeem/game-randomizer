@@ -30,11 +30,11 @@ class PlatformTest extends TestCase
     {
         auth()->logout();
         $this->get('/platforms')->assertRedirect('/login');
-        $this->get('/platform/create')->assertRedirect('/login');
-        $this->post('/platform/store')->assertRedirect('/login');
-        $this->get('/platform/1/edit')->assertRedirect('/login');
-        $this->post('/platform/1/update')->assertRedirect('/login');
-        $this->get('/platform/1/destroy')->assertRedirect('/login');
+        $this->get('/platforms/create')->assertRedirect('/login');
+        $this->post('/platforms')->assertRedirect('/login');
+        $this->get('/platforms/1/edit')->assertRedirect('/login');
+        $this->put('/platforms/1')->assertRedirect('/login');
+        $this->delete('/platforms/1')->assertRedirect('/login');
     }
 
     /**
@@ -43,8 +43,8 @@ class PlatformTest extends TestCase
     public function canBrowsePlatformResources()
     {
         $this->get('/platforms')->assertStatus(200);
-        $this->get('/platform/create')->assertStatus(200);
-        $this->get("/platform/{$this->platform->id}/edit")->assertStatus(200);
+        $this->get('/platforms/create')->assertStatus(200);
+        $this->get("/platforms/{$this->platform->id}/edit")->assertStatus(200);
     }
 
     /**
@@ -52,7 +52,7 @@ class PlatformTest extends TestCase
      */
     public function canDestroyPlatform()
     {
-        $this->get("/platform/{$this->platform->id}/destroy");
+        $this->delete("/platforms/{$this->platform->id}");
 
         $this->assertDatabaseMissing(
             'platforms',
@@ -68,7 +68,7 @@ class PlatformTest extends TestCase
         $this->withoutExceptionHandling();
         $newPlatform = ['name' => 'newplatform'];
 
-        $this->post('/platform/store', $newPlatform);
+        $this->post('/platforms', $newPlatform);
 
         $this->assertDatabaseHas('platforms', $newPlatform);
     }
@@ -78,8 +78,8 @@ class PlatformTest extends TestCase
      */
     public function canUpdatePlatform()
     {
-        $this->post(
-            "/platform/{$this->platform->id}/update",
+        $this->put(
+            "/platforms/{$this->platform->id}",
             ['name' => 'foo']
         );
 
@@ -94,10 +94,10 @@ class PlatformTest extends TestCase
      */
     public function canValidatePlatform()
     {
-        $this->post('/platform/store', ['name' => null])
+        $this->post('/platforms', ['name' => null])
             ->assertSessionHasErrors('name');
 
-        $this->post("/platform/{$this->platform->id}/update", ['name' => null])
+        $this->put("/platform/{$this->platform->id}", ['name' => null])
             ->assertSessionHasErrors('name');
     }
 }

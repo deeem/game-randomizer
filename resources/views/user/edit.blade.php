@@ -7,7 +7,8 @@
             <div class="panel-heading"><h3 class="panel-title">Редактировать пользователя</h3></div>
 
             <div class="panel-body">
-                <form class="form-horizontal" method="POST" action="/user/{{ $user->id }}/update">
+                <form class="form-horizontal" method="POST" action="/users/{{ $user->id }}">
+                    {{ method_field('PUT') }}
                     {{ csrf_field() }}
                     @if ($errors->any())
                         <div class="alert alert-danger">

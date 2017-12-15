@@ -27,11 +27,11 @@ class UserResourceTest extends TestCase
     {
         auth()->logout();
         $this->get('/users')->assertRedirect('/login');
-        $this->get('/user/create')->assertRedirect('/login');
-        $this->post('/user/store')->assertRedirect('/login');
-        $this->get('/user/1/edit')->assertRedirect('/login');
-        $this->post('/user/1/update')->assertRedirect('/login');
-        $this->get('/user/1/destroy')->assertRedirect('/login');
+        $this->get('/users/create')->assertRedirect('/login');
+        $this->get('/users/1/edit')->assertRedirect('/login');
+        $this->post('/users')->assertRedirect('/login');
+        $this->put('/users/1')->assertRedirect('/login');
+        $this->delete('/users/1')->assertRedirect('/login');
     }
 
     /**
@@ -40,8 +40,8 @@ class UserResourceTest extends TestCase
     public function canBrowseUsersResources()
     {
         $this->get('/users')->assertStatus(200);
-        $this->get('/user/create')->assertStatus(200);
-        $this->get("/user/{$this->user->id}/edit")->assertSee($this->user->email);
+        $this->get('/users/create')->assertStatus(200);
+        $this->get("/users/{$this->user->id}/edit")->assertSee($this->user->email);
     }
 
     /**
@@ -49,7 +49,7 @@ class UserResourceTest extends TestCase
      */
     public function canDestroyUser()
     {
-        $this->get("/user/{$this->user->id}/destroy");
+        $this->delete("/users/{$this->user->id}");
 
         $this->assertDatabaseMissing(
             'users',
@@ -68,7 +68,7 @@ class UserResourceTest extends TestCase
             'password' => 'secret'
         ];
 
-        $this->post('/user/store', $newUser);
+        $this->post('/users', $newUser);
 
         unset($newUser['password']);
 
@@ -80,8 +80,8 @@ class UserResourceTest extends TestCase
      */
     public function canUpdateUser()
     {
-        $this->post(
-            "/user/{$this->user->id}/update",
+        $this->put(
+            "/users/{$this->user->id}",
             [
                 'name' => 'newname',
                 'email' => $this->user->email,

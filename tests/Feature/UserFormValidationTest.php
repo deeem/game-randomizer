@@ -40,7 +40,7 @@ class UserFormValidationTest extends TestCase
     {
         $user = factory('App\User')->make($overrides);
 
-        $response = $this->post('/user/store', $user->toArray());
+        $response = $this->post('/users', $user->toArray());
 
         return $response;
     }
@@ -49,7 +49,7 @@ class UserFormValidationTest extends TestCase
     {
         $user = factory('App\User')->create();
 
-        $response = $this->post("/user/{$user->id}/update", $overrides);
+        $response = $this->put("/users/{$user->id}", $overrides);
 
         return $response;
     }
