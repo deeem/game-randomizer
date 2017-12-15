@@ -23,19 +23,8 @@ Route::get('/posted', 'GuestController@displayPostAdded');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/users', 'UserController@index');
-Route::get('/users/create', 'UserController@create');
-Route::get('/users/{user}/edit', 'UserController@edit');
-Route::post('/users', 'UserController@store');
-Route::put('/users/{user}', 'UserController@update');
-Route::delete('/users/{user}', 'UserController@destroy');
-
-Route::get('/platforms', 'PlatformController@index');
-Route::get('/platforms/create', 'PlatformController@create');
-Route::get('/platforms/{platform}/edit', 'PlatformController@edit');
-Route::post('/platforms', 'PlatformController@store');
-Route::put('/platforms/{platform}', 'PlatformController@update');
-Route::delete('/platforms/{platform}', 'PlatformController@destroy');
+Route::resource('users', 'UserController');
+Route::resource('platforms', 'PlatformController');
 
 Route::get('/games', 'GameController@index');
 Route::get('/games/create', 'GameController@create');
