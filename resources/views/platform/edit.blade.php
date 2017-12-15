@@ -8,8 +8,9 @@
             <div class="panel-heading"><h3 class="panel-title">Редактировать платформу</h3></div>
 
             <div class="panel-body">
-                <form class="form-horizontal" method="POST" action="/platform/{{ $platform->id }}/update">
+                <form class="form-horizontal" method="POST" action="/platforms/{{ $platform->id }}">
                     {{ csrf_field() }}
+                    {{ method_field('PUT') }}
                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>

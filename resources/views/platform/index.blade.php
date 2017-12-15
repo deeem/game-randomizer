@@ -10,7 +10,7 @@
                 <tr>
                     <th>название</th>
                     <th>
-                        <a href="/platform/create" class="btn btn-primary btn-sm">
+                        <a href="/platforms/create" class="btn btn-primary btn-sm">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </a>
                     </th>
@@ -19,13 +19,17 @@
                 <tr>
                     <td>{{ $platform->name }}</td>
                     <td>
-                        <a href="/platform/{{ $platform->id }}/edit" class="btn btn-default btn-xs">
+                        <a href="/platforms/{{ $platform->id }}/edit" class="btn btn-default btn-xs">
                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                         </a>
                         &nbsp;&nbsp;
-                        <a href="/platform/{{ $platform->id }}/destroy" class="btn btn-danger btn-xs" onclick="return confirm('are you sure?');">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        </a>
+                        <form action="/platforms/{{ $platform->id }}" method="POST" style="display:inline;">
+                             {{ method_field('DELETE') }}
+                             {{ csrf_field() }}
+                             <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('are you shure?');">
+                                <span class="glyphicon glyphicon-trash " aria-hidden="true"></span>
+                              </button>
+                        </form>
                     </td>
                 </tr>
                 @endforeach

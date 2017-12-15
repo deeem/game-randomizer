@@ -31,11 +31,11 @@ Route::put('/users/{user}', 'UserController@update');
 Route::delete('/users/{user}', 'UserController@destroy');
 
 Route::get('/platforms', 'PlatformController@index');
-Route::get('/platform/create', 'PlatformController@create');
-Route::post('/platform/store', 'PlatformController@store');
-Route::get('/platform/{platform}/edit', 'PlatformController@edit');
-Route::post('/platform/{platform}/update', 'PlatformController@update');
-Route::get('/platform/{platform}/destroy', 'PlatformController@destroy');
+Route::get('/platforms/create', 'PlatformController@create');
+Route::get('/platforms/{platform}/edit', 'PlatformController@edit');
+Route::post('/platforms', 'PlatformController@store');
+Route::put('/platforms/{platform}', 'PlatformController@update');
+Route::delete('/platforms/{platform}', 'PlatformController@destroy');
 
 Route::get('/games', 'GameController@index');
 Route::get('/game/create', 'GameController@create');
