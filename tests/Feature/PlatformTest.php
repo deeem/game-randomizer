@@ -66,7 +66,10 @@ class PlatformTest extends TestCase
     public function canStorePlatform()
     {
         $this->withoutExceptionHandling();
-        $newPlatform = ['name' => 'newplatform'];
+        $newPlatform = [
+            'name' => 'newplatform',
+            'slug' => 'newslug'
+        ];
 
         $this->post('/platforms', $newPlatform);
 
@@ -80,7 +83,7 @@ class PlatformTest extends TestCase
     {
         $this->put(
             "/platforms/{$this->platform->id}",
-            ['name' => 'foo']
+            ['name' => 'foo', 'slug' => 'newslug']
         );
 
         $this->assertDatabaseHas(
@@ -99,5 +102,11 @@ class PlatformTest extends TestCase
 
         $this->put("/platform/{$this->platform->id}", ['name' => null])
             ->assertSessionHasErrors('name');
+
+        $this->post('/platforms', ['slug' => null])
+            ->assertSessionHasErrors('slug');
+
+        $this->put("/platform/{$this->platform->id}", ['slug' => null])
+            ->assertSessionHasErrors('slug');
     }
 }

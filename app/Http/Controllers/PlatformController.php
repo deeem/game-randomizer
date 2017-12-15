@@ -43,10 +43,11 @@ class PlatformController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required'
+            'name' => 'required',
+            'slug' => 'required'
         ]);
 
-        Platform::create(['name' => request('name')]);
+        Platform::create($request->all());
 
         return redirect('platforms');
     }
@@ -83,10 +84,11 @@ class PlatformController extends Controller
     public function update(Request $request, Platform $platform)
     {
         $request->validate([
-            'name' => 'required'
+            'name' => 'required',
+            'slug' => 'required'
         ]);
 
-        $platform->name = request('name');
+        $platform->fill($request->all());
         $platform->save();
 
         return redirect('platforms');
