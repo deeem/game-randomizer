@@ -11,7 +11,7 @@
                     <th>имя</th>
                     <th>email</th>
                     <th>
-                        <a href="/user/create" class="btn btn-primary btn-sm">
+                        <a href="/users/create" class="btn btn-primary btn-sm">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </a>
                     </th>
@@ -21,13 +21,17 @@
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>
-                        <a href="/user/{{ $user->id }}/edit" class="btn btn-default btn-xs">
+                        <a href="/users/{{ $user->id }}/edit" class="btn btn-default btn-xs">
                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                         </a>
                         &nbsp;&nbsp;
-                        <a href="/user/{{ $user->id }}/destroy" class="btn btn-danger btn-xs" onclick="return confirm('are you sure?');">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        </a>
+                        <form action="/users/{{ $user->id }}" method="POST" style="display:inline;">
+                             {{ method_field('DELETE') }}
+                             {{ csrf_field() }}
+                             <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('are you shure?');">
+                                <span class="glyphicon glyphicon-trash " aria-hidden="true"></span>
+                              </button>
+                        </form>
                     </td>
                 </tr>
                 @endforeach
