@@ -67,8 +67,7 @@ class PlatformTest extends TestCase
     {
         $this->withoutExceptionHandling();
         $newPlatform = [
-            'name' => 'newplatform',
-            'slug' => 'newslug'
+            'name' => 'newplatform'
         ];
 
         $this->post('/platforms', $newPlatform);
@@ -83,7 +82,7 @@ class PlatformTest extends TestCase
     {
         $this->put(
             "/platforms/{$this->platform->id}",
-            ['name' => 'foo', 'slug' => 'newslug']
+            ['name' => 'foo']
         );
 
         $this->assertDatabaseHas(
@@ -102,11 +101,21 @@ class PlatformTest extends TestCase
 
         $this->put("/platform/{$this->platform->id}", ['name' => null])
             ->assertSessionHasErrors('name');
+    }
 
-        $this->post('/platforms', ['slug' => null])
-            ->assertSessionHasErrors('slug');
+    /**
+     * @test
+     */
+    public function canGenerateSlug()
+    {
+        $this->put(
+            "/platforms/{$this->platform->id}",
+            ['name' => 'Foo Bar']
+        );
 
-        $this->put("/platform/{$this->platform->id}", ['slug' => null])
-            ->assertSessionHasErrors('slug');
+        $this->assertDatabaseHas(
+            'platforms',
+            ['id' => $this->platform->id, 'slug' => 'foo-bar']
+        );
     }
 }

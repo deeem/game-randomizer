@@ -27,13 +27,6 @@
                   </div>
 
                   <div class="form-group">
-                    <label for="inputSlug" class="col-sm-4 control-label">Слаг</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" id="inputSlug" placeholder="Слаг" name="slug" required>
-                    </div>
-                  </div>
-
-                  <div class="form-group">
                     <div class="col-sm-offset-4 col-sm-8">
                       <button type="submit" class="btn btn-primary">Добавить</button>
                     </div>

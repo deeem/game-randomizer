@@ -11,10 +11,7 @@ class Platform extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'name',
-        'slug'
-    ];
+    protected $fillable = ['name', 'slug'];
 
     /**
      * Get games for this platform
