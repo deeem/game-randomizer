@@ -24,7 +24,7 @@ class GameController extends Controller
         if($platform->exists) {
             $games = $platform->games()->get();
         } else {
-            $games = Game::all();
+            $games = Game::unapproved()->get();
         }
 
         $platforms = Platform::all();
