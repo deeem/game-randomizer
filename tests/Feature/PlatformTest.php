@@ -32,9 +32,9 @@ class PlatformTest extends TestCase
         $this->get('/platforms')->assertRedirect('/login');
         $this->get('/platforms/create')->assertRedirect('/login');
         $this->post('/platforms')->assertRedirect('/login');
-        $this->get('/platforms/1/edit')->assertRedirect('/login');
-        $this->put('/platforms/1')->assertRedirect('/login');
-        $this->delete('/platforms/1')->assertRedirect('/login');
+        $this->get('/platforms/foo/edit')->assertRedirect('/login');
+        $this->put('/platforms/foo')->assertRedirect('/login');
+        $this->delete('/platforms/foo')->assertRedirect('/login');
     }
 
     /**
@@ -44,7 +44,7 @@ class PlatformTest extends TestCase
     {
         $this->get('/platforms')->assertStatus(200);
         $this->get('/platforms/create')->assertStatus(200);
-        $this->get("/platforms/{$this->platform->id}/edit")->assertStatus(200);
+        $this->get("/platforms/{$this->platform->slug}/edit")->assertStatus(200);
     }
 
     /**
@@ -52,7 +52,7 @@ class PlatformTest extends TestCase
      */
     public function canDestroyPlatform()
     {
-        $this->delete("/platforms/{$this->platform->id}");
+        $this->delete("/platforms/{$this->platform->slug}");
 
         $this->assertDatabaseMissing(
             'platforms',
@@ -81,7 +81,7 @@ class PlatformTest extends TestCase
     public function canUpdatePlatform()
     {
         $this->put(
-            "/platforms/{$this->platform->id}",
+            "/platforms/{$this->platform->slug}",
             ['name' => 'foo']
         );
 
@@ -99,7 +99,7 @@ class PlatformTest extends TestCase
         $this->post('/platforms', ['name' => null])
             ->assertSessionHasErrors('name');
 
-        $this->put("/platform/{$this->platform->id}", ['name' => null])
+        $this->put("/platform/{$this->platform->slug}", ['name' => null])
             ->assertSessionHasErrors('name');
     }
 
@@ -109,7 +109,7 @@ class PlatformTest extends TestCase
     public function canGenerateSlug()
     {
         $this->put(
-            "/platforms/{$this->platform->id}",
+            "/platforms/{$this->platform->slug}",
             ['name' => 'Foo Bar']
         );
 
