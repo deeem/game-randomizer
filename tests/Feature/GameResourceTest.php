@@ -24,6 +24,7 @@ class GameResourceTest extends TestCase
 
         $this->actingAs($this->user);
     }
+
     /**
      * @test
      */
@@ -39,7 +40,6 @@ class GameResourceTest extends TestCase
     public function unauthMayNotParticipateWithGames()
     {
         auth()->logout();
-        $this->get('/games')->assertRedirect('/login');
         $this->get('/games/1/edit')->assertRedirect('/login');
         $this->put('/games/1')->assertRedirect('/login');
         $this->delete('/games/1')->assertRedirect('/login');

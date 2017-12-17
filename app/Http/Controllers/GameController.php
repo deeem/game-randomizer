@@ -74,7 +74,7 @@ class GameController extends Controller
         $game->user_id = auth()->id();
         $game->save();
 
-        return redirect('games');
+        return redirect('home');
     }
 
     /**
@@ -104,7 +104,7 @@ class GameController extends Controller
         $game->user_id = request('user_id');
         $game->save();
 
-        return redirect('games');
+        return redirect('home');
     }
 
     /**

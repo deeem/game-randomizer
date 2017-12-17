@@ -22,7 +22,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('users', 'UserController');
 Route::resource('platforms', 'PlatformController');
 
-Route::get('/games', 'GameController@index');
 Route::get('/games/create', 'GameController@create');
 Route::get('/games/{game}/edit', 'GameController@edit');
 Route::post('/games', 'GameController@store');
