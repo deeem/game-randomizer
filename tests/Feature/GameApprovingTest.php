@@ -88,6 +88,68 @@ class GameApprovingTest extends TestCase
     /**
      * @test
      */
+    public function whenUserAddGameItHasSuggestedBy()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = factory('App\User')->create();
+        $this->actingAs($user);
+        $platform = factory('App\Platform')->create();
+
+        $game = factory('App\Game')->create();
+
+        $this->post(
+            '/games',
+            [
+                'name' => 'foo',
+                'platform_id' => $platform->id,
+                'user_id' => null,
+                'suggested' => 'bar'
+            ]
+        );
+
+        $this->assertDatabaseHas(
+            'games',
+            [
+                'name' => 'foo',
+                'platform_id' => $platform->id,
+                'user_id' => $user->id,
+                'suggested' => $user->name
+            ]
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function userCanAddGameWithEmptySuggestedField()
+    {
+        $platform = factory('App\Platform')->create();
+        $game = factory('App\Game')->states('unapproved')->create();
+
+        $this->post(
+            '/games',
+            [
+                'name' => 'foo',
+                'platform_id' => $platform->id,
+                'user_id' => null,
+                'suggested' => null
+            ]
+        );
+
+        $this->assertDatabaseHas(
+            'games',
+            [
+                'name' => 'foo',
+                'platform_id' => $platform->id,
+                'suggested' => null
+            ]
+        );
+    }
+
+    /**
+     * @test
+     */
     public function canBrowseModerateList()
     {
         $this->withoutExceptionHandling();

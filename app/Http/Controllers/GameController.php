@@ -62,8 +62,15 @@ class GameController extends Controller
         $game = Game::create([
             'name' => request('name'),
             'platform_id' => request('platform_id'),
-            'suggested' => request('suggested')
         ]);
+
+        if (! auth()->check()) {
+            $game->suggested = request('suggested');
+        } else {
+            $user = auth()->user();
+            $game->suggested = $user->name;
+        }
+
         $game->user_id = auth()->id();
         $game->save();
 
