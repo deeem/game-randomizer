@@ -70,17 +70,15 @@ class GameApprovingTest extends TestCase
         $user = factory('App\User')->create();
         $this->actingAs($user);
         $platform = factory('App\Platform')->create();
-        $guestAddedGame = factory('App\Game')->states('unapproved')->create();
 
-        $this->post(
-            "/game/{$guestAddedGame->id}/approve",
-            ['name' => 'foo', 'platform_id' => $platform->id]
-        );
+        $game = factory('App\Game')->states('unapproved')->create();
+
+        $this->get("/approve/{$game->id}");
 
         $this->assertDatabaseHas(
             'games',
             [
-                'name' => 'foo',
+                'name' => $game->name,
                 'platform_id' => $platform->id,
                 'user_id' => $user->id
             ]

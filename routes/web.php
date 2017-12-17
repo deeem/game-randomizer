@@ -31,5 +31,4 @@ Route::delete('/games/{game}', 'GameController@destroy');
 
 Route::get('/games/{platform}', 'GameController@index');
 
-Route::get('/game/{game}/moderate', 'GameController@moderate');
-Route::post('/game/{game}/approve', 'GameController@approve');
+Route::get('/approve/{game}', 'GameController@approve');

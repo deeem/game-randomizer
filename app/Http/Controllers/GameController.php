@@ -106,28 +106,13 @@ class GameController extends Controller
     }
 
     /**
-     * Show the form for moderate added game.
-     *
-     * @param  \App\Game  $game
-     * @return \Illuminate\Http\Response
-     */
-    public function moderate(Game $game)
-    {
-        $platforms = Platform::all();
-
-        return view('game.moderate', compact('game', 'platforms'));
-    }
-
-    /**
      * Update and aprove game after moderator review
      *
-     * @param  \App\Http\Requests\GameRequest $request
      * @param  \App\Game  $game
      * @return \Illuminate\Http\Response
      */
-    public function approve(UpdateGameRequest $request, Game $game)
+    public function approve(Game $game)
     {
-        $game->fill($request->all());
         $game->user_id = auth()->id();
         $game->save();
 
