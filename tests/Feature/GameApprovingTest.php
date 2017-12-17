@@ -84,4 +84,20 @@ class GameApprovingTest extends TestCase
             ]
         );
     }
+
+    /**
+     * @test
+     */
+    public function canBrowseModerateList()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = factory('App\User')->create();
+        $this->actingAs($user);
+        $platform = factory('App\Platform')->create();
+
+        $game = factory('App\Game')->states('unapproved')->create();
+
+        $this->get('/moderate')->assertSee($game->name);
+    }
 }

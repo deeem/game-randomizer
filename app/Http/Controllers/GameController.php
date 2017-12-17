@@ -22,15 +22,21 @@ class GameController extends Controller
      */
     public function index(Platform $platform)
     {
-        if($platform->exists) {
-            $games = $platform->games()->get();
-        } else {
-            $games = Game::unapproved()->get();
-        }
+        $games = $platform->games()->get();
 
-        $platforms = Platform::all();
+        return view('game.index', compact('games'));
+    }
 
-        return view('game.index', compact('games', 'platforms'));
+    /**
+     * Display a list of the games need to approving
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function moderate()
+    {
+        $games = Game::unapproved()->get();
+
+        return view('game.moderate', compact('games'));
     }
 
     /**
@@ -102,7 +108,7 @@ class GameController extends Controller
     {
         Game::destroy($game->id);
 
-        return redirect('games');
+        return back();
     }
 
     /**
@@ -116,6 +122,6 @@ class GameController extends Controller
         $game->user_id = auth()->id();
         $game->save();
 
-        return redirect('games');
+        return redirect('moderate');
     }
 }
