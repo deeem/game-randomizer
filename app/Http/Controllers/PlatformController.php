@@ -46,7 +46,10 @@ class PlatformController extends Controller
             'name' => 'required'
         ]);
 
-        Platform::create(['name' => request('name')]);
+        $name = request('name');
+        $slug = $this->generateSlug($name);
+
+        Platform::create(['name' => $name, 'slug' => $slug]);
 
         return redirect('platforms');
     }
@@ -86,7 +89,10 @@ class PlatformController extends Controller
             'name' => 'required'
         ]);
 
-        $platform->name = request('name');
+        $name = request('name');
+        $slug = $this->generateSlug($name);
+
+        $platform->fill(['name' => $name, 'slug' => $slug]);
         $platform->save();
 
         return redirect('platforms');
@@ -103,5 +109,13 @@ class PlatformController extends Controller
         Platform::destroy($platform->id);
 
         return redirect('platforms');
+    }
+
+    /**
+     * Generate Slug from string
+     */
+    protected function generateSlug($string)
+    {
+        return preg_replace('/[^A-Za-z0-9-]+/', '-', strtolower($string));
     }
 }

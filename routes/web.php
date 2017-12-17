@@ -28,10 +28,12 @@ Route::resource('platforms', 'PlatformController');
 
 Route::get('/games', 'GameController@index');
 Route::get('/games/create', 'GameController@create');
-Route::post('/games', 'GameController@store');
 Route::get('/games/{game}/edit', 'GameController@edit');
+Route::post('/games', 'GameController@store');
 Route::put('/games/{game}', 'GameController@update');
 Route::delete('/games/{game}', 'GameController@destroy');
+
+Route::get('/games/{platform}', 'GameController@index');
 
 Route::get('/game/{game}/moderate', 'GameController@moderate');
 Route::post('/game/{game}/approve', 'GameController@approve');

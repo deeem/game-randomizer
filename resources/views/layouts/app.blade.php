@@ -37,7 +37,30 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         &nbsp;
+
+                      @auth
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Платформы <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                          @foreach(App\Platform::all() as $platform)
+                            <li><a href="/games/{{ $platform->slug }}">{{ $platform->name }}</a></li>
+                          @endforeach
+                        </ul>
+                      </li>
+                      @endauth
+
+                      @auth
+                      <li>
+                       @if(App\Game::unapproved()->count())
+                         <a href="/games">На модерации <span class="badge">{{ App\Game::unapproved()->count() }}</span></a>
+                       @else
+                         <a href="/games">На модерации</a>
+                       @endif
+                      </li>
+                      @endauth
+
                     </ul>
+
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">

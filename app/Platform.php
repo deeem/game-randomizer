@@ -11,9 +11,7 @@ class Platform extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'name'
-    ];
+    protected $fillable = ['name', 'slug'];
 
     /**
      * Get games for this platform
@@ -23,4 +21,13 @@ class Platform extends Model
         return $this->hasMany('App\Game');
     }
 
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

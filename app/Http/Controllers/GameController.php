@@ -16,11 +16,17 @@ class GameController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param \App\Platform $platform
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Platform $platform)
     {
-        $games = Game::all();
+        if($platform->exists) {
+            $games = $platform->games()->get();
+        } else {
+            $games = Game::unapproved()->get();
+        }
+
         $platforms = Platform::all();
 
         return view('game.index', compact('games', 'platforms'));
