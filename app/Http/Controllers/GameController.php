@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Game;
 use App\Platform;
-use App\Http\Requests\GameRequest;
+use App\Http\Requests\StoreGameRequest;
+use App\Http\Requests\UpdateGameRequest;
 
 class GameController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('create', 'store');
     }
 
     /**
@@ -21,15 +22,21 @@ class GameController extends Controller
      */
     public function index(Platform $platform)
     {
-        if($platform->exists) {
-            $games = $platform->games()->get();
-        } else {
-            $games = Game::unapproved()->get();
-        }
+        $games = $platform->games()->get();
 
-        $platforms = Platform::all();
+        return view('game.index', compact('games'));
+    }
 
-        return view('game.index', compact('games', 'platforms'));
+    /**
+     * Display a list of the games need to approving
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function moderate()
+    {
+        $games = Game::unapproved()->get();
+
+        return view('game.moderate', compact('games'));
     }
 
     /**
@@ -47,19 +54,27 @@ class GameController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\GameRequest $request
+     * @param  \App\Http\Requests\StoreGameRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(GameRequest $request)
+    public function store(StoreGameRequest $request)
     {
         $game = Game::create([
             'name' => request('name'),
-            'platform_id' => request('platform_id')
+            'platform_id' => request('platform_id'),
         ]);
+
+        if (! auth()->check()) {
+            $game->suggested = request('suggested');
+        } else {
+            $user = auth()->user();
+            $game->suggested = $user->name;
+        }
+
         $game->user_id = auth()->id();
         $game->save();
 
-        return redirect('games');
+        return redirect('home');
     }
 
     /**
@@ -82,13 +97,14 @@ class GameController extends Controller
      * @param  \App\Game  $game
      * @return \Illuminate\Http\Response
      */
-    public function update(GameRequest $request, Game $game)
+    public function update(UpdateGameRequest $request, Game $game)
     {
-        $game->fill($request->all());
+        $game->name = request('name');
+        $game->platform_id = request('platform_id');
         $game->user_id = request('user_id');
         $game->save();
 
-        return redirect('games');
+        return redirect('home');
     }
 
     /**
@@ -101,35 +117,20 @@ class GameController extends Controller
     {
         Game::destroy($game->id);
 
-        return redirect('games');
-    }
-
-    /**
-     * Show the form for moderate added game.
-     *
-     * @param  \App\Game  $game
-     * @return \Illuminate\Http\Response
-     */
-    public function moderate(Game $game)
-    {
-        $platforms = Platform::all();
-
-        return view('game.moderate', compact('game', 'platforms'));
+        return back();
     }
 
     /**
      * Update and aprove game after moderator review
      *
-     * @param  \App\Http\Requests\GameRequest $request
      * @param  \App\Game  $game
      * @return \Illuminate\Http\Response
      */
-    public function approve(GameRequest $request, Game $game)
+    public function approve(Game $game)
     {
-        $game->fill($request->all());
         $game->user_id = auth()->id();
         $game->save();
 
-        return redirect('games');
+        return redirect('moderate');
     }
 }

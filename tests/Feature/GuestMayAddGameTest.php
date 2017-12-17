@@ -15,7 +15,7 @@ class GuestMayAddGameTest extends TestCase
      */
     public function canBrowseAddGameForm()
     {
-        $this->get('/add')->assertStatus(200);
+        $this->get('/games/create')->assertStatus(200);
     }
 
     /**
@@ -30,7 +30,7 @@ class GuestMayAddGameTest extends TestCase
             'platform_id' => $platform->id
         ];
 
-        $this->post('/store', $game);
+        $this->post('/games', $game);
 
         $this->assertDatabaseHas('games', $game);
     }

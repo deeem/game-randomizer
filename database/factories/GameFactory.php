@@ -10,7 +10,8 @@ $factory->define(App\Game::class, function (Faker $faker) {
         },
         'user_id' => function() {
             return App\User::all()->random()->id;
-        }
+        },
+        'suggested' => $faker->name
     ];
 });
 

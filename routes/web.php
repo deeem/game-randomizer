@@ -17,16 +17,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/add', 'GuestController@create');
-Route::post('/store', 'GuestController@store');
-Route::get('/posted', 'GuestController@displayPostAdded');
-
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('users', 'UserController');
 Route::resource('platforms', 'PlatformController');
 
-Route::get('/games', 'GameController@index');
 Route::get('/games/create', 'GameController@create');
 Route::get('/games/{game}/edit', 'GameController@edit');
 Route::post('/games', 'GameController@store');
@@ -35,5 +30,5 @@ Route::delete('/games/{game}', 'GameController@destroy');
 
 Route::get('/games/{platform}', 'GameController@index');
 
-Route::get('/game/{game}/moderate', 'GameController@moderate');
-Route::post('/game/{game}/approve', 'GameController@approve');
+Route::get('/approve/{game}', 'GameController@approve');
+Route::get('/moderate', 'GameController@moderate');

@@ -2,55 +2,37 @@
 
 @section('content')
 <div class="row">
-  <div class="col-md-8 col-md-offset-2">
-    <div class="panel panel-default">
-      <div class="panel-heading"><h3 class="panel-title">Заявка на добавление игры</h3></div>
+    <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="panel-title">Предложенные игры</h3></div>
 
-      <div class="panel-body">
-        <form class="form-horizontal" method="POST" action="/game/{{ $game->id }}/approve">
-
-          {{ csrf_field() }}
-          @if ($errors->any())
-          <div class="alert alert-danger">
-            <ul>
-              @foreach ($errors->all() as $error)
-              <li>{{ $error }}</li>
-              @endforeach
-            </ul>
-          </div>
-          @endif
-
-          <div class="form-group">
-            <label for="inputName" class="col-sm-4 control-label">Название</label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control" id="inputName" placeholder="Имя" name="name" value="{{ $game->name }}" required>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="platform_id" class="col-sm-4 control-label">Платформа</label>
-            <div class="col-sm-8">
-                @foreach($platforms as $platform)
-                  <div class="radio">
-                    <label>
-                      <input type="radio" name="platform_id" value="{{ $platform->id }}" {{ $game->platform_id == $platform->id ? 'checked' : '' }}>
-                      {{ $platform->name }}
-                    </label>
-                  </div>
+            <table class="table">
+                <tr>
+                    <th>Название</th>
+                    <th>Платформа</th>
+                    <th></th>
+                </tr>
+                @foreach($games as $game)
+                <tr>
+                    <td>{{ $game->name }}</td>
+                    <td>{{ $game->platform->name }}</td>
+                    <td>
+                        <a href="/approve/{{ $game->id }}" class="btn btn-default btn-xs">
+                            <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
+                        </a>
+                        &nbsp;&nbsp;
+                        <form action="/games/{{ $game->id }}" method="POST" style="display:inline;">
+                             {{ method_field('DELETE') }}
+                             {{ csrf_field() }}
+                             <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('are you shure?');">
+                                <span class="glyphicon glyphicon-remove-circle " aria-hidden="true"></span>
+                              </button>
+                        </form>
+                    </td>
+                </tr>
                 @endforeach
-            </div>
-          </div>
-
-          <div class="form-group">
-            <div class="col-sm-offset-4 col-sm-8">
-              <button type="submit" class="btn btn-primary">Добавить</button>
-              <a href="/game/{{ $game->id }}/destroy" class="btn btn-danger" onclick="return confirm('are you sure?');">Отклонить</a>
-            </div>
-          </div>
-
-        </form>
-      </div>
+            </table>
+        </div>
     </div>
-  </div>
 </div>
 @endsection
