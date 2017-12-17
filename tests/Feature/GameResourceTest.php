@@ -29,8 +29,8 @@ class GameResourceTest extends TestCase
      */
     public function canBrowseGameResources()
     {
-        $this->get('/games')->assertStatus(200);
         $this->get('/games/create')->assertStatus(200);
+        $this->get('/games/1/edit')->assertStatus(200);
     }
 
     /**
@@ -68,7 +68,8 @@ class GameResourceTest extends TestCase
             [
                 'name' => 'foo',
                 'platform_id' => $this->platform->id,
-                'user_id' => null
+                'user_id' => null,
+                'suggested' => 'bar'
             ]
         );
 
@@ -77,7 +78,8 @@ class GameResourceTest extends TestCase
             [
                 'name' => 'foo',
                 'platform_id' => $this->platform->id,
-                'user_id' => $this->user->id
+                'user_id' => $this->user->id,
+                'suggested' => 'bar'
             ]
         );
     }

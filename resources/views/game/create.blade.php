@@ -42,6 +42,13 @@
           </div>
 
           <div class="form-group">
+            <label for="inputSuggest" class="col-sm-4 control-label">Предложил</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="inputSuggest" placeholder="Ваш ник" name="suggested" required>
+            </div>
+          </div>
+
+          <div class="form-group">
             <div class="col-sm-offset-4 col-sm-8">
               <button type="submit" class="btn btn-primary">Добавить</button>
             </div>

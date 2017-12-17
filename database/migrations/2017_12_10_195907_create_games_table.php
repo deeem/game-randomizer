@@ -18,6 +18,7 @@ class CreateGamesTable extends Migration
             $table->string('name', 100);
             $table->integer('platform_id');
             $table->integer('user_id')->nullable()->default(null);
+            $table->string('suggested', 50)->nullable()->default(null);
             $table->timestamps();
         });
     }
