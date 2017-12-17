@@ -8,7 +8,7 @@ use App\Platform;
 use App\Game;
 
 
-class GameRequest extends FormRequest
+class StoreGameRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -17,7 +17,7 @@ class GameRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->check();
+        return true;
     }
 
     /**

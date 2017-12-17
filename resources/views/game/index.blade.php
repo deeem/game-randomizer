@@ -10,11 +10,7 @@
                 <tr>
                     <th>Название</th>
                     <th>Платформа</th>
-                    <th>
-                        <a href="/games/create" class="btn btn-primary btn-sm">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        </a>
-                    </th>
+                    <th></th>
                 </tr>
                 @foreach($games as $game)
                 <tr>

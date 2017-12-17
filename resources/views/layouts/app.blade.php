@@ -59,6 +59,8 @@
                       </li>
                       @endauth
 
+                      <li><a hre="/games/create">Добавить игру</a>
+
                     </ul>
 
 
