@@ -38,6 +38,7 @@
                     <ul class="nav navbar-nav">
                         &nbsp;
 
+                      @auth
                       <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Платформы <span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -46,14 +47,17 @@
                           @endforeach
                         </ul>
                       </li>
+                      @endauth
 
-                     <li>
+                      @auth
+                      <li>
                        @if(App\Game::unapproved()->count())
                          <a href="/games">На модерации <span class="badge">{{ App\Game::unapproved()->count() }}</span></a>
                        @else
                          <a href="/games">На модерации</a>
                        @endif
-                     </li>
+                      </li>
+                      @endauth
 
                     </ul>
 
