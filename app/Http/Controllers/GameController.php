@@ -131,6 +131,6 @@ class GameController extends Controller
         $game->user_id = auth()->id();
         $game->save();
 
-        return redirect('moderate');
+        return back();
     }
 }

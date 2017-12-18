@@ -84,7 +84,7 @@ class GameAddTest extends TestCase
     {
         $game = factory('App\Game')->states('unapproved')->create();
 
-        $this->get("/approve/{$game->id}");
+        $this->get("/games/{$game->id}/approve");
 
         $this->assertDatabaseHas(
             'games',

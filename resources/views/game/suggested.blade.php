@@ -23,7 +23,7 @@
                     <td>{{ $game->name }}</td>
                     <td>{{ $game->platform->name }}</td>
                     <td>
-                        <a href="/approve/{{ $game->id }}" class="btn btn-default btn-xs">
+                        <a href="/games/{{ $game->id }}/approve" class="btn btn-default btn-xs">
                             <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
                         </a>
                         &nbsp;&nbsp;
