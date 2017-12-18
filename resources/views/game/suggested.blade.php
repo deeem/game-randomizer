@@ -6,7 +6,7 @@
 
     <div class="panel panel-default">
       <div class="panel-body">
-        <p class="text-center" style="font-size: 1.75em; font-weight: 600;">{{ $name }}</p>
+        <p class="text-center" style="font-size: 1.75em; font-weight: 600;">предложенные</p>
       </div>
     </div>
 
@@ -16,23 +16,23 @@
       <table class="table">
         <tr>
           <th>Название</th>
-          <th>Предложил</th>
+          <th>Платформа</th>
           <th></th>
         </tr>
         @foreach($games as $game)
         <tr>
           <td>{{ $game->name }}</td>
-          <td>{{ $game->suggested }}</td>
+          <td>{{ $game->platform->name }}</td>
           <td>
-            <a href="/games/{{ $game->id }}/edit" class="btn btn-default btn-xs">
-              <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+            <a href="/games/{{ $game->id }}/approve" class="btn btn-default btn-xs">
+              <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
             </a>
             &nbsp;&nbsp;
             <form action="/games/{{ $game->id }}" method="POST" style="display:inline;">
               {{ method_field('DELETE') }}
               {{ csrf_field() }}
               <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('are you shure?');">
-                <span class="glyphicon glyphicon-trash " aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-remove-circle " aria-hidden="true"></span>
               </button>
             </form>
           </td>

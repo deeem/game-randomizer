@@ -52,14 +52,14 @@
                       @auth
                       <li>
                        @if(App\Game::unapproved()->count())
-                         <a href="/moderate">На модерации <span class="badge">{{ App\Game::unapproved()->count() }}</span></a>
+                         <a href="/games/suggested">Предложенные <span class="badge">{{ App\Game::unapproved()->count() }}</span></a>
                        @else
-                         <a href="/moderate">На модерации</a>
+                         <a href="/games/suggested">Предложенные</a>
                        @endif
                       </li>
                       @endauth
 
-                      <li><a href="/games/create">Добавить игру</a></li>
+                      <li><a href="/games/create">Предложить</a></li>
 
                     </ul>
 
