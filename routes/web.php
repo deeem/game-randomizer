@@ -23,6 +23,7 @@ Route::resource('users', 'UserController');
 Route::resource('platforms', 'PlatformController');
 
 Route::get('/games/create', 'GameController@create');
+Route::get('/games/suggested', 'GameController@suggested');
 Route::get('/games/{game}/edit', 'GameController@edit');
 Route::post('/games', 'GameController@store');
 Route::put('/games/{game}', 'GameController@update');
@@ -31,4 +32,3 @@ Route::delete('/games/{game}', 'GameController@destroy');
 Route::get('/games/{platform}', 'GameController@index');
 
 Route::get('/approve/{game}', 'GameController@approve');
-Route::get('/moderate', 'GameController@moderate');

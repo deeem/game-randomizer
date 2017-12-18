@@ -28,11 +28,11 @@ class GameAddTest extends TestCase
     /**
      * @test
      */
-    public function canSeeUnapprovedGameInModerateList()
+    public function canSeeUnapprovedGameInSuggestedGameList()
     {
         $game = factory('App\Game')->states('unapproved')->create();
 
-        $this->get('/moderate')->assertSee($game->name);
+        $this->get('/games/suggested')->assertSee($game->name);
     }
 
     /**

@@ -32,11 +32,11 @@ class GameController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function moderate()
+    public function suggested()
     {
         $games = Game::unapproved()->get();
 
-        return view('game.moderate', compact('games'));
+        return view('game.suggested', compact('games'));
     }
 
     /**
