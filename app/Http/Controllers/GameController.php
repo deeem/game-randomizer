@@ -22,9 +22,14 @@ class GameController extends Controller
      */
     public function index(Platform $platform)
     {
-        $games = $platform->games()->get()->sortBy('name');
+        if (! $platform->exists()) {
+            abort(404);
+        }
 
-        return view('game.index', compact('games'));
+        $games = $platform->games()->get()->sortBy('name');
+        $name = $platform->name;
+
+        return view('game.index', compact('games', 'name'));
     }
 
     /**
