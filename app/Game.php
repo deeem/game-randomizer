@@ -39,4 +39,15 @@ class Game extends Model
     {
         return $query->where('user_id', '=', null);
     }
+
+    /**
+     * Scope a query to recent approved games
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeRecentApproved($query)
+    {
+        return $query->where('user_id', '!=', null)->latest('updated_at');
+    }
 }

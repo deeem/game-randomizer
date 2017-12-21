@@ -25,24 +25,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $countGames = function() {
-            $counts = [];
-            $platforms = Platform::all();
-            foreach($platforms as $platform) {
-                $counts[$platform->name] = $platform->games->count();
-            }
+        $stats = Platform::gamesStats();
 
-            return $counts;
-        };
-
-        $counts = $countGames();
-
-        $max = array_reduce(array_values($counts), function ($acc, $item) {
+        $max = array_reduce(array_values($stats), function ($acc, $item) {
             return $item > $acc ? $item : $acc;
         }, 0);
 
-        $games = Game::where('user_id', '!=', null)->latest('updated_at')->take(10)->get();
+        $games = Game::recentApproved()->take(10)->get();
 
-        return view('dashboard.index', compact('games', 'counts', 'max'));
+        return view('dashboard.index', compact('games', 'stats', 'max'));
     }
 }

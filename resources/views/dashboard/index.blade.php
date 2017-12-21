@@ -4,7 +4,7 @@
 <div class="row">
   <div class="col-md-8 col-md-offset-2">
 
-    @if(count($counts))
+    @if(count($stats))
       @include('dashboard.stats')
     @else
       @include('dashboard.stats-empty')
