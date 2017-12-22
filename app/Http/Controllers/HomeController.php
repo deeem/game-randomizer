@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Game;
+use App\Platform;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -13,7 +15,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('index');
     }
 
     /**
@@ -23,6 +25,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $stats = Platform::gamesStats()->sortByDesc('gamesCount');
+        $max = $stats->max('gamesCount');
+        $games = Game::recentApproved()->take(10)->get();
+
+        return view('dashboard.index', compact('games', 'stats', 'max'));
     }
 }
