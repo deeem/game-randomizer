@@ -25,12 +25,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $stats = Platform::gamesStats();
-
-        $max = array_reduce(array_values($stats), function ($acc, $item) {
-            return $item > $acc ? $item : $acc;
-        }, 0);
-
+        $stats = Platform::gamesStats()->sortByDesc('gamesCount');
+        $max = $stats->max('gamesCount');
         $games = Game::recentApproved()->take(10)->get();
 
         return view('dashboard.index', compact('games', 'stats', 'max'));

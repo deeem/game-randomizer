@@ -34,16 +34,16 @@ class Platform extends Model
     /**
      * Get statistic of added games by platforms
      *
-     * @return array
+     * @return \Illuminate\Support\Collection
      */
     public static function gamesStats()
     {
         $stats = [];
         $platforms = self::all();
         foreach($platforms as $platform) {
-            $stats[$platform->name] = $platform->games->count();
+            $stats[] = ['name' => $platform->name, 'gamesCount' => $platform->games->count()];
         }
 
-        return $stats;
+        return collect($stats);
     }
 }
