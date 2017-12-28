@@ -57,7 +57,11 @@ class InviteController extends Controller
         }
 
         // create the user with the details from the invite
-        User::create(['email' => $invite->email, 'name' => 'aaa', 'password' => 'secret']);
+        User::create([
+            'email' => $invite->email,
+            'name' => 'user-' . uniqid(),
+            'password' => bcrypt('secret')
+        ]);
 
         // delete the invite so it can't be used again
         $invite->delete();
