@@ -72,4 +72,13 @@ class InviteTest extends TestCase
 
         $this->assertDatabaseMissing('invites', $data);
     }
+
+    /**
+     * @test
+     */
+    public function validateInviteForm()
+    {
+        $this->post('/invites', ['email' => null])
+            ->assertSessionHasErrors('email');
+    }
 }

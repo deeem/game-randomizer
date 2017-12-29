@@ -24,25 +24,23 @@ class InviteController extends Controller
      */
     public function process(Request $request)
     {
-        // validate the incoming request data
+        $request->validate([
+            'email' => 'required|email'
+        ]);
+
         $email = request('email');
 
         do {
-            // generate a random string using Laravel's str_random helper
             $token = str_random();
         } //check if token already exists and if it does, try again
         while (Invite::where('token', $token)->first());
 
-        // create a new invite record
         $invite = Invite::create([
             'email' => $email,
             'token' => $token
         ]);
 
-        // send the email
         Mail::to($email)->send(new InviteCreated($invite));
-
-        // redirect back where we cam socket_recvfrom
 
         return redirect()->back();
     }
