@@ -7,6 +7,7 @@ use App\Invite;
 use App\Mail\InviteCreated;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class InviteController extends Controller
 {
@@ -15,7 +16,7 @@ class InviteController extends Controller
      */
     public function invite()
     {
-        return view('user.invite');
+        return view('invite.create');
     }
 
     /**
@@ -24,6 +25,7 @@ class InviteController extends Controller
     public function process(Request $request)
     {
         // validate the incoming request data
+        $email = request('email');
 
         do {
             // generate a random string using Laravel's str_random helper
@@ -33,12 +35,12 @@ class InviteController extends Controller
 
         // create a new invite record
         $invite = Invite::create([
-            'email' => $request->get('email'),
+            'email' => $email,
             'token' => $token
         ]);
 
         // send the email
-        Mail::to($request->get('email'))->send(new InviteCreated($invite));
+        Mail::to($email)->send(new InviteCreated($invite));
 
         // redirect back where we cam socket_recvfrom
 
@@ -50,24 +52,23 @@ class InviteController extends Controller
      */
     public function accept($token)
     {
-        // Look up the invite
         if (! $invite = Invite::where('token', $token)->first()) {
-            // if the invite doesn't exists do something more graceful than this
             abort(404);
         }
 
-        // create the user with the details from the invite
-        User::create([
-            'email' => $invite->email,
+        $email = $invite->email;
+        $password = str_random();
+
+        $user = User::create([
+            'email' => $email,
             'name' => 'user-' . uniqid(),
-            'password' => bcrypt('secret')
+            'password' => bcrypt($password)
         ]);
 
-        // delete the invite so it can't be used again
+        Auth::attempt(['email' => $email, 'password' => $password]);
+
         $invite->delete();
 
-        // here you would probably log user in and show them them dashboard, but we'll prove it worked
-
-        return 'Good job! Invite accepted!';
+        return redirect("/users/{$user->id}/edit");
     }
 }

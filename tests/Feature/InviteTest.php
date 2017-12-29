@@ -18,7 +18,7 @@ class InviteTest extends TestCase
      */
     public function canCreateInvite()
     {
-        $this->post('/invite', ['email' => 'foo@example.com']);
+        $this->post('/invites', ['email' => 'foo@example.com']);
 
         $this->assertDatabaseHas(
             'invites',
@@ -35,7 +35,7 @@ class InviteTest extends TestCase
 
         $email = 'foo@bar.com';
 
-        $this->post('/invite', ['email' => $email]);
+        $this->post('/invites', ['email' => $email]);
 
         Mail::assertSent(InviteCreated::class, function ($mail) use ($email) {
             return $mail->hasTo($email);
@@ -52,8 +52,8 @@ class InviteTest extends TestCase
             'token' => str_random()
         ]);
 
-        $this->get("/accept/{$invite->token}")
-            ->assertSee('Good job! Invite accepted!');
+        $this->get("/invites/{$invite->token}/accept")
+            ->assertRedirect('http://web/users/1/edit');
     }
 
     /**
@@ -68,7 +68,7 @@ class InviteTest extends TestCase
 
         $invite = Invite::create($data);
 
-        $this->get("/accept/{$invite->token}");
+        $this->get("/invites/{$invite->token}/accept");
 
         $this->assertDatabaseMissing('invites', $data);
     }

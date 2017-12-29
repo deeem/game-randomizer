@@ -28,6 +28,6 @@ Route::post('/games', 'GameController@store');
 Route::put('/games/{game}', 'GameController@update');
 Route::delete('/games/{game}', 'GameController@destroy');
 
-Route::get('invite', 'InviteController@invite');//->name('invite');
-Route::post('invite', 'InviteController@process');//->name('process');
-Route::get('accept/{token}', 'InviteController@accept');//->('accept');
+Route::get('invites', 'InviteController@invite');
+Route::post('invites', 'InviteController@process');
+Route::get('invites/{token}/accept', 'InviteController@accept');
