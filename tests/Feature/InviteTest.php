@@ -102,4 +102,22 @@ class InviteTest extends TestCase
         $this->get('/invites/create')->assertRedirect('login');
         $this->post('/invites')->assertRedirect('login');
     }
+
+    /**
+     * @test
+     */
+    public function canDestroyInvites()
+    {
+        $invite = factory('App\Invite')->create();
+
+        $email = $invite->email;
+        $id = $invite->id;
+
+        $this->delete("/invites/{$invite->id}");
+
+        $this->assertDatabaseMissing(
+            'invites',
+            ['id' => $id, 'email' => $email]
+        );
+    }
 }

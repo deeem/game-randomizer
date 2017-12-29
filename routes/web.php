@@ -32,3 +32,4 @@ Route::get('/invites', 'InviteController@index');
 Route::get('/invites/create', 'InviteController@create');
 Route::get('/invites/{token}/accept', 'InviteController@accept');
 Route::post('/invites', 'InviteController@process');
+Route::delete('/invites/{invite}', 'InviteController@destroy');

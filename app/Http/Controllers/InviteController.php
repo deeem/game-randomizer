@@ -84,4 +84,15 @@ class InviteController extends Controller
 
         return redirect("/users/{$user->id}/edit");
     }
+
+    /**
+     * Remove the specified invite from storage.
+     */
+    public function destroy(Invite $invite)
+    {
+        Invite::destroy($invite->id);
+
+        return redirect('invites');
+    }
+
 }
