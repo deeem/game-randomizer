@@ -13,6 +13,13 @@ class InviteTest extends TestCase
 {
     use DatabaseMigrations;
 
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->actingAs(factory('App\User')->create());
+    }
+
     /**
      * @test
      */
@@ -52,8 +59,10 @@ class InviteTest extends TestCase
             'token' => str_random()
         ]);
 
+        auth()->logout();
+
         $this->get("/invites/{$invite->token}/accept")
-            ->assertRedirect('http://web/users/1/edit');
+            ->assertRedirect('http://web/users/2/edit');
     }
 
     /**
@@ -80,5 +89,16 @@ class InviteTest extends TestCase
     {
         $this->post('/invites', ['email' => null])
             ->assertSessionHasErrors('email');
+    }
+
+    /**
+     * @test
+     */
+    public function guestCanNotCreateInvites()
+    {
+        auth()->logout();
+
+        $this->get('/invites')->assertRedirect('login');
+        $this->post('/invites')->assertRedirect('login');
     }
 }

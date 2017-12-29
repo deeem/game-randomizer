@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Auth;
 
 class InviteController extends Controller
 {
+    public function __construct()
+    {
+      $this->middleware('auth')->except('accept');
+    }
+
     /**
      * Show the user form with email field to invite a new user
      */
