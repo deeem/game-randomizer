@@ -27,3 +27,9 @@ Route::get('/games/{platform}', 'GameController@index');
 Route::post('/games', 'GameController@store');
 Route::put('/games/{game}', 'GameController@update');
 Route::delete('/games/{game}', 'GameController@destroy');
+
+Route::get('/invites', 'InviteController@index');
+Route::get('/invites/create', 'InviteController@create');
+Route::get('/invites/{token}/accept', 'InviteController@accept');
+Route::post('/invites', 'InviteController@process');
+Route::delete('/invites/{invite}', 'InviteController@destroy');

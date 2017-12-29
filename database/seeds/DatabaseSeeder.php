@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
         factory('App\Platform', 10)->create();
         factory('App\Game', 100)->create();
         factory('App\Game', 50)->states('unapproved')->create();
+        factory('App\Invite', 20)->create();
     }
 }

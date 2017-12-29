@@ -7,9 +7,6 @@ use App\User;
 
 class UserController extends Controller
 {
-    /**
-     * @test
-     */
     public function __construct()
     {
       $this->middleware('auth');
