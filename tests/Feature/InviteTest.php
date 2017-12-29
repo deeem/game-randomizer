@@ -99,6 +99,7 @@ class InviteTest extends TestCase
         auth()->logout();
 
         $this->get('/invites')->assertRedirect('login');
+        $this->get('/invites/create')->assertRedirect('login');
         $this->post('/invites')->assertRedirect('login');
     }
 }

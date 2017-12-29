@@ -17,9 +17,19 @@ class InviteController extends Controller
     }
 
     /**
+     * Display list of invites
+     */
+    public function index()
+    {
+        $invites = Invite::all();
+
+        return view('invite.index', compact('invites'));
+    }
+
+    /**
      * Show the user form with email field to invite a new user
      */
-    public function invite()
+    public function create()
     {
         return view('invite.create');
     }
@@ -47,7 +57,7 @@ class InviteController extends Controller
 
         Mail::to($email)->send(new InviteCreated($invite));
 
-        return redirect()->back();
+        return redirect('/invites');
     }
 
     /**
