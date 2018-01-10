@@ -94,4 +94,25 @@ class UserResourceTest extends TestCase
             ['id' => $this->user->id, 'name' => 'newname']
         );
     }
+
+    /**
+     * @test
+     */
+    public function newUserHasGamesManagementPermissions()
+    {
+        factory('App\Role')->states('game-management')->create();
+
+        $this->post(
+            '/users',
+            [
+                'name' => 'John Doe',
+                'email' => 'john@example.com',
+                'password' => 'secret'
+            ]
+        );
+
+        $user = \App\User::where('email', 'john@example.com')->first();
+
+        $this->assertTrue($user->hasAccess(['delete-game']));
+    }
 }

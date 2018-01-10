@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Role;
 
 class UserController extends Controller
 {
@@ -50,7 +51,10 @@ class UserController extends Controller
 
         $validatedData['password'] = bcrypt($validatedData['password']);
 
-        User::create($validatedData);
+        $user = User::create($validatedData);
+        $role = Role::where('slug', 'games')->first();
+        $user->roles()->attach($role);
+        $user->save();
 
         return redirect('users');
     }

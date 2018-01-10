@@ -120,4 +120,25 @@ class InviteTest extends TestCase
             ['id' => $id, 'email' => $email]
         );
     }
+
+    /**
+     * @test
+     */
+    public function confirmThatCreatedUserHasGamesManagementPermissions()
+    {
+        factory('App\Role')->states('game-management')->create();
+
+        $data = [
+            'email' => 'foo@example.com',
+            'token' => str_random()
+        ];
+
+        $invite = Invite::create($data);
+
+        $this->get("/invites/{$invite->token}/accept");
+
+        $user = \App\User::where('email', 'foo@example.com')->first();
+
+        $this->assertTrue($user->hasAccess(['delete-game']));
+    }
 }

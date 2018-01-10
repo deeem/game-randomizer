@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Invite;
+use App\Role;
 use App\Mail\InviteCreated;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
@@ -77,6 +78,8 @@ class InviteController extends Controller
             'name' => 'user-' . uniqid(),
             'password' => bcrypt($password)
         ]);
+        $role = Role::where('slug', 'games')->first();
+        $user->roles()->attach($role);
 
         Auth::attempt(['email' => $email, 'password' => $password]);
 
