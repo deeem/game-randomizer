@@ -24,7 +24,29 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+        $this->registerGamePolicies();
+    }
 
-        //
+    public function registerGamePolicies()
+    {
+        Gate::define('approved-games', function ($user) {
+            return $user->hasAccess(['approved-games']);
+        });
+
+        Gate::define('suggested-games', function ($user) {
+            return $user->hasAccess(['suggested-games']);
+        });
+
+        Gate::define('edit-game', function ($user) {
+            return $user->hasAccess(['edit-game']);
+        });
+
+        Gate::define('delete-game', function ($user) {
+            return $user->hasAccess(['delete-game']);
+        });
+
+        Gate::define('approve-game', function ($user) {
+            return $user->hasAccess(['approve-game']);
+        });
     }
 }
