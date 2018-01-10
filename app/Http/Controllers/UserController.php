@@ -52,7 +52,7 @@ class UserController extends Controller
         $validatedData['password'] = bcrypt($validatedData['password']);
 
         $user = User::create($validatedData);
-        $role = Role::where('slug', 'games')->first();
+        $role = Role::where('slug', 'game-management')->first();
         $user->roles()->attach($role);
         $user->save();
 

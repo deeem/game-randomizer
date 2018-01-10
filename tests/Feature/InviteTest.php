@@ -124,7 +124,7 @@ class InviteTest extends TestCase
     /**
      * @test
      */
-    public function confirmThatCreatedUserHasGamesManagementPermissions()
+    public function invitedUserHasGamesManagementPermissions()
     {
         factory('App\Role')->states('game-management')->create();
 

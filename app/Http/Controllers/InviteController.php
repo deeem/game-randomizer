@@ -78,7 +78,7 @@ class InviteController extends Controller
             'name' => 'user-' . uniqid(),
             'password' => bcrypt($password)
         ]);
-        $role = Role::where('slug', 'games')->first();
+        $role = Role::where('slug', 'game-management')->first();
         $user->roles()->attach($role);
 
         Auth::attempt(['email' => $email, 'password' => $password]);

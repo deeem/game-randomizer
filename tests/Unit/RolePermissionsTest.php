@@ -59,11 +59,12 @@ class RolePermissionsTest extends TestCase
          [true, ['edit-platform']],
          [true, ['show-platform']],
          [true, ['delete-platform']],
-         [true, ['list-games']],
-         [true, ['create-game']],
+         [true, ['approved-games']],
+         [true, ['suggested-games']],
+         [true, ['suggest-game']],
          [true, ['edit-game']],
-         [true, ['show-game']],
          [true, ['delete-game']],
+         [true, ['approve-game']],
         ];
     }
 
@@ -82,11 +83,12 @@ class RolePermissionsTest extends TestCase
          [false, ['edit-platform']],
          [false, ['show-platform']],
          [false, ['delete-platform']],
-         [true, ['list-games']],
-         [true, ['create-game']],
+         [true, ['approved-games']],
+         [true, ['suggested-games']],
+         [true, ['suggest-game']],
          [true, ['edit-game']],
-         [true, ['show-game']],
          [true, ['delete-game']],
+         [true, ['approve-game']],
         ];
     }
 }

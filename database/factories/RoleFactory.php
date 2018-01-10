@@ -15,7 +15,7 @@ $factory->define(App\Role::class, function (Faker $faker) {
 $factory->state(App\Role::class, 'invite-management', function (Faker $faker) {
     return [
         'name' => 'Invite management',
-        'slug' => 'invites',
+        'slug' => 'invite-management',
         'permissions' => [
             'create-invite' => true,
             'destroy-invite' => true,
@@ -26,7 +26,7 @@ $factory->state(App\Role::class, 'invite-management', function (Faker $faker) {
 $factory->state(App\Role::class, 'user-management', function (Faker $faker) {
     return [
         'name' => 'User management',
-        'slug' => 'users',
+        'slug' => 'user-management',
         'permissions' => [
             'list-users' => true,
             'create-user' => true,
@@ -40,7 +40,7 @@ $factory->state(App\Role::class, 'user-management', function (Faker $faker) {
 $factory->state(App\Role::class, 'platform-management', function (Faker $faker) {
     return [
         'name' => 'Platform management',
-        'slug' => 'platforms',
+        'slug' => 'platform-management',
         'permissions' => [
             'list-platforms' => true,
             'create-platform' => true,
@@ -54,13 +54,14 @@ $factory->state(App\Role::class, 'platform-management', function (Faker $faker) 
 $factory->state(App\Role::class, 'game-management', function (Faker $faker) {
     return [
         'name' => 'Game management',
-        'slug' => 'games',
+        'slug' => 'game-management',
         'permissions' => [
-            'list-games' => true,
-            'create-game' => true,
+            'approved-games' => true,
+            'suggested-games' => true,
+            'suggest-game' => true,
             'edit-game' => true,
-            'show-game' => true,
             'delete-game' => true,
+            'approve-game' => true,
         ]
     ];
 });

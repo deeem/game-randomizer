@@ -98,7 +98,7 @@ class UserResourceTest extends TestCase
     /**
      * @test
      */
-    public function newUserHasGamesManagementPermissions()
+    public function createdUserHasGamesManagementPermissions()
     {
         factory('App\Role')->states('game-management')->create();
 
