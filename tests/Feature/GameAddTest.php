@@ -18,8 +18,11 @@ class GameAddTest extends TestCase
     {
         parent::setUp();
 
+        $role = factory('App\Role')->states('game-management')->create();
+
         $this->platform = factory('App\Platform')->create();
         $this->user = factory('App\User')->create();
+        $this->user->roles()->attach($role);
         $this->game = factory('App\Game')->create();
 
         $this->actingAs($this->user);

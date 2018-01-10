@@ -18,9 +18,12 @@ class GameResourceTest extends TestCase
     {
         parent::setUp();
 
+        $role = factory('App\Role')->states('game-management')->create();
+
         $this->platform = factory('App\Platform')->create();
         $this->user = factory('App\User')->create();
         $this->game = factory('App\Game')->create();
+        $this->user->roles()->attach($role);
 
         $this->actingAs($this->user);
     }
