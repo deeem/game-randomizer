@@ -25,6 +25,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
         $this->registerGamePolicies();
+        $this->registerInvitePolicies();
     }
 
     public function registerGamePolicies()
@@ -47,6 +48,21 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('approve-game', function ($user) {
             return $user->hasAccess(['approve-game']);
+        });
+    }
+
+    public function registerInvitePolicies()
+    {
+        Gate::define('list-invites', function ($user) {
+            return $user->hasAccess(['list-invites']);
+        });
+
+        Gate::define('create-invite', function ($user) {
+            return $user->hasAccess(['create-invite']);
+        });
+
+        Gate::define('destroy-invite', function ($user) {
+            return $user->hasAccess(['destroy-invite']);
         });
     }
 }

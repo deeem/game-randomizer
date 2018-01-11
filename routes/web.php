@@ -28,8 +28,8 @@ Route::post('/games', 'GameController@store');
 Route::put('/games/{game}', 'GameController@update')->middleware('can:edit-game');
 Route::delete('/games/{game}', 'GameController@destroy')->middleware('can:delete-game');
 
-Route::get('/invites', 'InviteController@index');
-Route::get('/invites/create', 'InviteController@create');
+Route::get('/invites', 'InviteController@index')->middleware('can:list-invites');
+Route::get('/invites/create', 'InviteController@create')->middleware('can:create-invite');
 Route::get('/invites/{token}/accept', 'InviteController@accept');
-Route::post('/invites', 'InviteController@process');
-Route::delete('/invites/{invite}', 'InviteController@destroy');
+Route::post('/invites', 'InviteController@process')->middleware('can:create-invite');
+Route::delete('/invites/{invite}', 'InviteController@destroy')->middleware('can:destroy-invite');

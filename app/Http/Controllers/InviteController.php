@@ -14,7 +14,7 @@ class InviteController extends Controller
 {
     public function __construct()
     {
-      $this->middleware('auth')->except('accept');
+      // $this->middleware('auth')->except('accept');
     }
 
     /**
@@ -97,5 +97,4 @@ class InviteController extends Controller
 
         return redirect('invites');
     }
-
 }

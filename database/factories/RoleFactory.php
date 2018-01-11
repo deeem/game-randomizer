@@ -19,6 +19,7 @@ $factory->state(App\Role::class, 'invite-management', function (Faker $faker) {
         'permissions' => [
             'create-invite' => true,
             'destroy-invite' => true,
+            'list-invites' => true,
         ]
     ];
 });

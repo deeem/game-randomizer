@@ -17,7 +17,11 @@ class InviteTest extends TestCase
     {
         parent::setUp();
 
-        $this->actingAs(factory('App\User')->create());
+        $role = factory('App\Role')->states('invite-management')->create();
+        $user = factory('App\User')->create();
+        $user->roles()->attach($role);
+
+        $this->actingAs($user);
     }
 
     /**
@@ -25,6 +29,8 @@ class InviteTest extends TestCase
      */
     public function canCreateInvite()
     {
+        $this->withoutEXceptionHandling();
+
         $this->post('/invites', ['email' => 'foo@example.com']);
 
         $this->assertDatabaseHas(

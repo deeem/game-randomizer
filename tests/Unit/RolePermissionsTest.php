@@ -49,6 +49,7 @@ class RolePermissionsTest extends TestCase
         return [
          [true, ['create-invite']],
          [true, ['destroy-invite']],
+         [true, ['list-invites']],
          [true, ['list-users']],
          [true, ['create-user']],
          [true, ['edit-user']],
@@ -73,6 +74,7 @@ class RolePermissionsTest extends TestCase
         return [
          [false, ['create-invite']],
          [false, ['destroy-invite']],
+         [false, ['list-invites']],
          [false, ['list-users']],
          [false, ['create-user']],
          [false, ['edit-user']],
