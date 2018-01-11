@@ -23,7 +23,12 @@ Route::post('/users', 'UserController@store')->middleware('can:create-user');
 Route::put('/users/{user}', 'UserController@update')->middleware('can:edit-user');
 Route::delete('/users/{user}', 'UserController@destroy')->middleware('can:delete-user');
 
-Route::resource('platforms', 'PlatformController');
+Route::get('/platforms', 'PlatformController@index')->middleware('can:list-platforms');
+Route::get('/platforms/create', 'PlatformController@create')->middleware('can:create-platform');
+Route::get('/platforms/{platform}/edit', 'PlatformController@edit')->middleware('can:edit-platform');
+Route::post('/platforms', 'PlatformController@store')->middleware('can:create-platform');
+Route::put('/platforms/{platform}', 'PlatformController@update')->middleware('can:edit-platform');
+Route::delete('/platforms/{platform}', 'PlatformController@destroy')->middleware('can:delete-platform');
 
 Route::get('/games/create', 'GameController@create');
 Route::get('/games/suggested', 'GameController@suggested')->middleware('can:suggested-games');

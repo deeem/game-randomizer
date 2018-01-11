@@ -45,7 +45,6 @@ $factory->state(App\Role::class, 'platform-management', function (Faker $faker) 
             'list-platforms' => true,
             'create-platform' => true,
             'edit-platform' => true,
-            'show-platform' => true,
             'delete-platform' => true,
         ]
     ];
