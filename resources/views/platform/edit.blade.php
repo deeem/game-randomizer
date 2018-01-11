@@ -8,7 +8,7 @@
             <div class="panel-heading"><h3 class="panel-title">Редактировать платформу</h3></div>
 
             <div class="panel-body">
-                <form class="form-horizontal" method="POST" action="/platforms/{{ $platform->id }}">
+                <form class="form-horizontal" method="POST" action="{{ route('platforms.update', ['platform' => $platform->slug]) }}">
                     {{ csrf_field() }}
                     {{ method_field('PUT') }}
                     @if ($errors->any())

@@ -11,7 +11,7 @@
                     <th>имя</th>
                     <th>email</th>
                     <th>
-                        <a href="/users/create" class="btn btn-primary btn-sm">
+                        <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </a>
                     </th>
@@ -21,11 +21,11 @@
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>
-                        <a href="/users/{{ $user->id }}/edit" class="btn btn-default btn-xs">
+                        <a href="{{ route('users.edit', ['user' => $user->id ]) }}" class="btn btn-default btn-xs">
                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                         </a>
                         &nbsp;&nbsp;
-                        <form action="/users/{{ $user->id }}" method="POST" style="display:inline;">
+                        <form action="{{ route('users.destroy', ['user' => $user->id]) }}" method="POST" style="display:inline;">
                              {{ method_field('DELETE') }}
                              {{ csrf_field() }}
                              <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('are you shure?');">

@@ -46,7 +46,7 @@ class PlatformController extends Controller
 
         Platform::create(['name' => $name, 'slug' => $slug]);
 
-        return redirect('platforms');
+        return redirect()->route('platforms.index');
     }
 
     /**
@@ -79,7 +79,7 @@ class PlatformController extends Controller
         $platform->fill(['name' => $name, 'slug' => $slug]);
         $platform->save();
 
-        return redirect('platforms');
+        return redirect()->route('platforms.index');
     }
 
     /**
@@ -92,7 +92,7 @@ class PlatformController extends Controller
     {
         Platform::destroy($platform->id);
 
-        return redirect('platforms');
+        return redirect()->route('platforms.index');
     }
 
     /**

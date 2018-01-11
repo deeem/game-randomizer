@@ -53,7 +53,7 @@ class InviteController extends Controller
 
         Mail::to($email)->send(new InviteCreated($invite));
 
-        return redirect('/invites');
+        return redirect()->route('invites.index');
     }
 
     /**
@@ -80,7 +80,7 @@ class InviteController extends Controller
 
         $invite->delete();
 
-        return redirect("/users/{$user->id}/edit");
+        return redirect()->route('users.edit', ['user' => $user->id]);
     }
 
     /**
@@ -90,6 +90,6 @@ class InviteController extends Controller
     {
         Invite::destroy($invite->id);
 
-        return redirect('invites');
+        return redirect()->route('invites.index');
     }
 }

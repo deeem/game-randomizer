@@ -7,7 +7,7 @@
             <div class="panel-heading"><h3 class="panel-title">Отправить приглашение</h3></div>
 
             <div class="panel-body">
-                <form class="form-horizontal" method="POST" action="/invites">
+                <form class="form-horizontal" method="POST" action="{{ route('invites.process') }}">
                   {{ csrf_field() }}
                   @if ($errors->any())
                       <div class="alert alert-danger">

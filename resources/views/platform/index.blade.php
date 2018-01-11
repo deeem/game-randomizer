@@ -10,7 +10,7 @@
                 <tr>
                     <th>название</th>
                     <th>
-                        <a href="/platforms/create" class="btn btn-primary btn-sm">
+                        <a href="{{ route('platforms.create') }}" class="btn btn-primary btn-sm">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </a>
                     </th>
@@ -19,11 +19,11 @@
                 <tr>
                     <td>{{ $platform->name }}</td>
                     <td>
-                        <a href="/platforms/{{ $platform->id }}/edit" class="btn btn-default btn-xs">
+                        <a href="{{ route('platforms.edit', ['platform' => $platform->slug]) }}" class="btn btn-default btn-xs">
                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                         </a>
                         &nbsp;&nbsp;
-                        <form action="/platforms/{{ $platform->id }}" method="POST" style="display:inline;">
+                        <form action="{{ route('platforms.destroy', ['platform' => $platform->slug]) }}" method="POST" style="display:inline;">
                              {{ method_field('DELETE') }}
                              {{ csrf_field() }}
                              <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('are you shure?');">

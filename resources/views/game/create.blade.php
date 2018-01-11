@@ -7,7 +7,7 @@
       <div class="panel-heading"><h3 class="panel-title">Предложить игру</h3></div>
 
       <div class="panel-body">
-        <form class="form-horizontal" method="POST" action="/games">
+        <form class="form-horizontal" method="POST" action="{{ route('games.store')}}">
 
           {{ csrf_field() }}
           @if ($errors->any())

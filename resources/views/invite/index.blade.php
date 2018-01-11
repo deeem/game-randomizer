@@ -12,7 +12,7 @@
           <tr>
             <th>email</th>
             <th>
-              <a href="/invites/create" class="btn btn-primary btn-sm">
+              <a href="{{ route('invites.create') }}" class="btn btn-primary btn-sm">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
               </a>
             </th>
@@ -21,7 +21,7 @@
           <tr>
             <td>{{ $invite->email }}</td>
             <td>
-              <form action="/invites/{{ $invite->id }}" method="POST" style="display:inline;">
+              <form action="{{ route('invites.destroy', ['invite' => $invite->id]) }}" method="POST" style="display:inline;">
                 {{ method_field('DELETE') }}
                 {{ csrf_field() }}
                 <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('are you shure?');">
