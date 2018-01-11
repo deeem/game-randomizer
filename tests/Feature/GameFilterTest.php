@@ -15,7 +15,9 @@ class GameFilterTest extends TestCase
      */
     public function canFilterGamesByPlatforms()
     {
+        $role = factory('App\Role')->states('game-management')->create();
         $user = factory('App\User')->create();
+        $user->roles()->attach($role);
         $this->actingAs($user);
 
         $firstPlatform = factory('App\Platform')->create();

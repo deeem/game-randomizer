@@ -17,7 +17,11 @@ class InviteTest extends TestCase
     {
         parent::setUp();
 
-        $this->actingAs(factory('App\User')->create());
+        $role = factory('App\Role')->states('invite-management')->create();
+        $user = factory('App\User')->create();
+        $user->roles()->attach($role);
+
+        $this->actingAs($user);
     }
 
     /**
@@ -25,6 +29,8 @@ class InviteTest extends TestCase
      */
     public function canCreateInvite()
     {
+        $this->withoutEXceptionHandling();
+
         $this->post('/invites', ['email' => 'foo@example.com']);
 
         $this->assertDatabaseHas(
@@ -119,5 +125,26 @@ class InviteTest extends TestCase
             'invites',
             ['id' => $id, 'email' => $email]
         );
+    }
+
+    /**
+     * @test
+     */
+    public function invitedUserHasGamesManagementPermissions()
+    {
+        factory('App\Role')->states('game-management')->create();
+
+        $data = [
+            'email' => 'foo@example.com',
+            'token' => str_random()
+        ];
+
+        $invite = Invite::create($data);
+
+        $this->get("/invites/{$invite->token}/accept");
+
+        $user = \App\User::where('email', 'foo@example.com')->first();
+
+        $this->assertTrue($user->hasAccess(['delete-game']));
     }
 }

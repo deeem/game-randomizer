@@ -24,7 +24,85 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+        $this->registerGamePolicies();
+        $this->registerInvitePolicies();
+        $this->registerUserPolicies();
+        $this->registerPlatformPolicies();
+    }
 
-        //
+    public function registerGamePolicies()
+    {
+        Gate::define('approved-games', function ($user) {
+            return $user->hasAccess(['approved-games']);
+        });
+
+        Gate::define('suggested-games', function ($user) {
+            return $user->hasAccess(['suggested-games']);
+        });
+
+        Gate::define('edit-game', function ($user) {
+            return $user->hasAccess(['edit-game']);
+        });
+
+        Gate::define('delete-game', function ($user) {
+            return $user->hasAccess(['delete-game']);
+        });
+
+        Gate::define('approve-game', function ($user) {
+            return $user->hasAccess(['approve-game']);
+        });
+    }
+
+    public function registerInvitePolicies()
+    {
+        Gate::define('list-invites', function ($user) {
+            return $user->hasAccess(['list-invites']);
+        });
+
+        Gate::define('create-invite', function ($user) {
+            return $user->hasAccess(['create-invite']);
+        });
+
+        Gate::define('destroy-invite', function ($user) {
+            return $user->hasAccess(['destroy-invite']);
+        });
+    }
+
+    public function registerUserPolicies()
+    {
+        Gate::define('list-users', function ($user) {
+            return $user->hasAccess(['list-users']);
+        });
+
+        Gate::define('create-user', function ($user) {
+            return $user->hasAccess(['create-user']);
+        });
+
+        Gate::define('edit-user', function ($user) {
+            return $user->hasAccess(['edit-user']);
+        });
+
+        Gate::define('delete-user', function ($user) {
+            return $user->hasAccess(['delete-user']);
+        });
+    }
+
+    public function registerPlatformPolicies()
+    {
+        Gate::define('list-platforms', function ($user) {
+            return $user->hasAccess(['list-platforms']);
+        });
+
+        Gate::define('create-platform', function ($user) {
+            return $user->hasAccess(['create-platform']);
+        });
+
+        Gate::define('edit-platform', function ($user) {
+            return $user->hasAccess(['edit-platform']);
+        });
+
+        Gate::define('delete-platform', function ($user) {
+            return $user->hasAccess(['delete-platform']);
+        });
     }
 }

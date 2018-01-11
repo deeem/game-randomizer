@@ -14,7 +14,10 @@ class UserFormValidationTest extends TestCase
     {
         parent::setUp();
 
-        $this->actingAs(factory('App\User')->create());
+        $role = factory('App\Role')->states('user-management')->create();
+        $this->user = factory('App\User')->create();
+        $this->user->roles()->attach($role);
+        $this->actingAs($this->user);
     }
 
     /**

@@ -19,7 +19,9 @@ class PlatformTest extends TestCase
 
         $this->platform = factory(Platform::class)->create();
 
+        $role = factory('App\Role')->states('platform-management')->create();
         $user = factory('App\User')->create();
+        $user->roles()->attach($role);
         $this->actingAs($user);
     }
 
@@ -32,9 +34,9 @@ class PlatformTest extends TestCase
         $this->get('/platforms')->assertRedirect('/login');
         $this->get('/platforms/create')->assertRedirect('/login');
         $this->post('/platforms')->assertRedirect('/login');
-        $this->get('/platforms/foo/edit')->assertRedirect('/login');
-        $this->put('/platforms/foo')->assertRedirect('/login');
-        $this->delete('/platforms/foo')->assertRedirect('/login');
+        $this->get("/platforms/{$this->platform->slug}/edit")->assertRedirect('/login');
+        $this->put("/platforms/{$this->platform->slug}")->assertRedirect('/login');
+        $this->delete("/platforms/{$this->platform->slug}")->assertRedirect('/login');
     }
 
     /**

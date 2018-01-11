@@ -4,14 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Role;
 
 class UserController extends Controller
 {
-    public function __construct()
-    {
-      $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -50,7 +46,10 @@ class UserController extends Controller
 
         $validatedData['password'] = bcrypt($validatedData['password']);
 
-        User::create($validatedData);
+        $user = User::create($validatedData);
+        $role = Role::where('slug', 'game-management')->first();
+        $user->roles()->attach($role);
+        $user->save();
 
         return redirect('users');
     }

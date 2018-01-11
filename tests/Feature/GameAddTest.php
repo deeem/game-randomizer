@@ -18,8 +18,11 @@ class GameAddTest extends TestCase
     {
         parent::setUp();
 
+        $role = factory('App\Role')->states('game-management')->create();
+
         $this->platform = factory('App\Platform')->create();
         $this->user = factory('App\User')->create();
+        $this->user->roles()->attach($role);
         $this->game = factory('App\Game')->create();
 
         $this->actingAs($this->user);
@@ -125,7 +128,31 @@ class GameAddTest extends TestCase
     /**
      * @test
      */
-    public function guestCanAddGameWithEmptySuggestedField()
+    public function guestCanBrowseAddGameForm()
+    {
+        $this->get('/games/create')->assertStatus(200);
+    }
+
+    /**
+     * @test
+     */
+    public function guestCanStoreGame()
+    {
+        $platform = factory('App\Platform')->create();
+
+        $game = [
+            'name' => 'foo',
+            'platform_id' => $platform->id
+        ];
+
+        $this->post('/games', $game);
+
+        $this->assertDatabaseHas('games', $game);
+    }
+    /**
+     * @test
+     */
+    public function guestAddedGameWithEmptySuggesedFieldHasEmptySuggestedField()
     {
         auth()->logout();
 

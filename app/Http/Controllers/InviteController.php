@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Invite;
+use App\Role;
 use App\Mail\InviteCreated;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
@@ -11,11 +12,6 @@ use Illuminate\Support\Facades\Auth;
 
 class InviteController extends Controller
 {
-    public function __construct()
-    {
-      $this->middleware('auth')->except('accept');
-    }
-
     /**
      * Display list of invites
      */
@@ -77,6 +73,8 @@ class InviteController extends Controller
             'name' => 'user-' . uniqid(),
             'password' => bcrypt($password)
         ]);
+        $role = Role::where('slug', 'game-management')->first();
+        $user->roles()->attach($role);
 
         Auth::attempt(['email' => $email, 'password' => $password]);
 
@@ -94,5 +92,4 @@ class InviteController extends Controller
 
         return redirect('invites');
     }
-
 }

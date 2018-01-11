@@ -11,7 +11,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        factory('App\User', 10)->create();
+        $this->call(UsersSeeder::class);
+
         factory('App\Platform', 10)->create();
         factory('App\Game', 100)->create();
         factory('App\Game', 50)->states('unapproved')->create();
