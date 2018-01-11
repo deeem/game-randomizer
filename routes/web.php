@@ -16,7 +16,13 @@ Auth::routes();
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('users', 'UserController');
+Route::get('/users', 'UserController@index')->middleware('can:list-users');
+Route::get('/users/create', 'UserController@create')->middleware('can:create-user');
+Route::get('/users/{user}/edit', 'UserController@edit')->middleware('can:edit-user');
+Route::post('/users', 'UserController@store')->middleware('can:create-user');
+Route::put('/users/{user}', 'UserController@update')->middleware('can:edit-user');
+Route::delete('/users/{user}', 'UserController@destroy')->middleware('can:delete-user');
+
 Route::resource('platforms', 'PlatformController');
 
 Route::get('/games/create', 'GameController@create');

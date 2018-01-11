@@ -32,7 +32,6 @@ $factory->state(App\Role::class, 'user-management', function (Faker $faker) {
             'list-users' => true,
             'create-user' => true,
             'edit-user' => true,
-            'show-user' => true,
             'delete-user' => true,
         ]
     ];

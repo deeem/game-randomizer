@@ -16,7 +16,9 @@ class UserResourceTest extends TestCase
     {
         parent::setUp();
 
+        $role = factory('App\Role')->states('user-management')->create();
         $this->user = factory('App\User')->create();
+        $this->user->roles()->attach($role);
         $this->actingAs($this->user);
     }
 
