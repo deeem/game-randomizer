@@ -128,7 +128,31 @@ class GameAddTest extends TestCase
     /**
      * @test
      */
-    public function guestCanAddGameWithEmptySuggestedField()
+    public function guestCanBrowseAddGameForm()
+    {
+        $this->get('/games/create')->assertStatus(200);
+    }
+
+    /**
+     * @test
+     */
+    public function guestCanStoreGame()
+    {
+        $platform = factory('App\Platform')->create();
+
+        $game = [
+            'name' => 'foo',
+            'platform_id' => $platform->id
+        ];
+
+        $this->post('/games', $game);
+
+        $this->assertDatabaseHas('games', $game);
+    }
+    /**
+     * @test
+     */
+    public function guestAddedGameWithEmptySuggesedFieldHasEmptySuggestedField()
     {
         auth()->logout();
 

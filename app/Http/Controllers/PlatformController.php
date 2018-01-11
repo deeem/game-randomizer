@@ -7,11 +7,6 @@ use Illuminate\Http\Request;
 
 class PlatformController extends Controller
 {
-    public function __construct()
-    {
-        // $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -52,17 +47,6 @@ class PlatformController extends Controller
         Platform::create(['name' => $name, 'slug' => $slug]);
 
         return redirect('platforms');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Platform  $platform
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Platform $platform)
-    {
-        //
     }
 
     /**

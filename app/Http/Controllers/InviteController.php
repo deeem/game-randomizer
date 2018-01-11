@@ -12,11 +12,6 @@ use Illuminate\Support\Facades\Auth;
 
 class InviteController extends Controller
 {
-    public function __construct()
-    {
-      // $this->middleware('auth')->except('accept');
-    }
-
     /**
      * Display list of invites
      */
