@@ -52,6 +52,15 @@ class PlatformTest extends TestCase
     /**
      * @test
      */
+    public function canSeeEmptyPlatformList()
+    {
+        $this->delete("/platforms/{$this->platform->slug}");
+        $this->get('/platforms')->assertSee('Список пуст');
+    }
+
+    /**
+     * @test
+     */
     public function canDestroyPlatform()
     {
         $this->delete("/platforms/{$this->platform->slug}");
