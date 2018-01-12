@@ -42,11 +42,11 @@ class PlatformController extends Controller
         ]);
 
         $name = request('name');
-        $slug = $this->generateSlug($name);
+        $slug = str_slug($name);
 
         Platform::create(['name' => $name, 'slug' => $slug]);
 
-        return redirect('platforms');
+        return redirect()->route('platforms.index');
     }
 
     /**
@@ -74,12 +74,12 @@ class PlatformController extends Controller
         ]);
 
         $name = request('name');
-        $slug = $this->generateSlug($name);
+        $slug = str_slug($name);
 
         $platform->fill(['name' => $name, 'slug' => $slug]);
         $platform->save();
 
-        return redirect('platforms');
+        return redirect()->route('platforms.index');
     }
 
     /**
@@ -92,14 +92,6 @@ class PlatformController extends Controller
     {
         Platform::destroy($platform->id);
 
-        return redirect('platforms');
-    }
-
-    /**
-     * Generate Slug from string
-     */
-    protected function generateSlug($string)
-    {
-        return preg_replace('/[^A-Za-z0-9-]+/', '-', strtolower($string));
+        return redirect()->route('platforms.index');
     }
 }

@@ -51,7 +51,7 @@ class UserController extends Controller
         $user->roles()->attach($role);
         $user->save();
 
-        return redirect('users');
+        return redirect()->route('users.index');
     }
 
     /**
@@ -87,7 +87,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect('users');
+        return redirect()->route('users.index');
     }
 
     /**
@@ -100,6 +100,6 @@ class UserController extends Controller
     {
         User::destroy($id);
 
-        return redirect('users');
+        return redirect()->route('users.index');
     }
 }

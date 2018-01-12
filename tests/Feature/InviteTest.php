@@ -29,8 +29,6 @@ class InviteTest extends TestCase
      */
     public function canCreateInvite()
     {
-        $this->withoutEXceptionHandling();
-
         $this->post('/invites', ['email' => 'foo@example.com']);
 
         $this->assertDatabaseHas(
@@ -107,6 +105,26 @@ class InviteTest extends TestCase
         $this->get('/invites')->assertRedirect('login');
         $this->get('/invites/create')->assertRedirect('login');
         $this->post('/invites')->assertRedirect('login');
+    }
+
+    /**
+     * @test
+     */
+    public function guestCanNotDestroyInvites()
+    {
+        $invite = factory('App\Invite')->create();
+
+        auth()->logout();
+
+        $this->delete("/invites/{$invite->id}")->assertRedirect('login');
+    }
+
+    /**
+     * @test
+     */
+    public function canSeeEmptyInviteList()
+    {
+        $this->get('/invites')->assertSee('Список пуст');
     }
 
     /**

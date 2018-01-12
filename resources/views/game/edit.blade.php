@@ -7,7 +7,7 @@
       <div class="panel-heading"><h3 class="panel-title">Редактировать игру</h3></div>
 
       <div class="panel-body">
-        <form class="form-horizontal" method="POST" action="/games/{{ $game->id }}">
+        <form class="form-horizontal" method="POST" action="{{ route('games.update', ['game' => $game->id]) }}">
 
           {{ csrf_field() }}
           {{ method_field('PUT') }}

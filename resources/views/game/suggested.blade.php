@@ -24,11 +24,11 @@
           <td>{{ $game->name }}</td>
           <td>{{ $game->platform->name }}</td>
           <td>
-            <a href="/games/{{ $game->id }}/approve" class="btn btn-default btn-xs">
+            <a href="{{ route('games.approve', ['game' => $game->id]) }}" class="btn btn-default btn-xs">
               <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
             </a>
             &nbsp;&nbsp;
-            <form action="/games/{{ $game->id }}" method="POST" style="display:inline;">
+            <form action="{{ route('games.destroy', ['game' => $game->id]) }}" method="POST" style="display:inline;">
               {{ method_field('DELETE') }}
               {{ csrf_field() }}
               <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('are you shure?');">
