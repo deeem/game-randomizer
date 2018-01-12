@@ -131,5 +131,11 @@ class GameResourceTest extends TestCase
 
         $this->put("/games/{$this->game->id}", ['platform_id' => 999])
             ->assertSessionHasErrors('platform_id');
+
+        $this->post('/games', ['name' => $this->game->name, 'platform_id' => $this->platform->id])
+            ->assertSessionHasErrors('name');
+
+        $this->put("/games/{$this->game->id}", ['name' => $this->game->name, 'platform_id' => $this->platform->id])
+            ->assertSessionHasErrors('name');
     }
 }

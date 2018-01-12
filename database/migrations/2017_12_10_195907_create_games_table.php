@@ -16,10 +16,14 @@ class CreateGamesTable extends Migration
         Schema::create('games', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 100);
-            $table->integer('platform_id');
-            $table->integer('user_id')->nullable()->default(null);
+            $table->unsignedInteger('platform_id');
+            $table->unsignedInteger('user_id')->nullable()->default(null);
             $table->string('suggested', 50)->nullable()->default(null);
             $table->timestamps();
+
+            $table->unique(['name', 'platform_id']);
+            $table->foreign('platform_id')->references('id')->on('platforms')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
