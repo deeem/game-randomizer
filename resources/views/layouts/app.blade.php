@@ -39,6 +39,7 @@
                         &nbsp;
 
                       @auth
+                      @if(App\Platform::count())
                       <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Платформы <span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -47,19 +48,22 @@
                           @endforeach
                         </ul>
                       </li>
+                      @endif
                       @endauth
 
                       @auth
+                      @if(App\Platform::count())
                       <li>
                        @if(App\Game::unapproved()->count())
                          <a href="/games/suggested">Предложенные <span class="badge">{{ App\Game::unapproved()->count() }}</span></a>
-                       @else
-                         <a href="/games/suggested">Предложенные</a>
                        @endif
                       </li>
+                      @endif
                       @endauth
 
+                      @if(App\Platform::count())
                       <li><a href="/games/create">Предложить</a></li>
+                      @endif
 
                     </ul>
 
@@ -77,6 +81,27 @@
                                 </a>
 
                                 <ul class="dropdown-menu">
+                                  @if(Auth::user()->inRole('invite-management'))
+                                    <li>
+                                      <a href="{{ route('invites.index') }}">Приглашения</a>
+                                    </li>
+                                  @endif
+
+                                  @if(Auth::user()->inRole('user-management'))
+                                    <li>
+                                      <a href="{{ route('users.index') }}">Пользователи</a>
+                                    </li>
+                                  @endif
+
+                                  @if(Auth::user()->inRole('platform-management'))
+                                    <li>
+                                      <a href="{{ route('platforms.index') }}">Платформы</a>
+                                    </li>
+
+                                    <li role="separator" class="divider"></li>
+                                  @endif
+
+
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
