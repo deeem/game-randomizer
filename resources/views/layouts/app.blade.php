@@ -65,6 +65,10 @@
                       <li><a href="/games/create">Предложить</a></li>
                       @endif
 
+                      @if(App\Platform::count())
+                      <li><a href="/list">Roll!</a></li>
+                      @endif
+
                     </ul>
 
 
