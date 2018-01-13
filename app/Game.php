@@ -41,6 +41,17 @@ class Game extends Model
     }
 
     /**
+     * Scope a query to only include approved games.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeApproved($query)
+    {
+        return $query->where('user_id', '!=', null);
+    }
+
+    /**
      * Scope a query to recent approved games
      *
      * @param \Illuminate\Database\Eloquent\Builder $query

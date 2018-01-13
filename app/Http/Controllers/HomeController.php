@@ -15,7 +15,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except('index');
+        // $this->middleware('auth')->except('index');
     }
 
     /**
@@ -30,5 +30,26 @@ class HomeController extends Controller
         $games = Game::recentApproved()->take(10)->get();
 
         return view('dashboard.index', compact('games', 'stats', 'max'));
+    }
+
+    /**
+     * Display platforms list
+     */
+    public function list()
+    {
+        $platforms = Platform::all();
+
+        return view('randomizer.platforms', compact('platforms'));
+    }
+
+    /**
+     * Display randomizer
+     */
+    public function randomizer(Platform $platform)
+    {
+        $games = Game::approved()->where('platform_id' , $platform->id)->get();
+        $game = $games->isNotEmpty() ? $games->random() : null;
+
+        return view('randomizer.result', compact('platform', 'game'));
     }
 }
