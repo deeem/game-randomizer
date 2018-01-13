@@ -47,7 +47,9 @@ class HomeController extends Controller
      */
     public function randomizer(Platform $platform)
     {
-        dd($platform);
-        return view('randomizer');
+        $games = Game::approved()->where('platform_id' , $platform->id)->get();
+        $game = $games->isNotEmpty() ? $games->random() : null;
+
+        return view('randomizer.result', compact('platform', 'game'));
     }
 }
