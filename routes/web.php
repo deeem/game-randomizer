@@ -4,6 +4,8 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/list', 'HomeController@list')->name('list');
+Route::get('/random/{platform}', 'HomeController@randomizer')->name('randomizer');
 
 /*
  * User routes

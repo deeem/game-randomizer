@@ -15,7 +15,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except('index');
+        // $this->middleware('auth')->except('index');
     }
 
     /**
@@ -30,5 +30,24 @@ class HomeController extends Controller
         $games = Game::recentApproved()->take(10)->get();
 
         return view('dashboard.index', compact('games', 'stats', 'max'));
+    }
+
+    /**
+     * Display platforms list
+     */
+    public function list()
+    {
+        $platforms = Platform::all();
+
+        return view('randomizer.platforms', compact('platforms'));
+    }
+
+    /**
+     * Display randomizer
+     */
+    public function randomizer(Platform $platform)
+    {
+        dd($platform);
+        return view('randomizer');
     }
 }
