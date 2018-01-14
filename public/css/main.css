@@ -1,0 +1,18 @@
+.navbar-brand {
+}
+.navbar-brand img {
+  height: 25px;
+  display: inline;
+  margin-top: -5px;
+}
+.navbar-brand p {
+  display: inline;
+}
+
+.dropdown-menu i {
+  padding-right: 1em;
+}
+
+.navbar-nav li.randomize a {
+  color: #e91e63;
+}

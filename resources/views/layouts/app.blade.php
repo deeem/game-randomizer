@@ -10,10 +10,10 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
 
 </head>
 <body>
@@ -32,7 +32,8 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                      <img src="{{ asset('/img/basic_joypad.svg') }}" alt="Brand">
+                      <p>{{ config('app.name', 'Laravel') }}</p>
                     </a>
                 </div>
 
@@ -69,7 +70,7 @@
                       @endif
 
                       @if(App\Platform::count())
-                      <li><a href="/list">Roll!</a></li>
+                      <li class="randomize"><a href="/list"><i class="fa fa-gamepad" aria-hidden="true"></i> Roll!</a></li>
                       @endif
 
                     </ul>
@@ -90,19 +91,19 @@
                                 <ul class="dropdown-menu">
                                   @if(Auth::user()->inRole('invite-management'))
                                     <li>
-                                      <a href="{{ route('invites.index') }}">Приглашения</a>
+                                      <a href="{{ route('invites.index') }}"><i class="fa fa-envelope-o" aria-hidden="true"></i> Приглашения</a>
                                     </li>
                                   @endif
 
                                   @if(Auth::user()->inRole('user-management'))
                                     <li>
-                                      <a href="{{ route('users.index') }}">Пользователи</a>
+                                      <a href="{{ route('users.index') }}"><i class="fa fa-user-o" aria-hidden="true"></i> Пользователи</a>
                                     </li>
                                   @endif
 
                                   @if(Auth::user()->inRole('platform-management'))
                                     <li>
-                                      <a href="{{ route('platforms.index') }}">Платформы</a>
+                                      <a href="{{ route('platforms.index') }}"><i class="fa fa-list-ul" aria-hidden="true"></i> Платформы</a>
                                     </li>
 
                                     <li role="separator" class="divider"></li>
@@ -113,7 +114,7 @@
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
+                                            <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -133,7 +134,6 @@
         </div>
     </div>
 
-    <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
