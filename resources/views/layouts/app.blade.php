@@ -31,7 +31,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                      <img src="{{ asset('/img/basic_joypad.svg') }}" alt="Brand">
+                      <img src="{{ asset('/img/gamepad.svg') }}" alt="Brand">
                       <p>{{ config('app.name', 'Laravel') }}</p>
                     </a>
                 </div>
