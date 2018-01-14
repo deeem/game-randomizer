@@ -69,7 +69,11 @@
                       @endif
 
                       @if(App\Platform::count())
-                      <li class="randomize"><a href="/list"><i class="fa fa-gamepad" aria-hidden="true"></i> Roll!</a></li>
+                      <li class="randomize">
+                        <a href="/list">
+                          <img src="{{ asset('img/perspective-dice-six-faces-three.svg') }}">
+                        </a>
+                      </li>
                       @endif
 
                     </ul>
