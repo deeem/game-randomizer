@@ -6,7 +6,7 @@
       <th>email</th>
       <th class="table-actions">
         <a href="{{ route('invites.create') }}" class="btn btn-primary btn-sm">
-          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+          <i class="fa fa-plus" aria-hidden="true"></i>
         </a>
       </th>
     </tr>
@@ -18,7 +18,7 @@
           {{ method_field('DELETE') }}
           {{ csrf_field() }}
           <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('are you shure?');">
-            <span class="glyphicon glyphicon-trash " aria-hidden="true"></span>
+            <i class="fa fa-trash-o" aria-hidden="true"></i>
           </button>
         </form>
       </td>

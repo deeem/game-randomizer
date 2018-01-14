@@ -12,7 +12,7 @@
                     <th>email</th>
                     <th class="table-actions">
                         <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                          <i class="fa fa-plus" aria-hidden="true"></i>
                         </a>
                     </th>
                 </tr>
@@ -22,14 +22,14 @@
                     <td>{{ $user->email }}</td>
                     <td class="table-actions">
                         <a href="{{ route('users.edit', ['user' => $user->id ]) }}" class="btn btn-default btn-xs">
-                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                          <i class="fa fa-pencil" aria-hidden="true"></i>
                         </a>
                         &nbsp;
                         <form action="{{ route('users.destroy', ['user' => $user->id]) }}" method="POST" style="display:inline;">
                              {{ method_field('DELETE') }}
                              {{ csrf_field() }}
                              <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('are you shure?');">
-                                <span class="glyphicon glyphicon-trash " aria-hidden="true"></span>
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
                               </button>
                         </form>
                     </td>
