@@ -10,7 +10,7 @@
                 <tr>
                     <th>имя</th>
                     <th>email</th>
-                    <th>
+                    <th class="table-actions">
                         <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </a>
@@ -20,11 +20,11 @@
                 <tr>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
-                    <td>
+                    <td class="table-actions">
                         <a href="{{ route('users.edit', ['user' => $user->id ]) }}" class="btn btn-default btn-xs">
                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                         </a>
-                        &nbsp;&nbsp;
+                        &nbsp;
                         <form action="{{ route('users.destroy', ['user' => $user->id]) }}" method="POST" style="display:inline;">
                              {{ method_field('DELETE') }}
                              {{ csrf_field() }}

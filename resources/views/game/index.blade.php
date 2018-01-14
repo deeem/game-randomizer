@@ -17,7 +17,7 @@
         <tr>
           <th>Название</th>
           <th>Предложил</th>
-          <th></th>
+          <th class="table-actions"><i class="fa fa-cog fa-2x" aria-hidden="true"></i></th>
         </tr>
         @foreach($games as $game)
         <tr>
@@ -27,7 +27,7 @@
             <a href="{{ route('games.edit', ['game' => $game->id]) }}" class="btn btn-default btn-xs">
               <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
             </a>
-            &nbsp;&nbsp;
+            &nbsp;
             <form action="{{ route('games.destroy', ['game' => $game->id]) }}" method="POST" style="display:inline;">
               {{ method_field('DELETE') }}
               {{ csrf_field() }}

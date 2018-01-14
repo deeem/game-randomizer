@@ -45,7 +45,7 @@
                       @auth
                       @if(App\Platform::count())
                       <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Платформы <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Добавленные <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                           @foreach(App\Platform::all() as $platform)
                             <li><a href="/games/{{ $platform->slug }}">{{ $platform->name }}</a></li>
