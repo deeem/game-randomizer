@@ -10,8 +10,10 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+
 </head>
 <body>
     <div id="app">
@@ -29,7 +31,8 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                      <img src="{{ asset('/img/gamepad.svg') }}" alt="Brand">
+                      <p>{{ config('app.name', 'Laravel') }}</p>
                     </a>
                 </div>
 
@@ -41,7 +44,7 @@
                       @auth
                       @if(App\Platform::count())
                       <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Платформы <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Добавленные <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                           @foreach(App\Platform::all() as $platform)
                             <li><a href="/games/{{ $platform->slug }}">{{ $platform->name }}</a></li>
@@ -66,7 +69,11 @@
                       @endif
 
                       @if(App\Platform::count())
-                      <li><a href="/list">Roll!</a></li>
+                      <li class="randomize">
+                        <a href="/list">
+                          <img src="{{ asset('img/perspective-dice-six-faces-three.svg') }}">
+                        </a>
+                      </li>
                       @endif
 
                     </ul>
@@ -87,19 +94,19 @@
                                 <ul class="dropdown-menu">
                                   @if(Auth::user()->inRole('invite-management'))
                                     <li>
-                                      <a href="{{ route('invites.index') }}">Приглашения</a>
+                                      <a href="{{ route('invites.index') }}"><i class="fa fa-envelope-o" aria-hidden="true"></i> Приглашения</a>
                                     </li>
                                   @endif
 
                                   @if(Auth::user()->inRole('user-management'))
                                     <li>
-                                      <a href="{{ route('users.index') }}">Пользователи</a>
+                                      <a href="{{ route('users.index') }}"><i class="fa fa-user-o" aria-hidden="true"></i> Пользователи</a>
                                     </li>
                                   @endif
 
                                   @if(Auth::user()->inRole('platform-management'))
                                     <li>
-                                      <a href="{{ route('platforms.index') }}">Платформы</a>
+                                      <a href="{{ route('platforms.index') }}"><i class="fa fa-list-ul" aria-hidden="true"></i> Платформы</a>
                                     </li>
 
                                     <li role="separator" class="divider"></li>
@@ -110,7 +117,7 @@
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
+                                            <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -130,7 +137,8 @@
         </div>
     </div>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
 </body>
 </html>
