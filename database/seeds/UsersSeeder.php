@@ -10,7 +10,7 @@ class UsersSeeder extends Seeder
         $role_users = factory('App\Role')->states('user-management')->create();
         $role_platforms = factory('App\Role')->states('platform-management')->create();
         $role_games = factory('App\Role')->states('game-management')->create();
-        $role_rules = factory('App\Rules')->states('rule-management')->create();
+        $role_rules = factory('App\Role')->states('rule-management')->create();
 
         $admin = factory('App\User')->create();
         $admin->roles()->attach($role_invites->id);
