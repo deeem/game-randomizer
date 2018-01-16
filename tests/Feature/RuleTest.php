@@ -65,10 +65,21 @@ class RuleTest extends TestCase
         );
     }
 
+    /**
+     * @test
+     */
+    public function canValidateRule()
+    {
+        $this->post('/rules', ['title' => null])
+            ->assertSessionHasErrors('title');
+
+        $this->put("/rules/{$this->rule->id}", ['title' => null])
+            ->assertSessionHasErrors('title');
+    }
+
     // create
     // edit
     // list
     // canBrowse
     // guestCanList and Cannot participate
-    // validation
 }
