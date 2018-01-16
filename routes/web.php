@@ -139,9 +139,9 @@ Route::get('/rules/{rule}/edit', 'RuleController@edit')
     ->name('rules.edit')
     ->middleware('can:edit-rule');
 
-Route::put('/rules/{rule}/update', 'RuleController@update')
+Route::put('/rules/{rule}', 'RuleController@update')
     ->name('rules.update')
-    ->middleware('can:update-rule');
+    ->middleware('can:edit-rule');
 
 Route::delete('/rules/{rule}', 'RuleController@destroy')
     ->name('rules.destroy')

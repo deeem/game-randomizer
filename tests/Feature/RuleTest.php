@@ -10,6 +10,8 @@ class RuleTest extends TestCase
 {
     use DatabaseMigrations;
 
+    protected $rule;
+
     protected function setUp()
     {
         parent::setUp();
@@ -18,15 +20,15 @@ class RuleTest extends TestCase
         $user = factory('App\User')->create();
         $user->roles()->attach($role);
         $this->actingAs($user);
+
+        $this->rule = factory('App\Rule')->create();
     }
 
     /**
      * @test
      */
-    public function canAddRule()
+    public function canStoreRule()
     {
-        $this->withoutExceptionHandling();
-
         $rule = ['title' => 'foo', 'body' => 'bar'];
 
         $this->post('/rules', $rule);
@@ -37,6 +39,22 @@ class RuleTest extends TestCase
         );
     }
 
+    /**
+     * @test
+     */
+    public function canUpdateRule()
+    {
+        $this->withoutExceptionHandling();
+
+        $this->put("/rules/{$this->rule->id}", ['title' => 'foo']);
+
+        $this->assertDatabaseHas(
+            'rules',
+            ['id' => $this->rule->id, 'title' => 'foo']
+        );
+    }
+
+    // create
     // edit
     // delete
     // list

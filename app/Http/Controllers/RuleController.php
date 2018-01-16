@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Rule;
 use App\Http\Requests\StoreRuleRequest;
+use App\Http\Requests\UpdateRuleRequest;
 use Illuminate\Http\Request;
 
 class RuleController extends Controller
@@ -68,13 +69,18 @@ class RuleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\UpdateRuleRequest  $request
      * @param  \App\Rule  $rule
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Rule $rule)
+    public function update(UpdateRuleRequest $request, Rule $rule)
     {
-        //
+        $data = $request->only('title', 'body');
+
+        $rule->fill($data);
+        $rule->save();
+
+        return redirect()->route('rules.index');
     }
 
     /**
