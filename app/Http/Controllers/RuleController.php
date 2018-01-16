@@ -91,6 +91,8 @@ class RuleController extends Controller
      */
     public function destroy(Rule $rule)
     {
-        //
+        Rule::destroy($rule->id);
+
+        return redirect()->route('rules.index');
     }
 }

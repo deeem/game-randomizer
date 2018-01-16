@@ -44,8 +44,6 @@ class RuleTest extends TestCase
      */
     public function canUpdateRule()
     {
-        $this->withoutExceptionHandling();
-
         $this->put("/rules/{$this->rule->id}", ['title' => 'foo']);
 
         $this->assertDatabaseHas(
@@ -54,10 +52,23 @@ class RuleTest extends TestCase
         );
     }
 
+    /**
+     * @test
+     */
+    public function canDestroyRule()
+    {
+        $this->delete("/rules/{$this->rule->id}");
+
+        $this->assertDatabaseMissing(
+            'rules',
+            ['id' => $this->rule->id, 'title' => $this->rule->title]
+        );
+    }
+
     // create
     // edit
-    // delete
     // list
     // canBrowse
     // guestCanList and Cannot participate
+    // validation
 }
