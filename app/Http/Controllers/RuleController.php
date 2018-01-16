@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Rule;
+use App\Http\Requests\StoreRuleRequest;
 use Illuminate\Http\Request;
 
 class RuleController extends Controller
@@ -30,12 +31,16 @@ class RuleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Requests\StoreRuleRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRuleRequest $request)
     {
-        //
+        $data = $request->only('title', 'body');
+
+        Rule::create($data);
+
+        return redirect()->route('rules.index');
     }
 
     /**

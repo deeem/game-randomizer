@@ -28,6 +28,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerInvitePolicies();
         $this->registerUserPolicies();
         $this->registerPlatformPolicies();
+        $this->registerRulePolicies();
     }
 
     public function registerGamePolicies()
@@ -106,7 +107,7 @@ class AuthServiceProvider extends ServiceProvider
         });
     }
 
-    public function registerRulesRolicies()
+    public function registerRulePolicies()
     {
         Gate::define('create-rule', function ($user) {
             return $user->hasAccess(['create-rule']);

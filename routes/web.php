@@ -119,3 +119,30 @@ Route::post('/invites', 'InviteController@process')
 Route::delete('/invites/{invite}', 'InviteController@destroy')
     ->name('invites.destroy')
     ->middleware('can:destroy-invite');
+
+/*
+ * Rule routes
+ */
+
+Route::get('/rules', 'RuleController@index')
+    ->name('rules.index');
+
+Route::post('/rules', 'RuleController@store')
+    ->name('rules.store')
+    ->middleware('can:create-rule');
+
+Route::get('/rules/create', 'RuleController@create')
+    ->name('rules.create')
+    ->middleware('can:create-rule');
+
+Route::get('/rules/{rule}/edit', 'RuleController@edit')
+    ->name('rules.edit')
+    ->middleware('can:edit-rule');
+
+Route::put('/rules/{rule}/update', 'RuleController@update')
+    ->name('rules.update')
+    ->middleware('can:update-rule');
+
+Route::delete('/rules/{rule}', 'RuleController@destroy')
+    ->name('rules.destroy')
+    ->middleware('can:delete-rule');
