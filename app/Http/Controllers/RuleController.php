@@ -16,7 +16,9 @@ class RuleController extends Controller
      */
     public function index()
     {
-        //
+        $rules = Rule::all();
+
+        return view('rule.index', compact('rules'));
     }
 
     /**
@@ -26,7 +28,7 @@ class RuleController extends Controller
      */
     public function create()
     {
-        //
+        return view('rule.create');
     }
 
     /**

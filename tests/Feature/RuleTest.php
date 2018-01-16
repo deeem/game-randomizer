@@ -77,9 +77,26 @@ class RuleTest extends TestCase
             ->assertSessionHasErrors('title');
     }
 
-    // create
+    /**
+     * @test
+     */
+    public function canSeeEmptyRuleList()
+    {
+        $this->delete("/rules/{$this->rule->id}");
+
+        $this->get('/rules')->assertSee('Список пуст');
+    }
+
+    /**
+     * @test
+     */
+    public function canBrowseRuleResources()
+    {
+        $this->get('/rules')->assertStatus(200);
+        $this->get('/rules/create')->assertStatus(200);
+    }
+
     // edit
-    // list
     // canBrowse
     // guestCanList and Cannot participate
 }
