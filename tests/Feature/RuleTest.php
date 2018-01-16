@@ -97,5 +97,25 @@ class RuleTest extends TestCase
         $this->get("/rules/{$this->rule->id}/edit")->assertStatus(200);
     }
 
-    // guestCanList and Cannot participate
+    /**
+     * @test
+     */
+    public function guestCanViewRuleList()
+    {
+        auth()->logout();
+        $this->get('/rules')->assertStatus(200);
+    }
+
+    /**
+     * @test
+     */
+    public function guestCanNotParticipateRules()
+    {
+        auth()->logout();
+        $this->get('/rules/create')->assertRedirect('/login');
+        $this->get('/rules/create')->assertRedirect('/login');
+        $this->get("/rules/{$this->rule->id}/edit")->assertRedirect('/login');
+        $this->put("/rules/{$this->rule->id}")->assertRedirect('/login');
+        $this->delete("/rules/{$this->rule->id}")->assertRedirect('/login');
+    }
 }
