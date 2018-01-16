@@ -94,9 +94,8 @@ class RuleTest extends TestCase
     {
         $this->get('/rules')->assertStatus(200);
         $this->get('/rules/create')->assertStatus(200);
+        $this->get("/rules/{$this->rule->id}/edit")->assertStatus(200);
     }
 
-    // edit
-    // canBrowse
     // guestCanList and Cannot participate
 }

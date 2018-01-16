@@ -65,7 +65,7 @@ class RuleController extends Controller
      */
     public function edit(Rule $rule)
     {
-        //
+        return view('rule.edit', compact('rule'));
     }
 
     /**
