@@ -105,4 +105,19 @@ class AuthServiceProvider extends ServiceProvider
             return $user->hasAccess(['delete-platform']);
         });
     }
+
+    public function registerRulesRolicies()
+    {
+        Gate::define('create-rule', function ($user) {
+            return $user->hasAccess(['create-rule']);
+        });
+
+        Gate::define('edit-rule', function ($user) {
+            return $user->hasAccess(['edit-rule']);
+        });
+
+        Gate::define('delete-rule', function ($user) {
+            return $user->hasAccess(['delete-rule']);
+        });
+    }
 }
