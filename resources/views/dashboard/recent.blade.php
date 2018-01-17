@@ -8,7 +8,13 @@
     @foreach($games as $game)
     <tr>
       <td>{{ $game->name }} ({{ $game->platform->name}})</td>
-      <td>{{ $game->suggested }}</td>
+      <td>
+        @isset($game->suggester->name)
+          {{ $game->suggester->name }}
+        @else
+          Anonymous
+        @endisset
+      </td>
     </tr>
     @endforeach
   </table>
