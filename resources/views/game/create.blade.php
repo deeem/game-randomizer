@@ -56,6 +56,13 @@
             </div>
           </div>
 
+          <hr>
+
+          <p class="text-primary">
+            Ознакомтесь с причинами, по которым предложенная игра может быть
+            <a href="{{ route('rules.index') }}" class="alert-link"> <strong>отклонена</strong></a>
+          </p>
+
         </form>
       </div>
     </div>
