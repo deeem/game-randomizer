@@ -17,6 +17,7 @@ class GameTest extends TestCase
     {
         parent::setUp();
 
+        factory('App\Suggester')->create();
         $this->user = factory('App\User')->create();
         $this->actingAs($this->user);
         $this->platform = factory('App\Platform')->create();

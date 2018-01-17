@@ -18,6 +18,7 @@ class ModelRelationsTest extends TestCase
     {
         parent::setUp();
 
+        factory('App\Suggester')->create();
         $this->user = factory('App\User')->create();
         $this->platform = factory('App\Platform')->create();
         $this->games = factory('App\Game', 10)->create();

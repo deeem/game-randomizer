@@ -27,6 +27,7 @@ class DashboardTest extends TestCase
     {
         $this->actingAs(factory('App\User')->create());
 
+        factory('App\Suggester')->create();
         factory('App\Platform')->create();
         $approvedGame = factory('App\Game')->create();
         $unapprovedGame = factory('App\Game')->states('unapproved')->create();
@@ -55,6 +56,7 @@ class DashboardTest extends TestCase
     public function canSeeGamesStats()
     {
         $this->actingAs(factory('App\User')->create());
+        factory('App\Suggester')->create();
         $platforms = factory('App\Platform', 3)->create();
         factory('App\Game', 20)->create();
 
