@@ -108,10 +108,15 @@
                                     <li>
                                       <a href="{{ route('platforms.index') }}"><i class="fa fa-list-ul" aria-hidden="true"></i> Платформы</a>
                                     </li>
+                                  @endif
+
+                                  @if(Auth::user()->inRole('rule-management'))
+                                    <li>
+                                      <a href="{{ route('rules.index') }}"><i class="fa fa-gavel" aria-hidden="true"></i> Правила</a>
+                                    </li>
 
                                     <li role="separator" class="divider"></li>
                                   @endif
-
 
                                     <li>
                                         <a href="{{ route('logout') }}"

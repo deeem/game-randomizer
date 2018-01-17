@@ -76,7 +76,6 @@ class PlatformTest extends TestCase
      */
     public function canStorePlatform()
     {
-        $this->withoutExceptionHandling();
         $newPlatform = [
             'name' => 'newplatform'
         ];

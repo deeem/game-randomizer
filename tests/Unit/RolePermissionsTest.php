@@ -20,12 +20,14 @@ class RolePermissionsTest extends TestCase
         $role_users = factory('App\Role')->states('user-management')->create();
         $role_platforms = factory('App\Role')->states('platform-management')->create();
         $role_games = factory('App\Role')->states('game-management')->create();
+        $role_rules = factory('App\Role')->states('rule-management')->create();
 
         $admin = factory('App\User')->create();
         $admin->roles()->attach($role_invites->id);
         $admin->roles()->attach($role_users->id);
         $admin->roles()->attach($role_platforms->id);
         $admin->roles()->attach($role_games->id);
+        $admin->roles()->attach($role_rules->id);
 
         $this->assertEquals($expected, $admin->hasAccess($permission));
     }
@@ -64,6 +66,9 @@ class RolePermissionsTest extends TestCase
          [true, ['edit-game']],
          [true, ['delete-game']],
          [true, ['approve-game']],
+         [true, ['create-rule']],
+         [true, ['edit-rule']],
+         [true, ['delete-rule']],
         ];
     }
 
@@ -87,6 +92,9 @@ class RolePermissionsTest extends TestCase
          [true, ['edit-game']],
          [true, ['delete-game']],
          [true, ['approve-game']],
+         [false, ['create-rule']],
+         [false, ['edit-rule']],
+         [false, ['delete-rule']],
         ];
     }
 }

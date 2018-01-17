@@ -64,3 +64,15 @@ $factory->state(App\Role::class, 'game-management', function (Faker $faker) {
         ]
     ];
 });
+
+$factory->state(App\Role::class, 'rule-management', function (Faker $faker) {
+    return [
+        'name' => 'Rule management',
+        'slug' => 'rule-management',
+        'permissions' => [
+            'create-rule' => true,
+            'edit-rule' => true,
+            'delete-rule' => true,
+        ]
+    ];
+});

@@ -28,6 +28,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerInvitePolicies();
         $this->registerUserPolicies();
         $this->registerPlatformPolicies();
+        $this->registerRulePolicies();
     }
 
     public function registerGamePolicies()
@@ -103,6 +104,21 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('delete-platform', function ($user) {
             return $user->hasAccess(['delete-platform']);
+        });
+    }
+
+    public function registerRulePolicies()
+    {
+        Gate::define('create-rule', function ($user) {
+            return $user->hasAccess(['create-rule']);
+        });
+
+        Gate::define('edit-rule', function ($user) {
+            return $user->hasAccess(['edit-rule']);
+        });
+
+        Gate::define('delete-rule', function ($user) {
+            return $user->hasAccess(['delete-rule']);
         });
     }
 }
