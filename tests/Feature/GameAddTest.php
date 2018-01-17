@@ -67,12 +67,9 @@ class GameAddTest extends TestCase
      */
     public function whenUserCreateGameItIsApproved()
     {
-        $this->withoutExceptionHandling();
-
         $this->post('/games', [
             'name' => 'foo',
             'platform_id' => $this->platform->id,
-            'suggester_id' => null,
         ]);
 
         $this->assertDatabaseHas(
@@ -81,9 +78,49 @@ class GameAddTest extends TestCase
                 'name' => 'foo',
                 'platform_id' => $this->platform->id,
                 'user_id' => $this->user->id,
-                'suggester_id' => null,
             ]
         );
+    }
+
+    /**
+     * @test
+     */
+    public function whenUserCreateGameItIsHasSuggestedByThatUser()
+    {
+        $this->post('/games', [
+            'name' => 'foo',
+            'platform_id' => $this->platform->id,
+        ]);
+
+        $game = \App\Game::where([
+            'name' => 'foo',
+            'platform_id' => $this->platform->id,
+        ])->first();
+
+        $this->assertEquals($this->user->name, $game->suggester->name);
+    }
+
+    /**
+     * @test
+     */
+    public function whenUserCreateGameNoAdditionalSuggesterCreated()
+    {
+        factory('App\Suggester')->create([
+            'name' => $this->user->name,
+            'email' => $this->user->email,
+        ]);
+
+        $this->post('/games', [
+            'name' => 'foo',
+            'platform_id' => $this->platform->id,
+        ]);
+
+        $suggesters = \App\Suggester::where([
+            'name' => $this->user->name,
+            'email' => $this->user->email,
+        ])->get();
+
+        $this->assertEquals(1, $suggesters->count());
     }
 
     /**
@@ -104,32 +141,6 @@ class GameAddTest extends TestCase
             ]
         );
     }
-
-    /**
-     * test
-     */
-    // public function whenUserAddGameItHasSuggestedByAsUserName()
-    // {
-    //     $this->post(
-    //         '/games',
-    //         [
-    //             'name' => 'foo',
-    //             'platform_id' => $this->platform->id,
-    //             'user_id' => null,
-    //             'suggester_id' => null
-    //         ]
-    //     );
-    //
-    //     $this->assertDatabaseHas(
-    //         'games',
-    //         [
-    //             'name' => 'foo',
-    //             'platform_id' => $this->platform->id,
-    //             'user_id' => $this->user->id,
-    //             'suggested' => $this->user->name
-    //         ]
-    //     );
-    // }
 
     /**
      * @test
@@ -157,31 +168,89 @@ class GameAddTest extends TestCase
     }
 
     /**
-     *
+     * @test
      */
-    // public function guestAddedGameWithEmptySuggesedFieldHasEmptySuggestedField()
-    // {
-    //     auth()->logout();
-    //
-    //     $game = factory('App\Game')->states('unapproved')->create();
-    //
-    //     $this->post(
-    //         '/games',
-    //         [
-    //             'name' => 'foo',
-    //             'platform_id' => $this->platform->id,
-    //             'user_id' => null,
-    //             'suggested' => null
-    //         ]
-    //     );
-    //
-    //     $this->assertDatabaseHas(
-    //         'games',
-    //         [
-    //             'name' => 'foo',
-    //             'platform_id' => $this->platform->id,
-    //             'suggested' => null
-    //         ]
-    //     );
-    // }
+    public function guestAddedGameWithEmptySuggesterInfoItHasEmptySuggesterId()
+    {
+        auth()->logout();
+
+        $this->post(
+            '/games',
+            [
+                'name' => 'foo',
+                'platform_id' => $this->platform->id,
+            ]
+        );
+
+        $this->assertDatabaseHas(
+            'games',
+            [
+                'name' => 'foo',
+                'platform_id' => $this->platform->id,
+                'suggester_id' => null
+            ]
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function guestAddedGameWithSuggesterInfoItHasSuggesterInfo()
+    {
+        auth()->logout();
+
+        $data = [
+            'name' => 'foo',
+            'platform_id' => $this->platform->id,
+            'suggester_name' => 'John',
+            'suggester_email' => 'john@example.com',
+        ];
+
+        $this->post('/games', $data);
+
+        $game = \App\Game::where([
+            'name' => $data['name'],
+            'platform_id' => $data['platform_id']
+        ])->first();
+
+        $this->assertEquals($game->suggester->name, $data['suggester_name']);
+    }
+
+    /**
+     * @test
+     */
+    public function whenGuestCreateGameNoAdditionalSuggestersCreated()
+    {
+        $data = [
+            'name' => 'foo',
+            'platform_id' => $this->platform->id,
+            'suggester_name' => 'John',
+            'suggester_email' => 'john@example.com',
+        ];
+
+        factory('App\Suggester')->create([
+            'name' => $data['suggester_name'],
+            'email' => $data['suggester_email']
+        ]);
+
+        auth()->logout();
+
+        $this->post('/games', $data);
+
+        $game = \App\Game::where([
+            'name' => $data['name'],
+            'platform_id' => $data['platform_id']
+        ])->first();
+
+        // assert that created game has suggester
+        $this->assertEquals($game->suggester->name, $data['suggester_name']);
+
+        $suggesters = \App\Suggester::where([
+            'name' => $data['suggester_name'],
+            'email' => $data['suggester_email'],
+        ])->get();
+
+        // assert that it used existing suggester
+        $this->assertEquals(1, $suggesters->count());
+    }
 }

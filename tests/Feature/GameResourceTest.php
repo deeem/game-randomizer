@@ -73,8 +73,6 @@ class GameResourceTest extends TestCase
             [
                 'name' => 'foo',
                 'platform_id' => $this->platform->id,
-                'user_id' => null,
-                'suggester_id' => null
             ]
         );
 
@@ -83,8 +81,6 @@ class GameResourceTest extends TestCase
             [
                 'name' => 'foo',
                 'platform_id' => $this->platform->id,
-                'user_id' => $this->user->id,
-                'suggested' => $this->user->name
             ]
         );
     }

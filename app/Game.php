@@ -30,6 +30,14 @@ class Game extends Model
     }
 
     /**
+     * Get game suggester
+     */
+    public function suggester()
+    {
+        return $this->belongsTo('App\Suggester');
+    }
+
+    /**
      * Scope a query to only include unapproved games.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query

@@ -14,4 +14,12 @@ class Suggester extends Model
     protected $fillable = [
         'name', 'email'
     ];
+
+    /**
+     * Get games suggested by that suggester
+     */
+    public function games()
+    {
+        return $this->hasMany('App\Game');
+    }
 }
