@@ -11,6 +11,7 @@ class ModelRelationsTest extends TestCase
     use DatabaseMigrations;
 
     protected $user;
+    protected $suggester;
     protected $platform;
     protected $games;
 
@@ -18,6 +19,7 @@ class ModelRelationsTest extends TestCase
     {
         parent::setUp();
 
+        $this->suggester = factory('App\Suggester')->create();
         $this->user = factory('App\User')->create();
         $this->platform = factory('App\Platform')->create();
         $this->games = factory('App\Game', 10)->create();
@@ -41,6 +43,24 @@ class ModelRelationsTest extends TestCase
         $game = $this->games->random();
 
         $this->assertInstanceOf('App\Platform', $game->platform);
+    }
+
+    /**
+     * @test
+     */
+    public function gameBelongsToSuggester()
+    {
+        $game = $this->games->random();
+
+        $this->assertInstanceOf('App\Suggester', $game->suggester);
+    }
+
+    /**
+     * @test
+     */
+    public function suggesterHasManyGames()
+    {
+        $this->assertInstanceOf('App\Game', $this->suggester->games->first());
     }
 
     /**

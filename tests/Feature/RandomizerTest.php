@@ -33,6 +33,7 @@ class RandomizerTest extends TestCase
      */
     public function canSeeRandomizerResult()
     {
+        factory('App\Suggester')->create();
         $user = factory('App\User')->create();
         $platform = factory('App\Platform')->create();
         $game = factory('App\Game')->create();
@@ -45,6 +46,7 @@ class RandomizerTest extends TestCase
      */
     public function canSeeRandomizerEmptyNotification()
     {
+        factory('App\Suggester')->create();
         $user = factory('App\User')->create();
         $platform = factory('App\Platform')->create();
         $game = factory('App\Game')->states('unapproved')->create();

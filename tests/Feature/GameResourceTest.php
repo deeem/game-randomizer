@@ -11,6 +11,7 @@ class GameResourceTest extends TestCase
     use DatabaseMigrations;
 
     protected $platform;
+    protected $suggester;
     protected $user;
     protected $game;
 
@@ -21,6 +22,7 @@ class GameResourceTest extends TestCase
         $role = factory('App\Role')->states('game-management')->create();
 
         $this->platform = factory('App\Platform')->create();
+        $this->suggester = factory('App\Suggester')->create();
         $this->user = factory('App\User')->create();
         $this->game = factory('App\Game')->create();
         $this->user->roles()->attach($role);
@@ -71,8 +73,6 @@ class GameResourceTest extends TestCase
             [
                 'name' => 'foo',
                 'platform_id' => $this->platform->id,
-                'user_id' => null,
-                'suggested' => 'bar'
             ]
         );
 
@@ -81,8 +81,6 @@ class GameResourceTest extends TestCase
             [
                 'name' => 'foo',
                 'platform_id' => $this->platform->id,
-                'user_id' => $this->user->id,
-                'suggested' => $this->user->name
             ]
         );
     }

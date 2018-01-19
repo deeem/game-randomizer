@@ -17,6 +17,8 @@ class PlatformTest extends TestCase
      */
     public function canGetGamesStats()
     {
+        factory('App\Suggester')->create();
+
         $this->actingAs(factory('App\User')->create());
         factory('App\Platform', 3)->create();
         factory('App\Game', 20)->create();

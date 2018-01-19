@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Game;
 use App\Platform;
+use App\Suggester;
 use App\Http\Requests\StoreGameRequest;
 use App\Http\Requests\UpdateGameRequest;
 
@@ -59,16 +60,30 @@ class GameController extends Controller
      */
     public function store(StoreGameRequest $request)
     {
-        $game = Game::create([
-            'name' => request('name'),
-            'platform_id' => request('platform_id'),
-        ]);
+        $gameData = $request->only(['name', 'platform_id']);
+        $suggesterData = [
+            'name' => request('suggester_name'),
+            'email' => request('suggester_email'),
+        ];
 
-        if (! auth()->check()) {
-            $game->suggested = request('suggested');
-        } else {
+        $game = Game::create($gameData);
+
+        if (auth()->check() && auth()->user()->hasAccess(['approve-game'])) {
             $user = auth()->user();
-            $game->suggested = $user->name;
+            $suggester = Suggester::firstOrCreate([
+                'name' => $user->name,
+                'email' => $user->email
+            ]);
+
+            $game->suggester_id = $suggester->id;
+        } else {
+            if ($suggesterData['name'] || $suggesterData['email']) {
+                $suggester = Suggester::firstOrCreate($suggesterData);
+
+                $game->suggester_id = $suggester->id;
+            } else {
+                $game->suggester_id = null;
+            }
         }
 
         $game->user_id = auth()->id();

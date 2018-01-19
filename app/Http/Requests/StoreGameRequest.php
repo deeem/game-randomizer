@@ -34,7 +34,8 @@ class StoreGameRequest extends FormRequest
                 return $query->where('name', request('name'))->where('platform_id', request('platform_id'));
             })],
             'platform_id' => ['required', Rule::in($platformsIds)],
-            'suggested' => 'nullable|string'
+            'suggester_name' => 'nullable|string',
+            'suggester_email' => 'nullable|email',
         ];
     }
 }

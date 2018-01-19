@@ -11,12 +11,20 @@ $factory->define(App\Game::class, function (Faker $faker) {
         'user_id' => function() {
             return App\User::all()->random()->id;
         },
-        'suggested' => $faker->name
+        'suggester_id' => function() {
+            return App\Suggester::all()->random()->id;
+        }
     ];
 });
 
 $factory->state(App\Game::class, 'unapproved', function (Faker $faker) {
     return [
         'user_id' => null
+    ];
+});
+
+$factory->state(App\Game::class, 'anonimously', function (Faker $faker) {
+    return [
+        'suggester_id' => null
     ];
 });
