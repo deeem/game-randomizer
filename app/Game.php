@@ -2,6 +2,7 @@
 
 namespace App;
 
+use DB;
 use Illuminate\Database\Eloquent\Model;
 
 class Game extends Model
@@ -69,4 +70,19 @@ class Game extends Model
     {
         return $query->where('user_id', '!=', null)->latest('updated_at');
     }
+
+    /**
+     * Scope a query to get top suggesters
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+     public function scopeTopSuggesters($query)
+     {
+         return DB::table('games')
+            ->join('suggesters', 'games.suggester_id', '=', 'suggesters.id')
+            ->select(DB::raw('count(games.suggester_id) as suggester_count, suggesters.name'))
+            ->groupBy('games.suggester_id')
+            ->orderBy('suggester_count', 'desc');
+     }
 }

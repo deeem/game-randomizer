@@ -16,6 +16,12 @@
       @include('dashboard.recent-empty')
     @endif
 
+    @if(count($suggesters))
+      @include('dashboard.suggesters')
+    @else
+      @include('dashboard.suggesters-empty')
+    @endif
+
   </div>
 </div>
 @endsection
