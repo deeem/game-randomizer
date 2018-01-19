@@ -22,6 +22,12 @@
       @include('dashboard.suggesters-empty')
     @endif
 
+    @if(count($approvers))
+      @include('dashboard.approvers')
+    @else
+      @include('dashboard.approvers-empty')
+    @endif
+
   </div>
 </div>
 @endsection

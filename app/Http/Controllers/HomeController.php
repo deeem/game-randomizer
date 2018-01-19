@@ -29,8 +29,9 @@ class HomeController extends Controller
         $max = $stats->max('gamesCount');
         $games = Game::recentApproved()->take(10)->get();
         $suggesters = Game::topSuggesters()->limit(10)->get();
+        $approvers = Game::topApprovers()->limit(10)->get();
 
-        return view('dashboard.index', compact('games', 'stats', 'max', 'suggesters'));
+        return view('dashboard.index', compact('games', 'stats', 'max', 'suggesters', 'approvers'));
     }
 
     /**

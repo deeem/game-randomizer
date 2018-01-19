@@ -85,4 +85,19 @@ class Game extends Model
             ->groupBy('games.suggester_id')
             ->orderBy('suggester_count', 'desc');
      }
+
+    /**
+     * Scope a query to get top approvers
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+     public function scopeTopApprovers($query)
+     {
+         return DB::table('games')
+            ->join('users', 'games.user_id', '=', 'users.id')
+            ->select(DB::raw('count(games.user_id) as approver_count, users.name'))
+            ->groupBy('games.user_id')
+            ->orderBy('approver_count', 'desc');
+     }
 }
