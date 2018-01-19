@@ -4,28 +4,25 @@
 <div class="row">
   <div class="col-md-8 col-md-offset-2">
 
-    @if(count($stats))
-      @include('dashboard.stats')
-    @else
-      @include('dashboard.stats-empty')
-    @endif
-
     @if(count($games))
       @include('dashboard.recent')
-    @else
-      @include('dashboard.recent-empty')
     @endif
 
-    @if(count($suggesters))
-      @include('dashboard.suggesters')
-    @else
-      @include('dashboard.suggesters-empty')
-    @endif
+    <div class="row">
+      <div class="col-md-6">
+      @if(count($suggesters))
+        @include('dashboard.suggesters')
+      @endif
+      </div>
+      <div class="col-md-6">
+      @if(count($approvers))
+        @include('dashboard.approvers')
+      @endif
+      </div>
+    </div>
 
-    @if(count($approvers))
-      @include('dashboard.approvers')
-    @else
-      @include('dashboard.approvers-empty')
+    @if(count($stats))
+      @include('dashboard.stats')
     @endif
 
   </div>

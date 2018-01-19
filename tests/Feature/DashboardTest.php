@@ -44,15 +44,6 @@ class DashboardTest extends TestCase
     /**
      * @test
      */
-    public function canSeeApprovedListEmptyMessage()
-    {
-        $this->get('/')->assertSee('Список пуст');
-        $this->get('/home')->assertSee('Список пуст');
-    }
-
-    /**
-     * @test
-     */
     public function canSeeGamesStats()
     {
         $this->actingAs(factory('App\User')->create());
@@ -64,14 +55,5 @@ class DashboardTest extends TestCase
 
         $this->get('/')->assertSee($platforms->first()->name);
         $this->get('/home')->assertSee($platforms->first()->name);
-    }
-
-    /**
-     * @test
-     */
-    public function canSeeGamesStatsEmptyMessage()
-    {
-        $this->get('/')->assertSee('Статистика отсутствует');
-        $this->get('/home')->assertSee('Статистика отсутствует');
     }
 }
