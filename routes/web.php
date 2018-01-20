@@ -82,6 +82,10 @@ Route::get('/games/{game}/approve', 'GameController@approve')
     ->name('games.approve')
     ->middleware('can:approve-game');
 
+Route::delete('/games/{game}/refuse', 'GameController@refuse')
+    ->name('games.refuse')
+    ->middleware('can:approve-game');
+
 Route::get('/games/{game}/show', 'GameController@show')
     ->name('games.show');
 

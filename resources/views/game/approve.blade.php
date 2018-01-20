@@ -46,7 +46,7 @@
         <div class="panel panel-default">
           <div class="panel-body">
             @if($rules->count())
-            <form action="{{ route('games.destroy', ['game' => $game->id]) }}" method="POST" style="display:inline;">
+            <form action="{{ route('games.refuse', ['game' => $game->id]) }}" method="POST" style="display:inline;">
               {{ method_field('DELETE') }}
               {{ csrf_field() }}
               @foreach($rules as $rule)
@@ -58,7 +58,7 @@
                 </div>
               @endforeach
               <hr>
-              <button type="submit" class="btn btn-danger" onclick="return confirm('are you shure?');">
+              <button type="submit" class="btn btn-danger">
                 <i class="fa fa-thumbs-o-down" aria-hidden="true"></i> Отклонить
               </button>
             </form>

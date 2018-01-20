@@ -8,6 +8,7 @@ use App\Suggester;
 use App\Rule;
 use App\Http\Requests\StoreGameRequest;
 use App\Http\Requests\UpdateGameRequest;
+use Illuminate\Http\Request;
 
 class GameController extends Controller
 {
@@ -150,7 +151,7 @@ class GameController extends Controller
     }
 
     /**
-     * Update and aprove game after moderator review
+     * Aprove game after moderator review
      *
      * @param  \App\Game  $game
      * @return \Illuminate\Http\Response
@@ -161,5 +162,18 @@ class GameController extends Controller
         $game->save();
 
         return back();
+    }
+
+    /**
+     * Refuse game after moderator review
+     *
+     * @param  \App\Game  $game
+     * @return \Illuminate\Http\Response
+     */
+    public function refuse(Game $game, Request $request)
+    {
+        Game::destroy($game->id);
+
+        return redirect()->route('games.suggested');
     }
 }
