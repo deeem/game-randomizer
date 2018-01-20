@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Game;
 use App\Platform;
 use App\Suggester;
+use App\Rule;
 use App\Http\Requests\StoreGameRequest;
 use App\Http\Requests\UpdateGameRequest;
 
@@ -90,6 +91,19 @@ class GameController extends Controller
         $game->save();
 
         return redirect()->route('home');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Game  $game
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Game $game)
+    {
+        $rules = Rule::all();
+
+        return view('game.show', compact('game', 'rules'));
     }
 
     /**
