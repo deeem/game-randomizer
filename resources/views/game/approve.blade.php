@@ -35,7 +35,7 @@
 
             <hr>
             <a href="{{ route('games.approve', ['game' => $game->id]) }}" class="btn btn-success">
-              <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Подтвердить
+              <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Добавить
             </a>
 
           </div>
