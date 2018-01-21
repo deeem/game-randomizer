@@ -7,6 +7,7 @@ use App\Platform;
 use App\Suggester;
 use App\Rule;
 use App\Mail\GameApproved;
+use App\Mail\GameRefused;
 use App\Http\Requests\StoreGameRequest;
 use App\Http\Requests\UpdateGameRequest;
 use Illuminate\Http\Request;
@@ -179,6 +180,10 @@ class GameController extends Controller
     public function refuse(Game $game, Request $request)
     {
         Game::destroy($game->id);
+
+        if ($email = $game->suggester->email) {
+            Mail::to($email)->send(new GameRefused($game->name, Rule::find(request('rule_id'))));
+        }
 
         return redirect()->route('games.suggested');
     }

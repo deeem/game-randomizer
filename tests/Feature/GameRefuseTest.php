@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Mail\GameRefused;
 use Tests\TestCase;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
@@ -35,8 +37,6 @@ class GameRefuseTest extends TestCase
      */
     public function canRefuseGame()
     {
-        $this->withoutExceptionHandling();
-
         $game = factory('App\Game')->states('unapproved')->create();
 
         $this->delete("/games/{$game->id}/refuse");
@@ -45,5 +45,21 @@ class GameRefuseTest extends TestCase
             'games',
             ['id' => $game->id]
         );
+    }
+
+    /**
+     * @test
+     */
+    public function canSendRefusedMail()
+    {
+        Mail::fake();
+        $email = $this->suggester->email;
+        $game = factory('App\Game')->states('unapproved')->create();
+
+        $this->delete("/games/{$game->id}/refuse");
+
+        Mail::assertSent(GameRefused::class, function ($mail) use ($email) {
+            return $mail->hasTo($email);
+        });
     }
 }
