@@ -17,24 +17,22 @@
         <tr>
           <th>Название</th>
           <th>Предложил</th>
-          <th class="table-actions"><i class="fa fa-cog fa-2x" aria-hidden="true"></i></th>
+          <th class="table-actions"></th>
         </tr>
         @foreach($games as $game)
         <tr>
-          <td>{{ $game->name }}</td>
-          <td>{{ $game->suggested }}</td>
           <td>
-            <a href="{{ route('games.edit', ['game' => $game->id]) }}" class="btn btn-default btn-xs">
-              <i class="fa fa-pencil" aria-hidden="true"></i>
+            {{ $game->name }}
+          </td>
+          <td>
+            @if($game->suggester)
+            {{ $game->suggester->name }}
+            @endif
+          </td>
+          <td>
+            <a href="{{ route('games.show', ['game' => $game->id]) }}" class="btn btn-default btn-xs">
+              <i class="fa fa-info-circle" aria-hidden="true"></i>
             </a>
-            &nbsp;
-            <form action="{{ route('games.destroy', ['game' => $game->id]) }}" method="POST" style="display:inline;">
-              {{ method_field('DELETE') }}
-              {{ csrf_field() }}
-              <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('are you shure?');">
-                <i class="fa fa-trash-o" aria-hidden="true"></i>
-              </button>
-            </form>
           </td>
         </tr>
         @endforeach

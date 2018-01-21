@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Mail\GameApproved;
 use Tests\TestCase;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
@@ -128,6 +130,8 @@ class GameAddTest extends TestCase
      */
     public function whenUserApproveGameItHasUserId()
     {
+        Mail::fake();
+
         $game = factory('App\Game')->states('unapproved')->create();
 
         $this->get("/games/{$game->id}/approve");
@@ -252,5 +256,21 @@ class GameAddTest extends TestCase
 
         // assert that it used existing suggester
         $this->assertEquals(1, $suggesters->count());
+    }
+
+    /**
+     * @test
+     */
+    public function canSendApprovedMail()
+    {
+        Mail::fake();
+        $email = $this->suggester->email;
+        $game = factory('App\Game')->states('unapproved')->create();
+
+        $this->get("/games/{$game->id}/approve");
+
+        Mail::assertSent(GameApproved::class, function ($mail) use ($email) {
+            return $mail->hasTo($email);
+        });
     }
 }

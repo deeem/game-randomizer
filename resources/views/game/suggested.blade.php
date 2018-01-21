@@ -17,23 +17,16 @@
         <tr>
           <th>Название</th>
           <th>Платформа</th>
-          <th class="table-actions"><i class="fa fa-cog fa-2x" aria-hidden="true"></i></th>
+          <th class="table-actions"></th>
         </tr>
         @foreach($games as $game)
         <tr>
           <td>{{ $game->name }}</td>
           <td>{{ $game->platform->name }}</td>
           <td>
-            <a href="{{ route('games.approve', ['game' => $game->id]) }}" class="btn btn-success btn-xs">
-              <i class="fa fa-thumbs-o-up fa-2x" aria-hidden="true"></i>
+            <a href="{{ route('games.show', ['game' => $game->id]) }}" class="btn btn-default btn-xs">
+              <i class="fa fa-info-circle" aria-hidden="true"></i>
             </a>
-            <form action="{{ route('games.destroy', ['game' => $game->id]) }}" method="POST" style="display:inline;">
-              {{ method_field('DELETE') }}
-              {{ csrf_field() }}
-              <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('are you shure?');">
-                <i class="fa fa-thumbs-o-down fa-2x" aria-hidden="true"></i>
-              </button>
-            </form>
           </td>
         </tr>
         @endforeach

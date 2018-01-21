@@ -5,8 +5,13 @@ namespace App\Http\Controllers;
 use App\Game;
 use App\Platform;
 use App\Suggester;
+use App\Rule;
+use App\Mail\GameApproved;
+use App\Mail\GameRefused;
 use App\Http\Requests\StoreGameRequest;
 use App\Http\Requests\UpdateGameRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class GameController extends Controller
 {
@@ -93,6 +98,19 @@ class GameController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  \App\Game  $game
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Game $game)
+    {
+        $rules = Rule::all();
+
+        return view('game.show', compact('game', 'rules'));
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Game  $game
@@ -136,7 +154,7 @@ class GameController extends Controller
     }
 
     /**
-     * Update and aprove game after moderator review
+     * Aprove game after moderator review
      *
      * @param  \App\Game  $game
      * @return \Illuminate\Http\Response
@@ -146,6 +164,27 @@ class GameController extends Controller
         $game->user_id = auth()->id();
         $game->save();
 
-        return back();
+        if ($email = $game->suggester->email) {
+            Mail::to($email)->send(new GameApproved($game->name));
+        }
+
+        return redirect()->route('games.suggested');
+    }
+
+    /**
+     * Refuse game after moderator review
+     *
+     * @param  \App\Game  $game
+     * @return \Illuminate\Http\Response
+     */
+    public function refuse(Game $game, Request $request)
+    {
+        Game::destroy($game->id);
+
+        if ($email = $game->suggester->email) {
+            Mail::to($email)->send(new GameRefused($game->name, Rule::find(request('rule_id'))));
+        }
+
+        return redirect()->route('games.suggested');
     }
 }
