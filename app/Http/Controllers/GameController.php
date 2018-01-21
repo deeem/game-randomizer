@@ -6,9 +6,11 @@ use App\Game;
 use App\Platform;
 use App\Suggester;
 use App\Rule;
+use App\Mail\GameApproved;
 use App\Http\Requests\StoreGameRequest;
 use App\Http\Requests\UpdateGameRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class GameController extends Controller
 {
@@ -161,7 +163,11 @@ class GameController extends Controller
         $game->user_id = auth()->id();
         $game->save();
 
-        return back();
+        if ($email = $game->suggester->email) {
+            Mail::to($email)->send(new GameApproved($game->name));
+        }
+
+        return redirect()->rote('games.suggested');
     }
 
     /**
