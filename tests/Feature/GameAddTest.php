@@ -130,6 +130,8 @@ class GameAddTest extends TestCase
      */
     public function whenUserApproveGameItHasUserId()
     {
+        Mail::fake();
+
         $game = factory('App\Game')->states('unapproved')->create();
 
         $this->get("/games/{$game->id}/approve");

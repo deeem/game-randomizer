@@ -29,6 +29,8 @@ class InviteTest extends TestCase
      */
     public function canCreateInvite()
     {
+        Mail::fake();
+
         $this->post('/invites', ['email' => 'foo@example.com']);
 
         $this->assertDatabaseHas(

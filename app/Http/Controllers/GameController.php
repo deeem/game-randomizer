@@ -168,7 +168,7 @@ class GameController extends Controller
             Mail::to($email)->send(new GameApproved($game->name));
         }
 
-        return redirect()->rote('games.suggested');
+        return redirect()->route('games.suggested');
     }
 
     /**
