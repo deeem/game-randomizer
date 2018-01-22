@@ -35,7 +35,7 @@ class GameResourceTest extends TestCase
      */
     public function canBrowseGameResources()
     {
-        $this->get('/games/create')->assertStatus(200);
+        $this->get('/games/suggest')->assertStatus(200);
         $this->get('/games/1/edit')->assertStatus(200);
     }
 

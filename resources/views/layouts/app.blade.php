@@ -65,7 +65,7 @@
                       @endauth
 
                       @if(App\Platform::count())
-                      <li><a href="/games/create">Предложить</a></li>
+                      <li><a href="/games/suggest">Предложить</a></li>
                       @endif
 
                       @if(App\Platform::count())

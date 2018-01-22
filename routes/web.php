@@ -67,8 +67,8 @@ Route::delete('/platforms/{platform}', 'PlatformController@destroy')
  * Game route
  */
 
-Route::get('/games/create', 'GameController@create')
-    ->name('games.create');
+Route::get('/games/suggest', 'GameController@create')
+    ->name('games.suggest');
 
 Route::get('/games/suggested', 'GameController@suggested')
     ->name('games.suggested')
