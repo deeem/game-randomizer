@@ -90,8 +90,7 @@ Route::get('/games/{game}/show', 'GameController@show')
     ->name('games.show');
 
 Route::get('/games/{platform}', 'GameController@index')
-    ->name('games.index')
-    ->middleware('can:approved-games');
+    ->name('games.index');
 
 Route::post('/games', 'GameController@store')
     ->name('games.store');

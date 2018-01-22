@@ -27,7 +27,7 @@ class GameController extends Controller
             abort(404);
         }
 
-        $games = $platform->games()->get()->sortBy('name');
+        $games = $platform->games()->approved()->get()->sortBy('name');
         $name = $platform->name;
 
         return view('game.index', compact('games', 'name'));
