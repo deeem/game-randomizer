@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Orbitron');
 
 .navbar-brand img {
   height: 25px;
@@ -32,6 +33,26 @@
 .randomizer-list {
   padding-top: 2.5em;
   text-align: center;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.3em;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+}
+
+.randomizer-list a {
+  display: block;
+  padding: .5em;
+}
+
+.randomizer-list a:hover {
+  color: #e64a19;
+  text-decoration: none;
+}
+/*
+.randomizer-list {
+  padding-top: 2.5em;
+  text-align: center;
+  font-family: 'Orbitron', sans-serif;
   font-size: 1.2em;
   line-height: 1.5em;
   letter-spacing: .3em;
@@ -54,7 +75,7 @@
   background-color: #9c27b0ad;
   text-decoration: none;
 }
-
+*/
 .randomizer-result {
   padding-top: 2.5em;
   text-align: center;
