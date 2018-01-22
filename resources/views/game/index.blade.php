@@ -43,6 +43,14 @@
       </table>
     </div>
 
+    <div class="panel panel-default">
+      <div class="row">
+        <div class="text-center">
+          {{ $games->links() }}
+        </div>
+      </div>
+    </div>
+
     @else
 
     <div class="panel panel-default">

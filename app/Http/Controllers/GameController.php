@@ -27,7 +27,7 @@ class GameController extends Controller
             abort(404);
         }
 
-        $games = $platform->games()->approved()->get()->sortBy('name');
+        $games = $platform->games()->approved()->orderBy('name')->paginate(15);
         $name = $platform->name;
 
         return view('game.index', compact('games', 'name'));
@@ -40,7 +40,7 @@ class GameController extends Controller
      */
     public function suggested()
     {
-        $games = Game::unapproved()->get();
+        $games = Game::unapproved()->paginate(15);
 
         return view('game.suggested', compact('games'));
     }
