@@ -48,47 +48,25 @@
   color: #e64a19;
   text-decoration: none;
 }
-/*
-.randomizer-list {
-  padding-top: 2.5em;
+
+.randomizer-result {
+  width: 300px;
+  margin: 2.5em auto;
   text-align: center;
   font-family: 'Orbitron', sans-serif;
-  font-size: 1.2em;
-  line-height: 1.5em;
   letter-spacing: .3em;
   text-transform: uppercase;
-  font-weight: 600;
-}
-
-.randomizer-list a {
-  display: block;
-  padding: 1em;
-  margin-bottom: 1.2em;
   border: 2px solid #9C27B0;
-  color: #9C27B0;
-  -webkit-transition: all .3s linear;
-  transition: all .3s linear;
 }
 
-.randomizer-list a:hover {
-  color: #c8c8c8;
-  background-color: #9c27b0ad;
-  text-decoration: none;
-}
-*/
-.randomizer-result {
-  padding-top: 2.5em;
-  text-align: center;
-  font-size: 2em;
-  letter-spacing: .3em;
-  text-transform: uppercase;
-  font-weight: 600;
+.randomizer-result-game {
+  color: #fff;
+  background-color: #9C27B0;
+  padding: 2em 1em 2em 1em;
 }
 
-.randomizer-result p {
-  color: #2196f3;
-}
-
-.randomizer-result span {
-  color: #3f51b5;
+.randomizer-result-platform {
+  background-color: #fff;
+  padding: .9em .3em .5em .3em;
+  color: #212121;
 }
