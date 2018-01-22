@@ -32,6 +32,6 @@ class InviteCreated extends Mailable
     public function build()
     {
         return $this->from(config('mail.from.address'))
-            ->view('invite.email');
+            ->view('mail.invite');
     }
 }
