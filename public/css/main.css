@@ -23,6 +23,10 @@
   width: 6.2em;
 }
 
+.table-actions-thin {
+  text-align: right;
+  width: 1.2em;
+}
 /* randomizer */
 
 .randomizer-list {

@@ -18,7 +18,7 @@
           <th>Название</th>
           <th>Предложил</th>
           @if(auth()->check() && auth()->user()->inRole('game-management'))
-          <th class="table-actions"></th>
+          <th class="table-actions-thin"></th>
           @endif
         </tr>
         @foreach($games as $game)
@@ -32,7 +32,7 @@
             @endif
           </td>
           @if(auth()->check() && auth()->user()->inRole('game-management'))
-          <td>
+          <td class="table-actions-thin">
             <a href="{{ route('games.show', ['game' => $game->id]) }}" class="btn btn-default btn-xs">
               <i class="fa fa-info-circle" aria-hidden="true"></i>
             </a>
