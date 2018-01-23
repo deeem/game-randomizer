@@ -41,10 +41,9 @@
                     <ul class="nav navbar-nav">
                         &nbsp;
 
-                      @auth
                       @if(App\Platform::count())
                       <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Добавленные <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Добавленные игры <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                           @foreach(App\Platform::all() as $platform)
                             <li><a href="/games/{{ $platform->slug }}">{{ $platform->name }}</a></li>
@@ -52,7 +51,6 @@
                         </ul>
                       </li>
                       @endif
-                      @endauth
 
                       @auth
                       @if(App\Platform::count())
@@ -65,7 +63,7 @@
                       @endauth
 
                       @if(App\Platform::count())
-                      <li><a href="/games/create">Предложить</a></li>
+                      <li><a href="/games/suggest">Предложить</a></li>
                       @endif
 
                       @if(App\Platform::count())
@@ -84,7 +82,6 @@
                         <!-- Authentication Links -->
                         @guest
                             <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">

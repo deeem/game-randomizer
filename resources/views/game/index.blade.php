@@ -17,7 +17,9 @@
         <tr>
           <th>Название</th>
           <th>Предложил</th>
-          <th class="table-actions"></th>
+          @if(auth()->check() && auth()->user()->inRole('game-management'))
+          <th class="table-actions-thin"></th>
+          @endif
         </tr>
         @foreach($games as $game)
         <tr>
@@ -29,14 +31,24 @@
             {{ $game->suggester->name }}
             @endif
           </td>
-          <td>
+          @if(auth()->check() && auth()->user()->inRole('game-management'))
+          <td class="table-actions-thin">
             <a href="{{ route('games.show', ['game' => $game->id]) }}" class="btn btn-default btn-xs">
               <i class="fa fa-info-circle" aria-hidden="true"></i>
             </a>
           </td>
+          @endif
         </tr>
         @endforeach
       </table>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="row">
+        <div class="text-center">
+          {{ $games->links() }}
+        </div>
+      </div>
     </div>
 
     @else

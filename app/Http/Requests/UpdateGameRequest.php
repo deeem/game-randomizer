@@ -27,13 +27,11 @@ class UpdateGameRequest extends FormRequest
      */
     public function rules()
     {
-        $platformsIds = Platform::all()->pluck('id')->toArray();
-
         return [
             'name' => ['required', Rule::unique('games')->where(function ($query) {
                 return $query->where('name', request('name'))->where('platform_id', request('platform_id'));
             })],
-            'platform_id' => ['required', Rule::in($platformsIds)]
+            'platform_id' => 'required|exists:platforms,id',
         ];
     }
 }

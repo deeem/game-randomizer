@@ -17,13 +17,13 @@
         <tr>
           <th>Название</th>
           <th>Платформа</th>
-          <th class="table-actions"></th>
+          <th class="table-actions-thin"></th>
         </tr>
         @foreach($games as $game)
         <tr>
           <td>{{ $game->name }}</td>
           <td>{{ $game->platform->name }}</td>
-          <td>
+          <td  class="table-actions-thin">
             <a href="{{ route('games.show', ['game' => $game->id]) }}" class="btn btn-default btn-xs">
               <i class="fa fa-info-circle" aria-hidden="true"></i>
             </a>
@@ -31,6 +31,13 @@
         </tr>
         @endforeach
       </table>
+    </div>
+    <div class="panel panel-default">
+      <div class="row">
+        <div class="text-center">
+          {{ $games->links() }}
+        </div>
+      </div>
     </div>
 
     @else

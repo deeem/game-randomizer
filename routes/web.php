@@ -1,6 +1,15 @@
 <?php
 
-Auth::routes();
+// Authentication Routes...
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
+// Password Reset Routes...
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
@@ -67,8 +76,8 @@ Route::delete('/platforms/{platform}', 'PlatformController@destroy')
  * Game route
  */
 
-Route::get('/games/create', 'GameController@create')
-    ->name('games.create');
+Route::get('/games/suggest', 'GameController@create')
+    ->name('games.suggest');
 
 Route::get('/games/suggested', 'GameController@suggested')
     ->name('games.suggested')
@@ -90,8 +99,7 @@ Route::get('/games/{game}/show', 'GameController@show')
     ->name('games.show');
 
 Route::get('/games/{platform}', 'GameController@index')
-    ->name('games.index')
-    ->middleware('can:approved-games');
+    ->name('games.index');
 
 Route::post('/games', 'GameController@store')
     ->name('games.store');

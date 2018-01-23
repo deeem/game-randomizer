@@ -151,7 +151,7 @@ class GameAddTest extends TestCase
      */
     public function guestCanBrowseAddGameForm()
     {
-        $this->get('/games/create')->assertStatus(200);
+        $this->get('/games/suggest')->assertStatus(200);
     }
 
     /**

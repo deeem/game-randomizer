@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Orbitron');
 
 .navbar-brand img {
   height: 25px;
@@ -5,7 +6,12 @@
   margin-top: -1px;
 }
 .navbar-brand p {
+  color: #FF5722;
+  font-family: 'Orbitron', sans-serif;
   display: inline;
+}
+.navbar-brand p:hover {
+  color: #FF9800;
 }
 
 .dropdown-menu i {
@@ -23,47 +29,49 @@
   width: 6.2em;
 }
 
+.table-actions-thin {
+  text-align: right;
+  width: 1.2em;
+}
 /* randomizer */
 
 .randomizer-list {
   padding-top: 2.5em;
   text-align: center;
-  font-size: 1.2em;
-  line-height: 1.5em;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.3em;
   letter-spacing: .3em;
   text-transform: uppercase;
-  font-weight: 600;
 }
 
 .randomizer-list a {
   display: block;
-  padding: 1em;
-  margin-bottom: 1.2em;
-  border: 2px solid #9C27B0;
-  color: #9C27B0;
-  -webkit-transition: all .3s linear;
-  transition: all .3s linear;
+  padding: .5em;
 }
 
 .randomizer-list a:hover {
-  color: #c8c8c8;
-  background-color: #9c27b0ad;
+  color: #e64a19;
   text-decoration: none;
 }
 
 .randomizer-result {
-  padding-top: 2.5em;
+  width: 300px;
+  margin: 2.5em auto;
   text-align: center;
-  font-size: 2em;
+  font-family: 'Orbitron', sans-serif;
   letter-spacing: .3em;
   text-transform: uppercase;
-  font-weight: 600;
+  border: 2px solid #9C27B0;
 }
 
-.randomizer-result p {
-  color: #2196f3;
+.randomizer-result-game {
+  color: #fff;
+  background-color: #9C27B0;
+  padding: 2em 1em 2em 1em;
 }
 
-.randomizer-result span {
-  color: #3f51b5;
+.randomizer-result-platform {
+  background-color: #fff;
+  padding: .9em .3em .5em .3em;
+  color: #212121;
 }

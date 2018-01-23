@@ -10,15 +10,7 @@
         <form class="form-horizontal" method="POST" action="{{ route('games.store')}}">
 
           {{ csrf_field() }}
-          @if ($errors->any())
-          <div class="alert alert-danger">
-            <ul>
-              @foreach ($errors->all() as $error)
-              <li>{{ $error }}</li>
-              @endforeach
-            </ul>
-          </div>
-          @endif
+          @include('layouts.errors')
 
           <div class="form-group">
             <label for="inputName" class="col-sm-3 control-label">Название</label>

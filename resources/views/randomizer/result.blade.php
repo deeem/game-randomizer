@@ -6,7 +6,12 @@
 
       @isset($game)
       <div class="randomizer-result">
-        <p>{{ $game->name }}<span>({{ $platform->name }})</span></p>
+        <div class="randomizer-result-game">
+          <p>{{ $game->name }}</p>
+        </div>
+        <div class="randomizer-result-platform">
+          <p>{{ $platform->name }}</p>
+        </div>
       </div>
       @endisset
 
