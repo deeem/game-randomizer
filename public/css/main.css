@@ -6,7 +6,12 @@
   margin-top: -1px;
 }
 .navbar-brand p {
+  color: #FF5722;
+  font-family: 'Orbitron', sans-serif;
   display: inline;
+}
+.navbar-brand p:hover {
+  color: #FF9800;
 }
 
 .dropdown-menu i {
