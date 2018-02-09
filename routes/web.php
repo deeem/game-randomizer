@@ -13,8 +13,11 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/list', 'HomeController@list')->name('list');
-Route::get('/random/{platform}', 'HomeController@randomizer')->name('randomizer');
+Route::get('/roll', 'HomeController@list')->name('list');
+Route::get('/roll/{platform}', 'HomeController@randomizer')->name('randomizer');
+
+Route::get('/games/randomize/{platform_id}', 'GameController@randomize')
+    ->name('games.randomize');
 
 /*
  * User routes
@@ -111,9 +114,6 @@ Route::put('/games/{game}', 'GameController@update')
 Route::delete('/games/{game}', 'GameController@destroy')
     ->name('games.destroy')
     ->middleware('can:delete-game');
-
-Route::get('/games/randomize/{platform_id}', 'GameController@randomize')
-    ->name('games.randomize');
 
 /*
  * Invite routes

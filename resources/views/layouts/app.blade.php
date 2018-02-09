@@ -68,7 +68,7 @@
 
                       @if(App\Platform::count())
                       <li class="randomize">
-                        <a href="/list">
+                        <a href="/roll">
                           <img src="{{ asset('img/perspective-dice-six-faces-three.svg') }}">
                         </a>
                       </li>
