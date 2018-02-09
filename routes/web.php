@@ -15,9 +15,7 @@ Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/roll', 'HomeController@list')->name('list');
 Route::get('/roll/{platform}', 'HomeController@randomizer')->name('randomizer');
-
-Route::get('/games/randomize/{platform_id}', 'GameController@randomize')
-    ->name('games.randomize');
+Route::get('/randomize/{platform_id}', 'HomeController@randomize');
 
 /*
  * User routes

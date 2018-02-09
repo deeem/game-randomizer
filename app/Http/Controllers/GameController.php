@@ -187,16 +187,4 @@ class GameController extends Controller
 
         return redirect()->route('games.suggested');
     }
-
-    public function randomize($platform_id)
-    {
-        if (! $platform_id) {
-            abort(404);
-        }
-
-        $platform = Platform::find($platform_id);
-        $games = $platform->games()->approved()->get()->random(5);
-
-        dd($games);
-    }
 }

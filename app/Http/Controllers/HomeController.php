@@ -9,16 +9,6 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        // $this->middleware('auth')->except('index');
-    }
-
-    /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Http\Response
@@ -49,9 +39,32 @@ class HomeController extends Controller
      */
     public function randomizer(Platform $platform)
     {
-        $games = Game::approved()->where('platform_id' , $platform->id)->get();
-        $game = $games->isNotEmpty() ? $games->random() : null;
+        return view('randomizer.result', compact('platform'));
+    }
 
-        return view('randomizer.result', compact('platform', 'game'));
+    /**
+     * Randomizer JSON response
+     */
+    public function randomize($platform_id)
+    {
+        if (! $platform_id) {
+            abort(404);
+        }
+
+        $platform = Platform::find($platform_id);
+        $games = $platform->games()->approved()->get()->random(5);
+
+        $response = [];
+        foreach($games as $game) {
+            $response[] = (object)[
+                'name' => $game->name,
+                'suggester' => $game->suggester->name,
+                'platform' => $game->platform->name,
+                'enabled' => true,
+                'class' => 'randomizer-item-enabled',
+            ];
+        }
+
+        return $response;
     }
 }
