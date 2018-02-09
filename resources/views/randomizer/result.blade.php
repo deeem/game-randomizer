@@ -19,6 +19,10 @@
         <div class="well well-lg"><h1>Список пуст</h1></div>
       @endempty
 
+      @push('scripts')
+        <script src="{{ asset('js/randomizer.js') }}"></script>
+      @endpush
+
     </div>
 </div>
 @endsection

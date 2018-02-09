@@ -112,6 +112,9 @@ Route::delete('/games/{game}', 'GameController@destroy')
     ->name('games.destroy')
     ->middleware('can:delete-game');
 
+Route::get('/games/randomize/{platform_id}', 'GameController@randomize')
+    ->name('games.randomize');
+
 /*
  * Invite routes
  */
