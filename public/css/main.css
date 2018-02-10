@@ -67,11 +67,16 @@
 .randomizer-item {
   padding: .5em 1em;
 }
-
 .randomizer-item-enabled {
   text-decoration: none;
 }
 .randomizer-item-disabled {
   color: #7a8288;
   text-decoration: line-through;
+}
+.randomizer-item-suggester {
+  color: #7a8288;
+  font-size: .7em;
+  letter-spacing: .1em;
+  text-transform: lowercase;
 }
