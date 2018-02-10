@@ -1,24 +1,49 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="row">
+
+<script>
+  platform_id = {{ $platform->id }};
+</script>
+
+@push('scripts')
+<script src="https://unpkg.com/vue@2.5.7/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="{{ asset('js/randomizer.js') }}"></script>
+@endpush
+
+<div id="randomizer">
+
+  <div class="row">
+    <div class="text-center">
+      <p class="randomizer-platform-title">{{ $platform->name }}</p>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="col-md-6 col-md-offset-3">
 
-      @isset($game)
-      <div class="randomizer-result">
-        <div class="randomizer-result-game">
-          <p>{{ $game->name }}</p>
-        </div>
-        <div class="randomizer-result-platform">
-          <p>{{ $platform->name }}</p>
+      <div class="randomizer-items">
+        <div class="randomizer-item" v-for="game in games" v-bind:class="game.class">
+          @{{ game.name }}
+          <p class="randomizer-item-suggester">
+            предложил: @{{ game.suggester }}
+          </p>
         </div>
       </div>
-      @endisset
-
-      @empty($game)
-        <div class="well well-lg"><h1>Список пуст</h1></div>
-      @endempty
 
     </div>
+  </div>
+
+  <div class="row randomizer-roll-button">
+    <div class="text-center">
+
+      <button class="btn btn-warning " v-on:click="roll" v-bind:disabled="availableGames.length === 1 ? true : false">
+        RANDOM
+      </button>
+
+    </div>
+  </div>
+
 </div>
 @endsection

@@ -13,8 +13,9 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/list', 'HomeController@list')->name('list');
-Route::get('/random/{platform}', 'HomeController@randomizer')->name('randomizer');
+Route::get('/roll', 'HomeController@list')->name('list');
+Route::get('/roll/{platform}', 'HomeController@randomizer')->name('randomizer');
+Route::get('/randomize/{platform_id}', 'HomeController@randomize');
 
 /*
  * User routes
