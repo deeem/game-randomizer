@@ -15,6 +15,12 @@
 <div id="randomizer">
 
   <div class="row">
+    <div class="text-center">
+      <p class="randomizer-platform-title">{{ $platform->name }}</p>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="col-md-6 col-md-offset-3">
 
       <div class="randomizer-items">
