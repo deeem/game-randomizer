@@ -27,30 +27,4 @@ class RandomizerTest extends TestCase
     {
         $this->get('/roll')->assertSee('Список пуст');
     }
-
-    /**
-     * @test
-     */
-    public function canSeeRandomizerResult()
-    {
-        factory('App\Suggester')->create();
-        $user = factory('App\User')->create();
-        $platform = factory('App\Platform')->create();
-        $game = factory('App\Game')->create();
-
-        $this->get("/roll/{$platform->slug}")->assertSee($game->name);
-    }
-
-    /**
-     * @test
-     */
-    public function canSeeRandomizerEmptyNotification()
-    {
-        factory('App\Suggester')->create();
-        $user = factory('App\User')->create();
-        $platform = factory('App\Platform')->create();
-        $game = factory('App\Game')->states('unapproved')->create();
-
-        $this->get("/roll/{$platform->slug}")->assertSee('Список пуст');
-    }
 }
