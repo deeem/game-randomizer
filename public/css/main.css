@@ -55,12 +55,13 @@
 }
 
 .randomizer-items {
-  padding: 6.5em;
+  padding-top: 3.5em;
   font-size: 1.5em;
   letter-spacing: .3em;
   text-align: center;
   font-family: 'Orbitron', sans-serif;
   text-transform: uppercase;
+  color: #fff;
 }
 
 .randomizer-item {
