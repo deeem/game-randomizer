@@ -35,11 +35,11 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row randomizer-roll-button">
     <div class="text-center">
 
-      <button class="btn btn-primary" v-on:click="roll" v-bind:disabled="availableGames.length === 1 ? true : false">
-        roll
+      <button class="btn btn-warning " v-on:click="roll" v-bind:disabled="availableGames.length === 1 ? true : false">
+        RANDOM
       </button>
 
     </div>
