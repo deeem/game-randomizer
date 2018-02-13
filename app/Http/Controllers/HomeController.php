@@ -58,7 +58,7 @@ class HomeController extends Controller
         foreach($games as $game) {
             $response[] = (object)[
                 'name' => $game->name,
-                'suggester' => $game->suggester->name,
+                'suggester' => $game->suggester ? $game->suggester->name : 'anonymous',
                 'platform' => $game->platform->name,
                 'enabled' => true,
                 'class' => 'randomizer-item-enabled',
