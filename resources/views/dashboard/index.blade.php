@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    @if(count($stats))
+    @if(count($stats) && $max > 0)
       @include('dashboard.stats')
     @endif
 
