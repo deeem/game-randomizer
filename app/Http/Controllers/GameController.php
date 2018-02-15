@@ -164,7 +164,8 @@ class GameController extends Controller
         $game->user_id = auth()->id();
         $game->save();
 
-        if ($email = $game->suggester->email) {
+        if ($game->suggester) {
+            $email = $game->suggester->email;
             Mail::to($email)->send(new GameApproved($game->name));
         }
 
