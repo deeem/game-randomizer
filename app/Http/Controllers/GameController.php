@@ -165,8 +165,10 @@ class GameController extends Controller
         $game->save();
 
         if ($game->suggester) {
-            $email = $game->suggester->email;
-            Mail::to($email)->send(new GameApproved($game->name));
+            if ($game->suggester->email) {
+                $email = $game->suggester->email;
+                Mail::to($email)->send(new GameApproved($game->name));
+            }
         }
 
         return redirect()->route('games.suggested');
