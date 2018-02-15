@@ -80,7 +80,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('edit-user', function ($user) {
-            return $user->hasAccess(['edit-user']);
+            return $user->hasAccess(['edit-user']) || auth()->id() == $user->id;
         });
 
         Gate::define('delete-user', function ($user) {
