@@ -28,7 +28,7 @@
                         <form action="{{ route('users.destroy', ['user' => $user->id]) }}" method="POST" style="display:inline;">
                              {{ method_field('DELETE') }}
                              {{ csrf_field() }}
-                             <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('are you shure?');">
+                             <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('При удалении модератора будут удалены игры, которые он утвердил!');">
                                 <i class="fa fa-trash-o" aria-hidden="true"></i>
                               </button>
                         </form>
