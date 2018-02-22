@@ -150,7 +150,7 @@ class GameController extends Controller
     {
         Game::destroy($game->id);
 
-        return back();
+        return redirect()->route('home');
     }
 
     /**

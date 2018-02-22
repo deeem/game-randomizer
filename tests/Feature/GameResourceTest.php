@@ -66,6 +66,15 @@ class GameResourceTest extends TestCase
     /**
      * @test
      */
+    public function canRedirectAfterDestroy()
+    {
+        $this->delete("/games/{$this->game->id}")
+            ->assertRedirect('/home');
+    }
+
+    /**
+     * @test
+     */
     public function canStoreGame()
     {
         $this->post(
@@ -83,6 +92,20 @@ class GameResourceTest extends TestCase
                 'platform_id' => $this->platform->id,
             ]
         );
+    }
+
+    /**
+     * @test
+     */
+    public function canRedirectAfterStore()
+    {
+        $this->post(
+            '/games',
+            [
+                'name' => 'foo',
+                'platform_id' => $this->platform->id,
+            ]
+        )->assertRedirect('/home');
     }
 
     /**
