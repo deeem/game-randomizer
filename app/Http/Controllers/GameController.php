@@ -184,8 +184,11 @@ class GameController extends Controller
     {
         Game::destroy($game->id);
 
-        if ($email = $game->suggester->email) {
-            Mail::to($email)->send(new GameRefused($game->name, Rule::find(request('rule_id'))));
+        if ($game->suggester) {
+            if ($game->suggester->email) {
+                $email = $game->suggester->email;
+                Mail::to($email)->send(new GameRefused($game->name, Rule::find(request('rule_id'))));
+            }
         }
 
         return redirect()->route('games.suggested');
