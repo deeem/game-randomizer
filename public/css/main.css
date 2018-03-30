@@ -33,9 +33,11 @@
   text-align: right;
   width: 1.2em;
 }
+
 /* randomizer */
 
-.randomizer-list {
+/* randomizer platform list */
+.randomizer-platform-list {
   padding-top: 2.5em;
   text-align: center;
   font-family: 'Orbitron', sans-serif;
@@ -44,16 +46,36 @@
   text-transform: uppercase;
 }
 
-.randomizer-list a {
+.randomizer-platform-list-item {
   display: block;
   padding: .5em;
+
+  animation: moveInTop .5s ease-out;
 }
 
-.randomizer-list a:hover {
+.randomizer-platform-list-item:hover {
   color: #e64a19;
   text-decoration: none;
 }
 
+@keyframes moveInTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  50% {
+    opacity: .5;
+  }
+  75% {
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+/* randomizer items */
 .randomizer-items {
   font-size: 1.5em;
   letter-spacing: .3em;
