@@ -148,3 +148,88 @@
 .randomizer-roll-button {
   padding: 2em;
 }
+
+/* roll button */
+.roll-button {
+  border: none;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 15px 40px;
+  display: inline-block;
+  border-radius: 100px;
+  background-color:#00bcd4;
+  color: #fff;
+  position:relative;
+  animation: moveRollButton 2s ease;
+}
+
+.roll-button:focus {
+  outline: none;
+}
+
+.roll-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,.2);
+}
+
+.roll-button:active {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.roll-button::after {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  border-radius: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transition: all .4s;
+
+  background-color:#00bcd4;
+  color: #777;
+}
+
+.roll-button:hover::after {
+  transform: scaleX(1.4) scaleY(1.6);
+  opacity: 0;
+}
+
+.roll-button:disabled {
+  background-color: #d32f2f;
+}
+
+.roll-button:disabled::after {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  border-radius: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transition: all .4s;
+
+  background-color: #d32f2f;
+  color: #777;
+}
+
+.roll-button:disabled:hover::after {
+  transform: scaleX(1.4) scaleY(1.6);
+  opacity: 0;
+}
+
+@keyframes moveRollButton {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
