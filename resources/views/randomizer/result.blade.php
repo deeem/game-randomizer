@@ -25,10 +25,12 @@
 
       <div class="randomizer-items">
         <div class="randomizer-item" v-for="game in games" v-bind:class="game.class">
-          @{{ game.name }}
-          <p class="randomizer-item-suggester">
+          <span class="randomizer-item-title">
+            @{{ game.name }}
+          </span>
+          <span class="randomizer-item-suggester">
             предложил: @{{ game.suggester }}
-          </p>
+          </span>
         </div>
       </div>
 
@@ -38,8 +40,8 @@
   <div class="row randomizer-roll-button">
     <div class="text-center">
 
-      <button class="btn btn-warning " v-on:click="roll" v-bind:disabled="availableGames.length === 1 ? true : false">
-        RANDOM
+      <button class="roll-button" v-on:click="roll" v-bind:disabled="availableGames.length === 1 ? true : false">
+        Roll
       </button>
 
     </div>

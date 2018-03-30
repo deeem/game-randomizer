@@ -33,9 +33,11 @@
   text-align: right;
   width: 1.2em;
 }
+
 /* randomizer */
 
-.randomizer-list {
+/* randomizer platform list */
+.randomizer-platform-list {
   padding-top: 2.5em;
   text-align: center;
   font-family: 'Orbitron', sans-serif;
@@ -44,14 +46,45 @@
   text-transform: uppercase;
 }
 
-.randomizer-list a {
+.randomizer-platform-list-item {
   display: block;
   padding: .5em;
+
+  animation: moveInTop .5s ease-out;
 }
 
-.randomizer-list a:hover {
+.randomizer-platform-list-item:hover {
   color: #e64a19;
   text-decoration: none;
+}
+
+@keyframes moveInTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  50% {
+    opacity: .5;
+  }
+  75% {
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+/* randomizer items */
+.randomizer-platform-title {
+  font-size: 1.5em;
+  letter-spacing: .3em;
+  text-align: center;
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  color: #00BCD4;
+  padding: 2em;
+  font-weight: 900;
 }
 
 .randomizer-items {
@@ -66,31 +99,137 @@
 .randomizer-item {
   padding: .5em 1em;
 }
+
+.randomizer-item-title {
+  display: block;
+  animation: moveInRight 2s ease;
+}
+
 .randomizer-item-enabled {
   text-decoration: none;
 }
+
 .randomizer-item-disabled {
   color: #7a8288;
   text-decoration: line-through;
 }
+
 .randomizer-item-suggester {
   color: #7a8288;
   font-size: .7em;
   letter-spacing: .1em;
   text-transform: lowercase;
+  display: block;
+  animation: moveInLeft 2s ease;
 }
 
-.randomizer-platform-title {
-  font-size: 1.5em;
-  letter-spacing: .3em;
-  text-align: center;
-  font-family: 'Orbitron', sans-serif;
-  text-transform: uppercase;
-  color: #00BCD4;
-  padding: 2em;
-  font-weight: 900;
+@keyframes moveInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+@keyframes moveInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
 }
 
 .randomizer-roll-button {
   padding: 2em;
+}
+
+/* roll button */
+.roll-button {
+  border: none;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 15px 40px;
+  display: inline-block;
+  border-radius: 100px;
+  background-color:#00bcd4;
+  color: #fff;
+  position:relative;
+  animation: moveRollButton 2s ease;
+}
+
+.roll-button:focus {
+  outline: none;
+}
+
+.roll-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,.2);
+}
+
+.roll-button:active {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.roll-button::after {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  border-radius: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transition: all .4s;
+
+  background-color:#00bcd4;
+  color: #777;
+}
+
+.roll-button:hover::after {
+  transform: scaleX(1.4) scaleY(1.6);
+  opacity: 0;
+}
+
+.roll-button:disabled {
+  background-color: #d32f2f;
+}
+
+.roll-button:disabled::after {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  border-radius: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transition: all .4s;
+
+  background-color: #d32f2f;
+  color: #777;
+}
+
+.roll-button:disabled:hover::after {
+  transform: scaleX(1.4) scaleY(1.6);
+  opacity: 0;
+}
+
+@keyframes moveRollButton {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
 }
