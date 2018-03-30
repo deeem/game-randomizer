@@ -76,6 +76,17 @@
 }
 
 /* randomizer items */
+.randomizer-platform-title {
+  font-size: 1.5em;
+  letter-spacing: .3em;
+  text-align: center;
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  color: #00BCD4;
+  padding: 2em;
+  font-weight: 900;
+}
+
 .randomizer-items {
   font-size: 1.5em;
   letter-spacing: .3em;
@@ -88,29 +99,50 @@
 .randomizer-item {
   padding: .5em 1em;
 }
+
+.randomizer-item-title {
+  display: block;
+  animation: moveInRight 2s ease;
+}
+
 .randomizer-item-enabled {
   text-decoration: none;
 }
+
 .randomizer-item-disabled {
   color: #7a8288;
   text-decoration: line-through;
 }
+
 .randomizer-item-suggester {
   color: #7a8288;
   font-size: .7em;
   letter-spacing: .1em;
   text-transform: lowercase;
+  display: block;
+  animation: moveInLeft 2s ease;
 }
 
-.randomizer-platform-title {
-  font-size: 1.5em;
-  letter-spacing: .3em;
-  text-align: center;
-  font-family: 'Orbitron', sans-serif;
-  text-transform: uppercase;
-  color: #00BCD4;
-  padding: 2em;
-  font-weight: 900;
+@keyframes moveInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+@keyframes moveInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
 }
 
 .randomizer-roll-button {

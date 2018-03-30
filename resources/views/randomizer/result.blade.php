@@ -25,10 +25,12 @@
 
       <div class="randomizer-items">
         <div class="randomizer-item" v-for="game in games" v-bind:class="game.class">
-          @{{ game.name }}
-          <p class="randomizer-item-suggester">
+          <span class="randomizer-item-title">
+            @{{ game.name }}
+          </span>
+          <span class="randomizer-item-suggester">
             предложил: @{{ game.suggester }}
-          </p>
+          </span>
         </div>
       </div>
 
